@@ -26,6 +26,15 @@
   color: white;
 }
 
+.add-new-btn {
+  border: none;
+  outline: none;
+
+  i {
+    margin-left: 8px;
+  }
+}
+
 .btn-edit {
   width: 32px;
   border: none;
@@ -39,6 +48,10 @@
     color: rgb(69, 168, 69);
     background-color: transparent;
     opacity: 0.8;
+  }
+
+  i {
+    font-size: 18px;
   }
 }
 
@@ -55,5 +68,19 @@
     color: #aa5a3a;
     background-color: transparent;
     opacity: 0.8;
+  }
+}
+
+.add-new-modal {
+  .input-container {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      border-radius: 3px;
+      height: 30px;
+      outline: none;
+      border: 1px solid #ccc;
+    }
   }
 }

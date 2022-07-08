@@ -3,6 +3,7 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
 import { getAllUser } from "../../services/userService";
+import ModalUser from "./ModalUser";
 
 // class UserManage extends Component {
 //     constructor(props) {
@@ -18,6 +19,7 @@ import { getAllUser } from "../../services/userService";
 
 function UserManage({ props }) {
   const [arrUsers, setArrUsers] = useState([]);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -31,9 +33,30 @@ function UserManage({ props }) {
     fetchData();
   }, []);
 
+  const handleAddNew = () => {
+    setIsOpenModal(true);
+  };
+
+  const toggleAddNewModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+
   return (
     <div className="user-container">
       <div className="title text-center">Manage user with Eric</div>
+      <div className="mx-4 my-3">
+        <button
+          className="btn btn-med btn-primary text-sm px-2 add-new-btn"
+          onClick={() => handleAddNew()}
+        >
+          <i className="fas fa-plus ml-5"></i>
+          <span className="mx-2"> Add New User</span>
+        </button>
+        <ModalUser
+          isOpenModal={isOpenModal}
+          toggleAddNewModal={toggleAddNewModal}
+        />
+      </div>
 
       <div className="user-table mt-4 mx-4">
         <table id="customers">
@@ -51,7 +74,7 @@ function UserManage({ props }) {
                 <td>{item.firstName}</td>
                 <td>{item.lastName}</td>
                 <td>{item.address}</td>
-                <td>
+                <td className="d-flex align-center">
                   <button className="btn btn-edit">
                     <i class="fas fa-edit"></i>
                   </button>
