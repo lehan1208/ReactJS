@@ -1,17 +1,60 @@
+import { set } from "lodash";
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-function ModalUser({ isOpenModal, toggleAddNewModal }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
+function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [address, setAddress] = useState("");
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+  });
+
+  // const handleOnchangeInput = (e, id) => {
+  //   //  BAD CODE
+
+  //   // user[id] = e.target.value;
+  //   // setUser({ ...user });
+  //   // console.log("Check bad state: ", user);
+  // GOOD CODE
+  const handleOnchangeInput = (e, key) => {
+    let newUser = { ...user };
+    newUser[key] = e.target.value;
+    setUser({ ...newUser });
+  };
+
+  // Validate Input
+  const checkValidateInput = () => {
+    let isValid = true;
+    let arrInput = ["email", "password", "firstName", "lastName", "address"];
+
+    for (let i = 0; i < arrInput.length; i++) {
+      if (!user[arrInput[i]]) {
+        isValid = false;
+        alert("Please insert " + arrInput[i]);
+        break;
+      }
+    }
+    return isValid;
+  };
+
+  const handleAddNewUser = () => {
+    let isValid = checkValidateInput();
+    if (isValid === true) {
+      createNewUser(user);
+    }
+  };
 
   const toggle = () => {
     toggleAddNewModal();
   };
-
   return (
     <div>
       <Modal
@@ -31,12 +74,12 @@ function ModalUser({ isOpenModal, toggleAddNewModal }) {
                 </label>
                 <input
                   spellCheck="false"
-                  value={email}
+                  value={user.email}
                   type="email"
                   name="email"
                   className="form-control"
                   placeholder="Enter email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => handleOnchangeInput(e, "email")}
                 />
               </div>
               <div className="form-group mt-3 col-6">
@@ -44,12 +87,12 @@ function ModalUser({ isOpenModal, toggleAddNewModal }) {
                   Password
                 </label>
                 <input
-                  value={password}
+                  value={user.password}
                   type="password"
                   className="form-control"
                   name="password"
                   placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => handleOnchangeInput(e, "password")}
                 />
               </div>
             </div>
@@ -60,11 +103,11 @@ function ModalUser({ isOpenModal, toggleAddNewModal }) {
                   First Name
                 </label>
                 <input
-                  value={firstName}
+                  value={user.firstName}
                   type="text"
                   className="form-control"
                   name="firstName"
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => handleOnchangeInput(e, "firstName")}
                 />
               </div>
               <div className="form-group mt-3 col-6">
@@ -72,11 +115,11 @@ function ModalUser({ isOpenModal, toggleAddNewModal }) {
                   Last Name
                 </label>
                 <input
+                  value={user.lastName}
                   type="text"
                   className="form-control"
                   name="lastName"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(e) => handleOnchangeInput(e, "lastName")}
                 />
               </div>
             </div>
@@ -87,33 +130,22 @@ function ModalUser({ isOpenModal, toggleAddNewModal }) {
                   Address
                 </label>
                 <input
+                  value={user.address}
                   type="text"
                   className="form-control"
                   name="address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  onChange={(e) => handleOnchangeInput(e, "address")}
                 />
               </div>
-              {/* <div className="form-group mt-3 col-3">
-                <label className="font-weight-bold mb-1" htmlFor="password">Select Gender</label>
-                <select type="selected" className="form-control">
-                  <option value="1">Male</option>
-                  <option value="0">Female</option>
-                </select>
-              </div>
-              <div className="form-group mt-3 col-3">
-                <label className="font-weight-bold mb-1" htmlFor="role">Role</label>
-                <input type="text" className="form-control" name="role" />
-              </div> */}
             </div>
-
-            {/* <button type="submit" className="btn btn-primary mt-3">
-              Sign in
-            </button> */}
           </form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => toggle()} className="px-3 ">
+          <Button
+            color="primary"
+            className="px-3 "
+            onClick={() => handleAddNewUser()}
+          >
             Add New
           </Button>
           <Button onClick={() => toggle()} className="px-3 ">

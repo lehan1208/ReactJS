@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUser } from "../../services/userService";
+import { getAllUser, createNewUserService } from "../../services/userService";
 import ModalUser from "./ModalUser";
 
 // className UserManage extends Component {
@@ -21,17 +21,20 @@ function UserManage({ props }) {
   const [arrUsers, setArrUsers] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  useEffect(() => {
-    async function fetchData() {
-      let res = await getAllUser("ALL");
-      if (res && res.errCode === 0) {
-        setArrUsers(res.users);
-      }
-      console.log(arrUsers);
-      //   console.log("data from NodeJS: ", res);
+  const fetchData = async () => {
+    let res = await getAllUser("ALL");
+    if (res && res.errCode === 0) {
+      setArrUsers(res.users);
     }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
+
+  // const getAllUsers = async () => {
+
+  // }
 
   const handleAddNew = () => {
     setIsOpenModal(true);
@@ -39,6 +42,20 @@ function UserManage({ props }) {
 
   const toggleAddNewModal = () => {
     setIsOpenModal(!isOpenModal);
+  };
+
+  const createNewUser = async (newUserData) => {
+    try {
+      let res = await createNewUserService(newUserData);
+      if (res && res.errCode !== 0) {
+        alert(res.errMessage);
+      } else {
+        await fetchData();
+        toggleAddNewModal();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -55,6 +72,7 @@ function UserManage({ props }) {
         <ModalUser
           isOpenModal={isOpenModal}
           toggleAddNewModal={toggleAddNewModal}
+          createNewUser={createNewUser}
         />
       </div>
 
