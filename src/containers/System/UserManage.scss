@@ -71,16 +71,11 @@
   }
 }
 
-.add-new-modal {
-  .input-container {
-    display: flex;
-    flex-direction: column;
-
-    input {
-      border-radius: 3px;
-      height: 30px;
-      outline: none;
-      border: 1px solid #ccc;
-    }
+.modal-header {
+  button {
+    color: #fff;
+    background-color: transparent;
+    font-size: 2.2rem;
+    border: none;
   }
 }
