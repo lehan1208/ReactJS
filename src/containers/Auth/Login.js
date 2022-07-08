@@ -1,9 +1,11 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import "./Login.scss";
+import { handleLoginApi } from "../../services/userService";
 
 // class Login extends Component {
 //   constructor(props) {
@@ -20,14 +22,30 @@ import "./Login.scss";
 //   }
 // }
 
-function Login() {
+function Login({ userLoginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
 
-  const handleLogin = () => {
-    console.log("Username: ", username);
-    console.log("Password: ", password);
+  const handleLogin = async () => {
+    setErrMessage("");
+    try {
+      let data = await handleLoginApi(username, password);
+      if (data && data.errCode !== 0) {
+        setErrMessage(data.errMessage);
+      }
+      if (data && data.errCode === 0) {
+        userLoginSuccess(data.user);
+        console.log("login succeed!");
+      }
+    } catch (e) {
+      if (e.response) {
+        if (e.response.data) {
+          setErrMessage(e.response.data.errMessage);
+        }
+      }
+    }
   };
 
   const handleTogglePassword = () => {
@@ -62,11 +80,13 @@ function Login() {
               />
               <span onClick={() => handleTogglePassword()}>
                 <i
-                  class={isShowPassword ? "far fa-eye" : "far fa-eye-slash"}
+                  className={isShowPassword ? "far fa-eye" : "far fa-eye-slash"}
                 ></i>
               </span>
             </div>
           </div>
+
+          <div className="col-12 text-danger">{errMessage}</div>
           <div className="col-12 ">
             <button className="btn-login" onClick={() => handleLogin()}>
               Login
@@ -106,9 +126,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    adminLoginSuccess: (adminInfo) =>
-      dispatch(actions.adminLoginSuccess(adminInfo)),
-    adminLoginFail: () => dispatch(actions.adminLoginFail()),
+    userLoginSuccess: (userInfo) =>
+      dispatch(actions.userLoginSuccess(userInfo)),
   };
 };
 
