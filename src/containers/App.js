@@ -13,6 +13,7 @@ import {
 import { path } from "../utils";
 
 import Home from "../routes/Home";
+import HomePage from "./HomePage/HomePage";
 // import Login from '../routes/Login';
 import Login from "./Auth/Login";
 import Header from "./Header/Header";
@@ -51,6 +52,7 @@ class App extends Component {
             <span className="content-container">
               <Switch>
                 <Route path={path.HOME} exact component={Home} />
+                <Route path={path.HOMEPAGE} exact component={HomePage} />
                 <Route
                   path={path.LOGIN}
                   component={userIsNotAuthenticated(Login)}
