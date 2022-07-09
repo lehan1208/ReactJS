@@ -3,8 +3,14 @@ import { FormattedMessage } from "react-intl";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
+import { LANGUAGES } from "../../utils/constant";
 
 function HomeHeader() {
+  const changeLanguage = (language) => {
+    alert(language);
+    // fire redux events: actions
+  };
+
   return (
     <p>
       <div className="home-header-container">
@@ -60,8 +66,12 @@ function HomeHeader() {
               <i className="fas fa-question-circle"></i>
               <span>Hỗ trợ</span>
             </div>
-            <div className="language-vn">VN</div>
-            <div className="language-en">EN</div>
+            <div className="language-vn">
+              <span onClick={() => changeLanguage(LANGUAGES.VI)}>VN</span>
+            </div>
+            <div className="language-en">
+              <span onClick={() => changeLanguage(LANGUAGES.EN)}>EN</span>
+            </div>
           </div>
         </div>
       </div>
