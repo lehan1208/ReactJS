@@ -6,13 +6,17 @@ import {
   getAllUser,
   createNewUserService,
   deleteUserService,
+  editUserService,
 } from "../../services/userService";
 import ModalUser from "./ModalUser";
+import ModalEditUser from "./ModalEditUser";
 // import { emitter } from "../../utils/emitter";
 
 function UserManage({ props }) {
   const [arrUsers, setArrUsers] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [userEdit, setUserEdit] = useState({});
 
   const fetchData = async () => {
     let res = await getAllUser("ALL");
@@ -30,7 +34,11 @@ function UserManage({ props }) {
   };
 
   const toggleAddNewModal = () => {
-    setIsOpenModal(!isOpenModal);
+    setIsOpenModal(false);
+  };
+
+  const toggleModalEditUser = () => {
+    setIsOpenEditModal(false);
   };
 
   const createNewUser = async (newUserData) => {
@@ -59,6 +67,27 @@ function UserManage({ props }) {
     }
   };
 
+  const handleEditUser = (user) => {
+    console.log("check edit user: ", user);
+    setIsOpenEditModal(!isOpenEditModal);
+    setUserEdit(user);
+  };
+
+  const editUser = async (userData) => {
+    try {
+      let res = await editUserService(userData);
+      if (res && res.errCode === 0) {
+        await fetchData();
+        setIsOpenEditModal(false);
+        console.log(res);
+      } else {
+        alert(res.errMessage);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="user-container">
       <div className="title text-center">Manage user with Eric</div>
@@ -76,6 +105,14 @@ function UserManage({ props }) {
           toggleAddNewModal={toggleAddNewModal}
           createNewUser={createNewUser}
         />
+        {isOpenEditModal && (
+          <ModalEditUser
+            isOpenModal={isOpenEditModal}
+            toggleModalEditUser={toggleModalEditUser}
+            userEdit={userEdit}
+            editUser={editUser}
+          />
+        )}
       </div>
 
       <div className="user-table mt-4 mx-4">
@@ -98,14 +135,17 @@ function UserManage({ props }) {
                   <td>{user.address}</td>
 
                   <td className="d-flex align-center">
-                    <button className="btn btn-edit">
+                    <button
+                      className="btn btn-edit"
+                      onClick={() => handleEditUser(user)}
+                    >
                       <i className="fas fa-edit"></i>
                     </button>
-                    <button className=" btn-delete ">
-                      <i
-                        className="far fa-trash-alt"
-                        onClick={() => handleDeleteUser(user)}
-                      ></i>
+                    <button
+                      className=" btn-delete "
+                      onClick={() => handleDeleteUser(user)}
+                    >
+                      <i className="far fa-trash-alt"></i>
                     </button>
                   </td>
                 </tr>

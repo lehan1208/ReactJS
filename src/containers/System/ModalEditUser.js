@@ -1,10 +1,16 @@
 import { set } from "lodash";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-// import { emitter } from "../../utils/emitter";
+import _ from "lodash";
 
-function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
+function ModalEditUser({
+  isOpenModal,
+  toggleModalEditUser,
+  editUser,
+  userEdit,
+}) {
   const [user, setUser] = useState({
+    id: "",
     email: "",
     password: "",
     firstName: "",
@@ -12,13 +18,29 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
     address: "",
   });
 
+  useEffect(() => {
+    let user = userEdit;
+
+    if (user && !_.isEmpty(user)) {
+      setUser({
+        id: user.id,
+        email: user.email,
+        password: "hardcore",
+        firstName: user.firstName,
+        lastName: user.lastName,
+        address: user.address,
+      });
+    }
+  }, [userEdit]);
+
+  console.log(userEdit);
+
   // const handleOnchangeInput = (e, id) => {
   //   //  BAD CODE
 
   //   // user[id] = e.target.value;
   //   // setUser({ ...user });
-  //   // console.log("Check bad state: ", user);}
-
+  //   // console.log("Check bad state: ", user);
   // GOOD CODE
   const handleOnchangeInput = (e, key) => {
     let newUser = { ...user };
@@ -41,22 +63,15 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
     return isValid;
   };
 
-  const handleAddNewUser = () => {
+  const handleSaveUser = () => {
     let isValid = checkValidateInput();
     if (isValid === true) {
-      createNewUser(user);
-      setUser({
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-      });
+      editUser(user);
     }
   };
 
   const toggle = () => {
-    toggleAddNewModal();
+    toggleModalEditUser();
   };
   return (
     <div>
@@ -67,7 +82,7 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
         centered
         className="add-new-modal"
       >
-        <ModalHeader toggle={() => toggle()}>Create New User</ModalHeader>
+        <ModalHeader toggle={() => toggle()}>Update information</ModalHeader>
         <ModalBody>
           <form>
             <div className="row">
@@ -83,6 +98,7 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
                   className="form-control"
                   placeholder="Enter email"
                   onChange={(e) => handleOnchangeInput(e, "email")}
+                  disabled
                 />
               </div>
               <div className="form-group mt-3 col-6">
@@ -96,6 +112,7 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
                   name="password"
                   placeholder="Password"
                   onChange={(e) => handleOnchangeInput(e, "password")}
+                  disabled
                 />
               </div>
             </div>
@@ -148,12 +165,12 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
             type="submit"
             color="primary"
             className="px-3 "
-            onClick={() => handleAddNewUser()}
+            onClick={() => handleSaveUser()}
           >
-            Add New
+            Save changes
           </Button>
           <Button onClick={() => toggle()} className="px-3 ">
-            Close
+            Cancel
           </Button>
         </ModalFooter>
       </Modal>
@@ -161,4 +178,4 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
   );
 }
 
-export default ModalUser;
+export default ModalEditUser;
