@@ -1,14 +1,9 @@
 import { set } from "lodash";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+// import { emitter } from "../../utils/emitter";
 
 function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [address, setAddress] = useState("");
-
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -49,6 +44,13 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
     let isValid = checkValidateInput();
     if (isValid === true) {
       createNewUser(user);
+      setUser({
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+      });
     }
   };
 
@@ -142,6 +144,7 @@ function ModalUser({ isOpenModal, toggleAddNewModal, createNewUser }) {
         </ModalBody>
         <ModalFooter>
           <Button
+            type="submit"
             color="primary"
             className="px-3 "
             onClick={() => handleAddNewUser()}

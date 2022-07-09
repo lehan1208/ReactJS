@@ -2,20 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUser, createNewUserService } from "../../services/userService";
+import {
+  getAllUser,
+  createNewUserService,
+  deleteUserService,
+} from "../../services/userService";
 import ModalUser from "./ModalUser";
-
-// className UserManage extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {}
-//     }
-//   componentDidMount() {}
-
-//   render() {
-//     return ;
-//   }
-// }
+// import { emitter } from "../../utils/emitter";
 
 function UserManage({ props }) {
   const [arrUsers, setArrUsers] = useState([]);
@@ -32,10 +25,6 @@ function UserManage({ props }) {
     fetchData();
   }, []);
 
-  // const getAllUsers = async () => {
-
-  // }
-
   const handleAddNew = () => {
     setIsOpenModal(true);
   };
@@ -51,7 +40,19 @@ function UserManage({ props }) {
         alert(res.errMessage);
       } else {
         await fetchData();
-        toggleAddNewModal();
+        setIsOpenModal(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDeleteUser = async (user) => {
+    try {
+      let res = await deleteUserService(user.id);
+      if (res && res.errCode === 0) {
+        await fetchData();
+        console.log(res);
       }
     } catch (err) {
       console.log(err);
@@ -65,6 +66,7 @@ function UserManage({ props }) {
         <button
           className="btn btn-med btn-primary text-sm px-2 add-new-btn"
           onClick={() => handleAddNew()}
+          autoFocus={false}
         >
           <i className="fas fa-plus ml-5"></i>
           <span className="mx-2"> Add New User</span>
@@ -88,19 +90,22 @@ function UserManage({ props }) {
             </tr>
 
             {arrUsers &&
-              arrUsers.map((item, index) => (
+              arrUsers.map((user, index) => (
                 <tr className="" key={index}>
-                  <td>{item.email}</td>
-                  <td>{item.firstName}</td>
-                  <td>{item.lastName}</td>
-                  <td>{item.address}</td>
+                  <td>{user.email}</td>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.address}</td>
 
                   <td className="d-flex align-center">
                     <button className="btn btn-edit">
                       <i className="fas fa-edit"></i>
                     </button>
                     <button className=" btn-delete ">
-                      <i className="far fa-trash-alt"></i>
+                      <i
+                        className="far fa-trash-alt"
+                        onClick={() => handleDeleteUser(user)}
+                      ></i>
                     </button>
                   </td>
                 </tr>
