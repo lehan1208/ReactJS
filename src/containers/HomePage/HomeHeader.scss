@@ -24,7 +24,7 @@
       }
 
       .header-logo {
-        background: url("../../assets/images/logo.svg") center center no-repeat;
+        background: url('../../assets/images/logo.svg') center center no-repeat;
         margin-left: 20px;
         width: 140px;
         height: 60px;
@@ -68,13 +68,22 @@
         }
       }
 
-      .language-vn {
+      .language-vi {
         cursor: pointer;
         margin-left: 15px;
         font-weight: 600;
+        opacity: 0.5;
 
         &.active {
-          color: red;
+          opacity: 1;
+
+          span {
+            color: red;
+          }
+        }
+
+        &:hover {
+          opacity: 1;
         }
       }
 
@@ -82,9 +91,17 @@
         cursor: pointer;
         font-weight: 600;
         margin: 0 15px;
+        opacity: 0.5;
 
         &.active {
-          color: blue;
+          opacity: 1;
+          span {
+            color: blue;
+          }
+        }
+
+        &:hover {
+          opacity: 1;
         }
       }
     }
@@ -92,12 +109,11 @@
 }
 
 .home-header-banner {
-  background: url("../../assets/header-background.jpg");
-
+  background: url('../../assets/header-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 700px;
+  height: 510px;
   display: flex;
   flex-direction: column;
 
@@ -106,23 +122,23 @@
       rgba(0, 0, 0, 0.25),
       rgba(255, 255, 255, 0.1)
     );
-    border: 1px solid red;
-    height: 65%;
+    height: 50%;
 
     .title1 {
       text-align: center;
       font-size: 32px;
       color: white;
       text-shadow: 1px 1px 1px #333;
-      margin-top: 150px;
+      margin-top: 42px;
       margin-bottom: 5px;
     }
 
     .title2 {
       text-align: center;
       font-size: 32px;
+      font-weight: 600;
       color: white;
-      margin-bottom: 42px;
+      margin-bottom: 10px;
       text-shadow: 1px 1px 1px #333;
     }
 
@@ -131,15 +147,22 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto;
-      min-width: 418px;
+      margin: 20px auto 0;
+      min-width: 456px;
       padding: 10px;
       border-radius: 25px;
       background: #f7d800;
+      position: relative;
 
       i {
         font-size: 18px;
-        margin-right: 12px;
+        position: absolute;
+        top: 0;
+        width: 50px;
+        left: 0;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
       }
 
       input {
@@ -158,8 +181,7 @@
       rgba(255, 255, 255, 0.9),
       white
     );
-    height: 35%;
-    border: 1px solid green;
+    height: 50%;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -170,12 +192,12 @@
       gap: 5px;
       justify-content: center;
       padding-top: 20px;
+      padding-bottom: 10px;
 
       .option-child {
         width: 125px;
         text-align: center;
         padding: 8px 12px;
-        border: 1px solid red;
 
         .icon-child {
           background: white;
