@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader';
-import Specialty from './Section/Specialty';
+import Specialty from './Section/Specialty.js';
 
 function HomePage() {
   return (

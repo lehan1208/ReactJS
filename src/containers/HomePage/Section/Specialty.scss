@@ -1,20 +1,114 @@
 .section-specialty {
   height: 330px;
   width: 100%;
+  //   border-bottom: 3px solid #ccc;
   border: 1px solid red;
 
-  .specialty-content {
+  .specialty-container {
+    width: 1140px;
     height: inherit;
+    padding: 20px 0 30px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    .specialty-header {
+      width: inherit;
+      margin: 0 auto;
+      padding-top: 5px;
+      height: 57px;
+      margin-bottom: 20px;
+
+      .specialty-title {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 15px 0 0 5px;
+      }
+
+      .specialty-search-btn {
+        float: right;
+        color: #282e41;
+        border: none;
+        display: block;
+        padding: 5px 10px;
+        margin-right: 5px;
+        background: #ebebeb;
+        text-transform: uppercase;
+
+        &:hover {
+          color: #fff;
+          background: #f7d800;
+        }
+      }
+    }
+  }
+
+  .specialty-body {
+    width: 1140px;
+    height: 254px;
+    padding: 0 0 30px;
+
+    .specialty-customize {
+      width: 278px;
+      height: 156px;
+
+      .bg-image {
+        width: 278px;
+        height: 180px;
+        background: url('../../../assets/specialty/co-xuong-khop.jpg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #eee;
+      }
+
+      .img-des {
+        padding: 5px 0;
+        font-size: 14px;
+        color: #111;
+
+        &:hover {
+          cursor: pointer;
+          color: #45c3d2;
+        }
+      }
+    }
   }
 }
 
 // reset slick slider CSS
 .slick-prev {
-  border: 1px solid green !important;
-  left: 0 !important;
+  left: -20px !important;
+  z-index: 10;
+  width: 44px !important;
+  height: 48px !important;
+  background: white !important;
+  border: 2px solid #d7d7d7 !important;
+
+  &:hover {
+    background: #f3f3f3 !important;
+  }
+}
+
+.slick-prev:before {
+  font-family: 'FontAwesome' !important;
+  color: red !important;
+  //   content: '\e257' !important;
 }
 
 .slick-next {
-  border: 1px solid red !important;
-  right: 0 !important;
+  right: -20px !important;
+  width: 44px !important;
+  height: 48px !important;
+  background: white !important;
+  border: 2px solid #d7d7d7 !important;
+
+  &:hover {
+    background: #f3f3f3 !important;
+  }
+}
+.slick-next:before {
+  font-family: 'FontAwesome' !important;
+  color: red !important;
+  //   content: '\e258' !important;
 }
