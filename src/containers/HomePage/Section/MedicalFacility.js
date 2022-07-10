@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function Specialty(props) {
+function MedicalFacility(props) {
   let settings = {
     dots: false,
     infinite: true,
@@ -15,40 +15,38 @@ function Specialty(props) {
   };
 
   return (
-    <div className='section-share section-specialty'>
+    <div className='section-share section-facility'>
       <div className='section-container'>
         <div className='section-header'>
-          <span className='section-title'>Chuyên khoa phổ biến</span>
-          <button className='section-search-btn'>Xem thêm</button>
+          <span className='section-title'>Cơ sở y tế nổi bật</span>
+          <button className='section-search-btn'>Tìm kiếm</button>
           <div></div>
         </div>
         <div className='section-body'>
           <Slider {...settings}>
             <div className='section-customize'>
               <div className='bg-image'></div>
-              <div className='img-des'>Cơ xương khớp 1</div>
+              <div className='img-des'>Bệnh viện Hữu nghị Việt Đức</div>
             </div>
             <div className='section-customize'>
               <div className='bg-image'></div>
-
-              <div className='img-des'>Cơ xương khớp 2</div>
+              <div className='img-des'>Bệnh viện Chợ Rẫy</div>
             </div>
             <div className='section-customize'>
               <div className='bg-image'></div>
-
-              <div className='img-des'>Cơ xương khớp 3</div>
+              <div className='img-des'>Bệnh viện An Việt</div>
             </div>
             <div className='section-customize'>
               <div className='bg-image'></div>
-              <div className='img-des'>Cơ xương khớp 4</div>
+              <div className='img-des'>Bệnh viện Thu Cúc</div>
             </div>
             <div className='section-customize'>
               <div className='bg-image'></div>
-              <div className='img-des'>Cơ xương khớp 5</div>
+              <div className='img-des'>Bệnh viện Vietlife</div>
             </div>
             <div className='section-customize'>
               <div className='bg-image'></div>
-              <div className='img-des'>Cơ xương khớp 6</div>
+              <div className='img-des'>Bệnh viện Vinmec</div>
             </div>
           </Slider>
           <p></p>
@@ -65,4 +63,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Specialty);
+export default connect(mapStateToProps)(MedicalFacility);

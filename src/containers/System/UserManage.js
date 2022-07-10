@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
-import { connect } from "react-redux";
-import "./UserManage.scss";
+import React, { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import './UserManage.scss';
 import {
   getAllUser,
   createNewUserService,
   deleteUserService,
   editUserService,
-} from "../../services/userService";
-import ModalUser from "./ModalUser";
-import ModalEditUser from "./ModalEditUser";
+} from '../../services/userService';
+import ModalUser from './ModalUser';
+import ModalEditUser from './ModalEditUser';
 // import { emitter } from "../../utils/emitter";
 
 function UserManage({ props }) {
@@ -19,7 +19,7 @@ function UserManage({ props }) {
   const [userEdit, setUserEdit] = useState({});
 
   const fetchData = async () => {
-    let res = await getAllUser("ALL");
+    let res = await getAllUser('ALL');
     if (res && res.errCode === 0) {
       setArrUsers(res.users);
     }
@@ -68,7 +68,7 @@ function UserManage({ props }) {
   };
 
   const handleEditUser = (user) => {
-    console.log("check edit user: ", user);
+    console.log('check edit user: ', user);
     setIsOpenEditModal(!isOpenEditModal);
     setUserEdit(user);
   };
@@ -89,16 +89,16 @@ function UserManage({ props }) {
   };
 
   return (
-    <div className="user-container">
-      <div className="title text-center">Manage user with Eric</div>
-      <div className="mx-4 my-3">
+    <div className='user-container'>
+      <div className='title text-center'>MANAGE USERS LIST</div>
+      <div className='mx-4 my-3'>
         <button
-          className="btn btn-med btn-primary text-sm px-2 add-new-btn"
+          className='btn btn-med btn-primary text-sm px-2 add-new-btn'
           onClick={() => handleAddNew()}
           autoFocus={false}
         >
-          <i className="fas fa-plus ml-5"></i>
-          <span className="mx-2"> Add New User</span>
+          <i className='fas fa-plus ml-5'></i>
+          <span className='mx-2'> Add New User</span>
         </button>
         <ModalUser
           isOpenModal={isOpenModal}
@@ -115,8 +115,8 @@ function UserManage({ props }) {
         )}
       </div>
 
-      <div className="user-table mt-4 mx-4">
-        <table id="customers">
+      <div className='user-table mt-4 mx-4'>
+        <table id='customers'>
           <tbody>
             <tr>
               <th>Email</th>
@@ -128,24 +128,24 @@ function UserManage({ props }) {
 
             {arrUsers &&
               arrUsers.map((user, index) => (
-                <tr className="" key={index}>
+                <tr className='' key={index}>
                   <td>{user.email}</td>
                   <td>{user.firstName}</td>
                   <td>{user.lastName}</td>
                   <td>{user.address}</td>
 
-                  <td className="d-flex align-center">
+                  <td className='d-flex align-center'>
                     <button
-                      className="btn btn-edit"
+                      className='btn btn-edit'
                       onClick={() => handleEditUser(user)}
                     >
-                      <i className="fas fa-edit"></i>
+                      <i className='fas fa-edit'></i>
                     </button>
                     <button
-                      className=" btn-delete "
+                      className=' btn-delete '
                       onClick={() => handleDeleteUser(user)}
                     >
-                      <i className="far fa-trash-alt"></i>
+                      <i className='far fa-trash-alt'></i>
                     </button>
                   </td>
                 </tr>

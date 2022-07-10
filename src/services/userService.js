@@ -1,7 +1,7 @@
-import axios from "../axios";
+import axios from '../axios';
 
 const handleLoginApi = (userEmail, userPassword) => {
-  return axios.post("/api/login", { email: userEmail, password: userPassword });
+  return axios.post('/api/login', { email: userEmail, password: userPassword });
 };
 
 const getAllUser = (inputId) => {
@@ -11,16 +11,16 @@ const getAllUser = (inputId) => {
 };
 
 const createNewUserService = (newUserData) => {
-  console.log("Check data from userService: ", newUserData);
-  return axios.post("/api/create-new-user", newUserData);
+  console.log('Check data from userService: ', newUserData);
+  return axios.post('/api/create-new-user', newUserData);
 };
 
 const deleteUserService = (userId) => {
-  return axios.delete("/api/delete-user", { data: { id: userId } });
+  return axios.delete('/api/delete-user', { data: { id: userId } });
 };
 
 const editUserService = (userData) => {
-  return axios.put("/api/edit-user", userData);
+  return axios.put('/api/edit-user', userData);
 };
 
 export {

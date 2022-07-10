@@ -1,0 +1,255 @@
+// reset slick slider CSS
+
+.slick-prev {
+  left: -20px !important;
+  z-index: 10;
+  width: 44px !important;
+  height: 48px !important;
+  background: white !important;
+  border: 2px solid #d7d7d7 !important;
+
+  &:hover {
+    background: #f3f3f3 !important;
+  }
+}
+.slick-prev:before {
+  font-family: 'FontAwesome' !important;
+  color: red !important;
+  //   content: '\e257' !important;
+}
+
+.slick-next {
+  right: -20px !important;
+  width: 44px !important;
+  height: 48px !important;
+  background: white !important;
+  border: 2px solid #d7d7d7 !important;
+
+  &:hover {
+    background: #f3f3f3 !important;
+  }
+}
+.slick-next:before {
+  font-family: 'FontAwesome' !important;
+  color: red !important;
+  //   content: '\e258' !important;
+}
+
+/*----------------*/
+.section-share {
+  height: 330px;
+  border-bottom: 3px solid #efeef5;
+
+  .section-container {
+    width: 1140px;
+    height: inherit;
+    padding: 20px 0 30px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    .section-header {
+      width: inherit;
+      margin: 0 auto;
+      padding-top: 5px;
+      height: 57px;
+      margin-bottom: 20px;
+
+      .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 15px 0 0 5px;
+      }
+
+      .section-search-btn {
+        float: right;
+        color: #282e41;
+        border: none;
+        display: block;
+        padding: 5px 10px;
+        margin-right: 5px;
+        background: #ebebeb;
+        text-transform: uppercase;
+
+        &:hover {
+          color: #fff;
+          background: #f7d800;
+        }
+      }
+    }
+
+    .section-body {
+      width: 1140px;
+      height: 254px;
+      padding: 0 0 30px;
+
+      .section-customize {
+        width: 278px;
+        height: 156px;
+
+        .bg-image {
+          width: 278px;
+          height: 180px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-color: #eee;
+        }
+
+        .img-des {
+          padding: 5px 0;
+          font-size: 14px;
+          color: #111;
+
+          &:hover {
+            cursor: pointer;
+            color: #45c3d2;
+          }
+        }
+      }
+    }
+  }
+
+  // Specialty
+  &.section-specialty {
+    background-color: #fff;
+    .bg-image {
+      background-image: url('../../assets/specialty/co-xuong-khop.jpg');
+    }
+  }
+  // Facalitity
+  &.section-facility {
+    background-color: #f5f5f5;
+    .bg-image {
+      background-image: url('../../assets/facility/bv-viet-duc.jpg');
+    }
+  }
+  //Doctor of the Week
+  &.section-doctor {
+    background-color: #fff;
+
+    .section-customize {
+      padding: 5px;
+      height: auto !important;
+      .border-customize {
+        border: 1px solid #eee;
+      }
+
+      .bg-image {
+        background-image: url('../../assets/doctor/tran.jpg');
+        display: flex;
+        margin: 10px auto;
+        width: 120px !important;
+        height: 120px !important;
+        border-radius: 50%;
+      }
+
+      .position {
+        padding-bottom: 16px;
+      }
+    }
+  }
+
+  &.section-handbook {
+    background-color: #f5f5f5;
+    .bg-image {
+      background-image: url('../../assets/handbook/nha-khoa-quan-3.jpg');
+    }
+  }
+
+  &.section-about {
+    height: 480px !important;
+    background-color: #fff;
+
+    .section-about-container {
+      width: 1140px;
+      height: fit-content;
+      margin: 0 auto;
+
+      .section-about-header {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .section-about-content {
+        width: 1140px;
+        height: fit-content;
+        display: flex;
+        gap: 30px;
+
+        .content-left {
+          width: 50%;
+          height: 400px;
+          left: 0px;
+          top: 0px;
+          .iframe {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .content-right {
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+        }
+      }
+    }
+  }
+  /**/
+}
+
+/*FOOTER*/
+
+.footer {
+  height: 282px;
+  background: #efefef;
+  padding: 30px 20px;
+
+  .footer-container {
+    width: 1140px;
+    margin: 0 auto;
+
+    .footer-info {
+      height: 210px;
+      padding-bottom: 20px;
+
+      .footer-logo-container {
+        background: url('../../assets/images/logo.svg') center center no-repeat;
+        margin-left: 20px;
+        margin-bottom: 12px;
+        width: 200px;
+        height: 44px;
+        cursor: pointer;
+      }
+
+      .policy {
+        a {
+          color: #45c3d2;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .footer-app {
+      align-items: center;
+      border-top: 1px solid #ccc;
+      height: 32px;
+
+      i {
+        margin-right: 5px;
+        font-size: 15px;
+      }
+
+      .download-app {
+        margin-left: 5px;
+        a {
+          text-decoration: none;
+          color: #45c3d2;
+        }
+      }
+    }
+  }
+}

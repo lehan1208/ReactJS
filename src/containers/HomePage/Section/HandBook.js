@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function Specialty(props) {
+function HandBook(props) {
   let settings = {
     dots: false,
     infinite: true,
@@ -15,11 +15,11 @@ function Specialty(props) {
   };
 
   return (
-    <div className='section-share section-specialty'>
+    <div className='section-share section-handbook'>
       <div className='section-container'>
         <div className='section-header'>
-          <span className='section-title'>Chuyên khoa phổ biến</span>
-          <button className='section-search-btn'>Xem thêm</button>
+          <span className='section-title'>Cẩm nang</span>
+          <button className='section-search-btn'>Tất cả bài viết</button>
           <div></div>
         </div>
         <div className='section-body'>
@@ -65,4 +65,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Specialty);
+export default connect(mapStateToProps)(HandBook);

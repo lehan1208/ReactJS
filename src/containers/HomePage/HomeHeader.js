@@ -6,12 +6,26 @@ import './HomeHeader.scss';
 import { LANGUAGES } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions';
 
+const arrInfos = [
+  { key: '/specialty', icon: 'fas fa-hospital-alt', title: 'Khám chuyên khoa' },
+  { key: '2', icon: 'fas fa-mobile-alt', title: 'Khám từ xa' },
+  { key: '3', icon: 'fas fa-procedures', title: 'Khám tổng quát' },
+  { key: '4', icon: 'fas fa-vials', title: 'Xét nghiệm y học' },
+  { key: '5', icon: 'fas fa-heart', title: 'Sức khỏe tinh thần' },
+  { key: '6', icon: 'fas fa-briefcase-medical', title: 'Khám nha khoa' },
+  { key: '7', icon: 'fas fa-syringe', title: 'Gói phẫu thuật' },
+  { key: '8', icon: 'fas fa-ambulance', title: 'Sản phẩm y tế' },
+];
+
 function HomeHeader(props) {
   const changeLanguage = (language) => {
     props.changeLanguageAppRedux(language);
   };
 
   let language = props.language;
+  const handleClick = (key) => {
+    // Handle follow key
+  };
 
   return (
     <>
@@ -32,6 +46,7 @@ function HomeHeader(props) {
                 <FormattedMessage id='home-header.search-doctor' />
               </div>
             </div>
+
             <div className='child-content'>
               <div>
                 <b>
@@ -97,54 +112,14 @@ function HomeHeader(props) {
 
         <div className='banner-down'>
           <div className='option'>
-            <div className='option-child'>
-              <div className='icon-child'>
-                <i className='fas fa-hospital-alt'></i>
+            {arrInfos.map((m) => (
+              <div className='option-child' onClick={() => handleClick(m.key)}>
+                <div className='icon-child'>
+                  <i className={m.icon}></i>
+                </div>
+                <div className='text-child'>{m.title}</div>
               </div>
-              <div className='text-child'>Khám chuyên khoa</div>
-            </div>
-            <div className='option-child'>
-              <div className='icon-child'>
-                <i className='fas fa-mobile-alt'></i>
-              </div>
-              <div className='text-child'>Khám từ xa</div>
-            </div>
-            <div className='option-child'>
-              <div className='icon-child'>
-                <i className='fas fa-procedures'></i>
-              </div>
-              <div className='text-child'>Khám tổng quát</div>
-            </div>
-            <div className='option-child'>
-              <div className='icon-child'>
-                <i className='fas fa-vials'></i>
-              </div>
-              <div className='text-child'>Xét nghiệm y học</div>
-            </div>
-            <div className='option-child'>
-              <div className='icon-child'>
-                <i className='fas fa-heart'></i>
-              </div>
-              <div className='text-child'>Sức khỏe tinh thần</div>
-            </div>
-            <div className='option-child'>
-              <div className='icon-child'>
-                <i className='fas fa-briefcase-medical'></i>
-              </div>
-              <div className='text-child'>Khám nha khoa</div>
-            </div>
-            <div className='option-child'>
-              <div className='icon-child'>
-                <i className='fas fa-syringe'></i>
-              </div>
-              <div className='text-child'>Gói phẫu thuật</div>
-            </div>
-            <div className='option-child'>
-              <div className='icon-child'>
-                <i className='fas fa-ambulance'></i>
-              </div>
-              <div className='text-child'>Sản phẩm y tế</div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
