@@ -23,6 +23,7 @@ function HomeHeader(props) {
   };
 
   let language = props.language;
+
   const handleClick = (key) => {
     // Handle follow key
   };
@@ -112,8 +113,12 @@ function HomeHeader(props) {
 
         <div className='banner-down'>
           <div className='option'>
-            {arrInfos.map((m) => (
-              <div className='option-child' onClick={() => handleClick(m.key)}>
+            {arrInfos.map((m, index) => (
+              <div
+                key={index}
+                className='option-child'
+                onClick={() => handleClick(m.key)}
+              >
                 <div className='icon-child'>
                   <i className={m.icon}></i>
                 </div>

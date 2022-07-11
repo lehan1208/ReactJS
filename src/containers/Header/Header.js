@@ -6,6 +6,7 @@ import Navigator from '../../components/Navigator';
 import { adminMenu } from './menuApp';
 import './Header.scss';
 import { LANGUAGES } from '../../utils/constant';
+import { FormattedMessage } from 'react-intl';
 // import { changeLanguageApp } from '../../store/actions';
 
 function Header(props) {
@@ -13,7 +14,9 @@ function Header(props) {
     props.changeLanguageAppRedux(language);
   };
 
-  const { processLogout, language } = props;
+  const { processLogout, language, userInfo } = props;
+
+  console.log('Check userInfo: ', userInfo);
 
   return (
     <div className='header-container'>
@@ -21,8 +24,12 @@ function Header(props) {
       <div className='header-tabs-container'>
         <Navigator menus={adminMenu} />
       </div>
-
       <div className='language'>
+        <span className='welcome'>
+          <FormattedMessage id='home-header.welcome' />, &nbsp;
+          {userInfo && userInfo.firstName ? userInfo.firstName : ''}
+        </span>
+
         <span
           className={
             language === LANGUAGES.VI ? 'language-vi active' : 'language-vi '
@@ -52,6 +59,7 @@ function Header(props) {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    userInfo: state.user.userInfo,
     language: state.app.language,
   };
 };

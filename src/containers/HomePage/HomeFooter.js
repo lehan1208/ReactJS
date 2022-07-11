@@ -56,8 +56,12 @@ function About(props) {
             </div>
           </div>
           <div className='col-3 policy'>
-            {arrPolicy.map((m) => (
-              <a href={m.href} className='d-block my-2 text-decoration-none'>
+            {arrPolicy.map((m, index) => (
+              <a
+                href={m.href}
+                className='d-block my-2 text-decoration-none'
+                key={index}
+              >
                 {m.title}
               </a>
             ))}
