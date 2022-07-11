@@ -1,5 +1,8 @@
 import actionTypes from './actionTypes';
-import { getAllCodeService } from '../../services/userService';
+import {
+  getAllCodeService,
+  createNewUserService,
+} from '../../services/userService';
 
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
@@ -80,4 +83,29 @@ export const fetchRoleSuccess = (roleData) => ({
 
 export const fetchRoleFailed = () => ({
   type: actionTypes.FETCH_ROLE_FAILED,
+});
+
+export const createNewUser = (newUserData) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await createNewUserService(newUserData); //ref => userService.js
+      console.log('Hoc Lap Trinh: ', res);
+      if (res && res.errCode === 0) {
+        dispatch(createUserSuccess());
+      } else {
+        dispatch(createUserFailed());
+      }
+    } catch (err) {
+      dispatch(createUserFailed());
+      console.log('Fetching Role failed: ', err);
+    }
+  };
+};
+
+export const createUserSuccess = () => ({
+  type: actionTypes.CREATE_USER_SUCCESS,
+});
+
+export const createUserFailed = () => ({
+  type: actionTypes.CREATE_USER_FAILED,
 });

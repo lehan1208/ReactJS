@@ -96,7 +96,7 @@ function UserManage({ props }) {
           onClick={() => handleAddNew()}
           autoFocus={false}
         >
-          <i className='fas fa-plus ml-5'></i>
+          <i className='fas fa-plus'></i>
           <span className='mx-2'> Add New User</span>
         </button>
         <ModalUser

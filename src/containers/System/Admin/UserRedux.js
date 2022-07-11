@@ -7,19 +7,41 @@ import { LANGUAGES } from '../../../utils/';
 import * as actions from '../../../store/actions';
 import './UserRedux.scss';
 import Lightbox from 'react-image-lightbox';
+import { fetchGenderStart } from './../../../store/actions/adminActions';
 
 function UserRedux(props) {
   const {
     getGenderStart,
     genderRedux,
     getPositionStart,
+    positionRedux,
     getRoleStart,
     roleRedux,
-    positionRedux,
+    createNewUser,
   } = props;
 
   const [previewImage, setPreviewImage] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    address: '',
+    gender: '',
+    position: '',
+    role: '',
+    image: '',
+  });
+  const [avatar, setAvatar] = useState('');
+  user.gender = genderRedux && genderRedux.length > 0 ? genderRedux[0].key : '';
+
+  user.position =
+    positionRedux && positionRedux.length > 0 ? positionRedux[0].key : '';
+
+  user.role = roleRedux && roleRedux.length > 0 ? roleRedux[0].key : '';
+  user.image = avatar;
 
   useEffect(() => {
     async function fetchData() {
@@ -30,13 +52,13 @@ function UserRedux(props) {
     fetchData();
   }, []);
 
-  const language = props.language;
   const handleOnchangeImage = (e) => {
     let data = e.target.files;
     let file = data[0];
     if (file) {
       const objectUrl = URL.createObjectURL(file);
       setPreviewImage(objectUrl);
+      setAvatar(file);
     }
   };
 
@@ -47,6 +69,55 @@ function UserRedux(props) {
       setIsOpen(true);
     }
   };
+
+  const checkValidateInput = () => {
+    let arrCheck = [
+      'email',
+      'password',
+      'firstName',
+      'lastName',
+      'phoneNumber',
+      'address',
+    ];
+    let isValid = true;
+
+    for (let i = 0; i < arrCheck.length; i++) {
+      if (!user[arrCheck[i]]) {
+        isValid = false;
+        alert('This input is required ' + arrCheck[i]);
+        break;
+      }
+    }
+    return isValid;
+  };
+
+  const handleSaveUser = (e) => {
+    e.preventDefault();
+    let isValid = checkValidateInput();
+    if (isValid === false) return;
+
+    // Fire redux
+    createNewUser({
+      email: user.email,
+      password: user.password,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      address: user.address,
+      phoneNumber: user.phoneNumber,
+      gender: user.gender,
+      roleId: user.role,
+      positionId: user.position,
+    });
+  };
+
+  const handleOnchangeInput = (e, key) => {
+    const newUser = { ...user };
+    newUser[key] = e.target.value;
+    setUser({ ...newUser });
+    console.log(newUser);
+  };
+
+  const language = props.language;
 
   return (
     <div className='user-redux-container'>
@@ -69,25 +140,49 @@ function UserRedux(props) {
                 <label htmlFor='email'>
                   <FormattedMessage id='manage-user.email' />
                 </label>
-                <input type='email' className='form-control' id='email' />
+                <input
+                  type='email'
+                  className='form-control'
+                  id='email'
+                  value={user.email}
+                  onChange={(e) => handleOnchangeInput(e, 'email')}
+                />
               </div>
               <div className='form-group col-3'>
                 <label htmlFor='password'>
                   <FormattedMessage id='manage-user.password' />
                 </label>
-                <input type='password' className='form-control' id='password' />
+                <input
+                  type='password'
+                  className='form-control'
+                  id='password'
+                  value={user.password}
+                  onChange={(e) => handleOnchangeInput(e, 'password')}
+                />
               </div>
               <div className='form-group col-3'>
                 <label htmlFor='firstName'>
                   <FormattedMessage id='manage-user.first-name' />
                 </label>
-                <input type='text' className='form-control' id='firstName' />
+                <input
+                  type='text'
+                  className='form-control'
+                  id='firstName'
+                  value={user.firstName}
+                  onChange={(e) => handleOnchangeInput(e, 'firstName')}
+                />
               </div>
               <div className='form-group col-3'>
                 <label htmlFor='lastName'>
                   <FormattedMessage id='manage-user.last-name' />
                 </label>
-                <input type='text' className='form-control' id='lastName' />
+                <input
+                  type='text'
+                  className='form-control'
+                  id='lastName'
+                  value={user.lastName}
+                  onChange={(e) => handleOnchangeInput(e, 'lastName')}
+                />
               </div>
             </div>
             <div className='row'>
@@ -95,23 +190,38 @@ function UserRedux(props) {
                 <label htmlFor='phoneNumber'>
                   <FormattedMessage id='manage-user.phone-number' />
                 </label>
-                <input type='tel' className='form-control' id='phoneNumber' />
+                <input
+                  type='tel'
+                  className='form-control'
+                  id='phoneNumber'
+                  value={user.phoneNumber}
+                  onChange={(e) => handleOnchangeInput(e, 'phoneNumber')}
+                />
               </div>
               <div className='form-group col-6'>
                 <label htmlFor='address'>
                   <FormattedMessage id='manage-user.address' />
                 </label>
-                <input type='text' className='form-control' id='address' />
+                <input
+                  type='text'
+                  className='form-control'
+                  id='address'
+                  value={user.address}
+                  onChange={(e) => handleOnchangeInput(e, 'address')}
+                />
               </div>
               <div className='form-group col-2'>
                 <label>
                   <FormattedMessage id='manage-user.gender' />
                 </label>
-                <select className='form-control'>
+                <select
+                  className='form-control'
+                  onChange={(e) => handleOnchangeInput(e, 'gender')}
+                >
                   {genderRedux &&
                     genderRedux.length > 0 &&
                     genderRedux.map((g, index) => (
-                      <option key={index}>
+                      <option key={index} value={g.key}>
                         {language === LANGUAGES.VI ? g.valueVi : g.valueEn}
                       </option>
                     ))}
@@ -121,11 +231,14 @@ function UserRedux(props) {
                 <label>
                   <FormattedMessage id='manage-user.position' />
                 </label>
-                <select className='form-control'>
+                <select
+                  className='form-control'
+                  onChange={(e) => handleOnchangeInput(e, 'position')}
+                >
                   {positionRedux &&
                     positionRedux.length > 0 &&
                     positionRedux.map((p, index) => (
-                      <option key={index}>
+                      <option key={index} value={p.key}>
                         {language === LANGUAGES.VI ? p.valueVi : p.valueEn}
                       </option>
                     ))}
@@ -137,17 +250,20 @@ function UserRedux(props) {
                 <label>
                   <FormattedMessage id='manage-user.role' />
                 </label>
-                <select className='form-control'>
+                <select
+                  className='form-control'
+                  onChange={(e) => handleOnchangeInput(e, 'role')}
+                >
                   {roleRedux &&
                     roleRedux.length > 0 &&
                     roleRedux.map((r, index) => (
-                      <option key={index}>
+                      <option key={index} value={r.key}>
                         {language === LANGUAGES.VI ? r.valueVi : r.valueEn}
                       </option>
                     ))}
                 </select>
               </div>
-              <div className='form-group col-6'>
+              <div className='form-group col-6  '>
                 <label>
                   <FormattedMessage id='manage-user.image' />
                 </label>
@@ -171,7 +287,10 @@ function UserRedux(props) {
             </div>
 
             <div className='col-12'>
-              <button className='btn btn-primary px-2 mt-3'>
+              <button
+                className='btn btn-primary px-2 mt-3'
+                onClick={(e) => handleSaveUser(e)}
+              >
                 <FormattedMessage id='manage-user.save' />
               </button>
             </div>
@@ -196,6 +315,8 @@ const mapDispatchToProps = (dispatch) => {
     getGenderStart: () => dispatch(actions.fetchGenderStart()),
     getPositionStart: () => dispatch(actions.fetchPositionStart()),
     getRoleStart: () => dispatch(actions.fetchRoleStart()),
+    createNewUser: (newUserData) =>
+      dispatch(actions.createNewUser(newUserData)),
     // processLogout: () => dispatch(actions.processLogout()),
     // changeLanguageAppRedux: (language) =>
     //   dispatch(actions.changeLanguageApp(language)),
