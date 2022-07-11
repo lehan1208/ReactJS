@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions';
@@ -15,8 +15,6 @@ function Header(props) {
   };
 
   const { processLogout, language, userInfo } = props;
-
-  console.log('Check userInfo: ', userInfo);
 
   return (
     <div className='header-container'>

@@ -1,7 +1,6 @@
-import { set } from "lodash";
-import React, { useState, useEffect } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import _ from "lodash";
+import React, { useState, useEffect } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import _ from 'lodash';
 
 function ModalEditUser({
   isOpenModal,
@@ -10,12 +9,12 @@ function ModalEditUser({
   userEdit,
 }) {
   const [user, setUser] = useState({
-    id: "",
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    address: "",
+    id: '',
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    address: '',
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ function ModalEditUser({
       setUser({
         id: user.id,
         email: user.email,
-        password: "hardcore",
+        password: 'hardcore',
         firstName: user.firstName,
         lastName: user.lastName,
         address: user.address,
@@ -51,12 +50,12 @@ function ModalEditUser({
   // Validate Input
   const checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["email", "password", "firstName", "lastName", "address"];
+    let arrInput = ['email', 'password', 'firstName', 'lastName', 'address'];
 
     for (let i = 0; i < arrInput.length; i++) {
       if (!user[arrInput[i]]) {
         isValid = false;
-        alert("Please insert " + arrInput[i]);
+        alert('Please insert ' + arrInput[i]);
         break;
       }
     }
@@ -78,83 +77,83 @@ function ModalEditUser({
       <Modal
         isOpen={isOpenModal}
         toggle={() => toggle()}
-        size="lg"
+        size='lg'
         centered
-        className="add-new-modal"
+        className='add-new-modal'
       >
         <ModalHeader toggle={() => toggle()}>Update information</ModalHeader>
         <ModalBody>
           <form>
-            <div className="row">
-              <div className="form-group mt-3 col-6">
-                <label className="font-weight-bold mb-1" htmlFor="email">
+            <div className='row'>
+              <div className='form-group mt-3 col-6'>
+                <label className='font-weight-bold mb-1' htmlFor='email'>
                   Email
                 </label>
                 <input
-                  spellCheck="false"
+                  spellCheck='false'
                   value={user.email}
-                  type="email"
-                  name="email"
-                  className="form-control"
-                  placeholder="Enter email"
-                  onChange={(e) => handleOnchangeInput(e, "email")}
+                  type='email'
+                  name='email'
+                  className='form-control'
+                  placeholder='Enter email'
+                  onChange={(e) => handleOnchangeInput(e, 'email')}
                   disabled
                 />
               </div>
-              <div className="form-group mt-3 col-6">
-                <label className="font-weight-bold mb-1" htmlFor="password">
+              <div className='form-group mt-3 col-6'>
+                <label className='font-weight-bold mb-1' htmlFor='password'>
                   Password
                 </label>
                 <input
                   value={user.password}
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="Password"
-                  onChange={(e) => handleOnchangeInput(e, "password")}
+                  type='password'
+                  className='form-control'
+                  name='password'
+                  placeholder='Password'
+                  onChange={(e) => handleOnchangeInput(e, 'password')}
                   disabled
                 />
               </div>
             </div>
 
-            <div className="row">
-              <div className="form-group mt-3 col-6">
-                <label className="font-weight-bold mb-1" htmlFor="firstName">
+            <div className='row'>
+              <div className='form-group mt-3 col-6'>
+                <label className='font-weight-bold mb-1' htmlFor='firstName'>
                   First Name
                 </label>
                 <input
                   value={user.firstName}
-                  type="text"
-                  className="form-control"
-                  name="firstName"
-                  onChange={(e) => handleOnchangeInput(e, "firstName")}
+                  type='text'
+                  className='form-control'
+                  name='firstName'
+                  onChange={(e) => handleOnchangeInput(e, 'firstName')}
                 />
               </div>
-              <div className="form-group mt-3 col-6">
-                <label className="font-weight-bold mb-1" htmlFor="lastName">
+              <div className='form-group mt-3 col-6'>
+                <label className='font-weight-bold mb-1' htmlFor='lastName'>
                   Last Name
                 </label>
                 <input
                   value={user.lastName}
-                  type="text"
-                  className="form-control"
-                  name="lastName"
-                  onChange={(e) => handleOnchangeInput(e, "lastName")}
+                  type='text'
+                  className='form-control'
+                  name='lastName'
+                  onChange={(e) => handleOnchangeInput(e, 'lastName')}
                 />
               </div>
             </div>
 
-            <div className="row">
-              <div className="form-group mt-3 col">
-                <label className="font-weight-bold mb-1" htmlFor="address">
+            <div className='row'>
+              <div className='form-group mt-3 col'>
+                <label className='font-weight-bold mb-1' htmlFor='address'>
                   Address
                 </label>
                 <input
                   value={user.address}
-                  type="text"
-                  className="form-control"
-                  name="address"
-                  onChange={(e) => handleOnchangeInput(e, "address")}
+                  type='text'
+                  className='form-control'
+                  name='address'
+                  onChange={(e) => handleOnchangeInput(e, 'address')}
                 />
               </div>
             </div>
@@ -162,14 +161,14 @@ function ModalEditUser({
         </ModalBody>
         <ModalFooter>
           <Button
-            type="submit"
-            color="primary"
-            className="px-3 "
+            type='submit'
+            color='primary'
+            className='px-3 '
             onClick={() => handleSaveUser()}
           >
             Save changes
           </Button>
-          <Button onClick={() => toggle()} className="px-3 ">
+          <Button onClick={() => toggle()} className='px-3 '>
             Cancel
           </Button>
         </ModalFooter>

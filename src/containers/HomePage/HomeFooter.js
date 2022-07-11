@@ -1,9 +1,7 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useEffect } from 'react';
 
 const arrPolicy = [
   { title: 'Liên hệ hợp tác', href: '#' },
@@ -47,7 +45,7 @@ function About(props) {
               </span>
             </div>
             <div className='mt-2'>
-              <a href='#'>
+              <a href='sds#'>
                 <img
                   src='https://bookingcare.vn/assets/icon/bo-cong-thuong.svg'
                   alt='bo-cong-thuong'
@@ -82,8 +80,8 @@ function About(props) {
               Tải ứng dụng BookingCare cho điện thoại hoặc máy tính bảng:
             </span>
             <span className='download-app'>
-              <a href='#'>Android</a> - <a href='#'> iPhone/iPad</a> -
-              <a href='#'> Khác</a>
+              <a href='sds#'>Android</a> - <a href='sds#'> iPhone/iPad</a> -
+              <a href='sds#'> Khác</a>
             </span>
           </div>
         </div>

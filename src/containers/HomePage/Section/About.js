@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
 function About(props) {
@@ -24,32 +23,32 @@ function About(props) {
             ></iframe>
           </div>
           <div className='content-right '>
-            <a href='#'>
+            <a href='ds#'>
               <img
                 src='https://bookingcare.vn/assets/truyenthong/suckhoedoisong.png'
                 alt=''
               />
             </a>
-            <a href='#'>
+            <a href='ds#'>
               <img
                 src='https://bookingcare.vn/assets/truyenthong/vtv1.png'
                 alt=''
               />
             </a>
-            <a href='#'>
+            <a href='ds#'>
               <img
                 src='https://bookingcare.vn/assets/truyenthong/ictnews.png'
                 alt=''
               />
             </a>
 
-            <a href='#'>
+            <a href='ds#'>
               <img
                 src='https://bookingcare.vn/assets/truyenthong/vnexpress.png'
                 alt=''
               />
             </a>
-            <a href='#'>
+            <a href='ds#'>
               <img
                 src='https://bookingcare.vn/assets/truyenthong/cuc-cong-nghe-thong-tin-bo-y-te-2.png'
                 alt=''
