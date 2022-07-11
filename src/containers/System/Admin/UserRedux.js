@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import 'react-image-lightbox/style.css';
 import { FormattedMessage } from 'react-intl';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 import { connect } from 'react-redux';
-import { getAllCodeService } from '../../../services/userService';
+import './UserRedux.scss';
 import { LANGUAGES } from '../../../utils/';
 import * as actions from '../../../store/actions';
-import './UserRedux.scss';
-import Lightbox from 'react-image-lightbox';
-import { fetchGenderStart } from './../../../store/actions/adminActions';
+import TableManageUser from './TableManageUser';
 
 function UserRedux(props) {
   const {
@@ -18,6 +17,8 @@ function UserRedux(props) {
     getRoleStart,
     roleRedux,
     createNewUser,
+    fetchUserRedux,
+    UserRedux,
   } = props;
 
   const [previewImage, setPreviewImage] = useState(null);
@@ -43,13 +44,21 @@ function UserRedux(props) {
   user.role = roleRedux && roleRedux.length > 0 ? roleRedux[0].key : '';
   user.image = avatar;
 
+  const handleOnchangeInput = (e, key) => {
+    const newUser = { ...user };
+    newUser[key] = e.target.value;
+    setUser({ ...newUser });
+  };
+
   useEffect(() => {
     async function fetchData() {
       getGenderStart();
       getPositionStart();
       getRoleStart();
     }
+
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleOnchangeImage = (e) => {
@@ -95,26 +104,23 @@ function UserRedux(props) {
     e.preventDefault();
     let isValid = checkValidateInput();
     if (isValid === false) return;
-
     // Fire redux
-    createNewUser({
-      email: user.email,
-      password: user.password,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      address: user.address,
-      phoneNumber: user.phoneNumber,
-      gender: user.gender,
-      roleId: user.role,
-      positionId: user.position,
-    });
-  };
+    fetchUserRedux();
 
-  const handleOnchangeInput = (e, key) => {
-    const newUser = { ...user };
-    newUser[key] = e.target.value;
-    setUser({ ...newUser });
-    console.log(newUser);
+    if (UserRedux !== user) {
+      setUser({
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        address: '',
+        gender: '',
+        position: '',
+        role: '',
+        image: '',
+      });
+    }
   };
 
   const language = props.language;
@@ -131,7 +137,7 @@ function UserRedux(props) {
         )}
 
         <div className='container'>
-          <form>
+          <form className='mb-5'>
             <div className='row m-3'>
               <FormattedMessage id='manage-user.add' />
             </div>
@@ -295,6 +301,9 @@ function UserRedux(props) {
               </button>
             </div>
           </form>
+          <div className='col-12 mb-5'>
+            <TableManageUser />
+          </div>
         </div>
       </div>
     </div>
@@ -307,6 +316,7 @@ const mapStateToProps = (state) => {
     genderRedux: state.admin.genders, // admin from adminReducer
     positionRedux: state.admin.positions,
     roleRedux: state.admin.roles,
+    UserRedux: state.admin.users, // ref => adminReducer.js (admin from rootReducer.js)
   };
 };
 
@@ -317,6 +327,8 @@ const mapDispatchToProps = (dispatch) => {
     getRoleStart: () => dispatch(actions.fetchRoleStart()),
     createNewUser: (newUserData) =>
       dispatch(actions.createNewUser(newUserData)),
+    fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
+
     // processLogout: () => dispatch(actions.processLogout()),
     // changeLanguageAppRedux: (language) =>
     //   dispatch(actions.changeLanguageApp(language)),
