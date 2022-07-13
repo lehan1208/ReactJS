@@ -32,8 +32,6 @@ function ModalEditUser({
     }
   }, [userEdit]);
 
-  console.log(userEdit);
-
   // const handleOnchangeInput = (e, id) => {
   //   //  BAD CODE
 

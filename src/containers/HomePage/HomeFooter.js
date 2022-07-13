@@ -24,7 +24,7 @@ const arrLocation = [
   { label: 'Hỗ trợ khách hàng', value: 'support@bookingcare.vn (7h30 - 18h)' },
 ];
 
-function About(props) {
+function HomeFooter(props) {
   return (
     <div className='footer'>
       <div className='footer-container'>
@@ -65,8 +65,8 @@ function About(props) {
             ))}
           </div>
           <div className='col-3 location d-flex flex-column justify-content-between'>
-            {arrLocation.map((m) => (
-              <div>
+            {arrLocation.map((m, index) => (
+              <div key={index}>
                 <span className='d-block fw-bold '>{m.label}</span>
                 <span>{m.value}</span>
               </div>
@@ -97,4 +97,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(About);
+export default connect(mapStateToProps)(HomeFooter);

@@ -23,6 +23,8 @@ function UserRedux(props) {
 
   const [previewImage, setPreviewImage] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [avatar, setAvatar] = useState('');
+
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -35,14 +37,6 @@ function UserRedux(props) {
     role: '',
     image: '',
   });
-  const [avatar, setAvatar] = useState('');
-  user.gender = genderRedux && genderRedux.length > 0 ? genderRedux[0].key : '';
-
-  user.position =
-    positionRedux && positionRedux.length > 0 ? positionRedux[0].key : '';
-
-  user.role = roleRedux && roleRedux.length > 0 ? roleRedux[0].key : '';
-  user.image = avatar;
 
   const handleOnchangeInput = (e, key) => {
     const newUser = { ...user };
@@ -105,8 +99,13 @@ function UserRedux(props) {
     let isValid = checkValidateInput();
     if (isValid === false) return;
     // Fire redux
-    fetchUserRedux();
+    createNewUser(user);
+    console.log(
+      '🚀 ~ file: UserRedux.js ~ line 103 ~ handleSaveUser ~ user',
+      user
+    );
 
+    fetchUserRedux();
     if (UserRedux !== user) {
       setUser({
         email: '',
@@ -115,12 +114,18 @@ function UserRedux(props) {
         lastName: '',
         phoneNumber: '',
         address: '',
-        gender: '',
-        position: '',
-        role: '',
+        gender: genderRedux[0].key,
+        position: positionRedux[0].key,
+        role: roleRedux[0].key,
         image: '',
       });
+      console.log(user);
     }
+  };
+
+  const handleEditUserRedux = (item) => {
+    alert('Edit user redux');
+    console.log('Edit user redux', item);
   };
 
   const language = props.language;
@@ -192,7 +197,7 @@ function UserRedux(props) {
               </div>
             </div>
             <div className='row'>
-              <div className='form-group col-2'>
+              <div className='form-group col-3'>
                 <label htmlFor='phoneNumber'>
                   <FormattedMessage id='manage-user.phone-number' />
                 </label>
@@ -204,7 +209,7 @@ function UserRedux(props) {
                   onChange={(e) => handleOnchangeInput(e, 'phoneNumber')}
                 />
               </div>
-              <div className='form-group col-6'>
+              <div className='form-group col-9'>
                 <label htmlFor='address'>
                   <FormattedMessage id='manage-user.address' />
                 </label>
@@ -216,12 +221,15 @@ function UserRedux(props) {
                   onChange={(e) => handleOnchangeInput(e, 'address')}
                 />
               </div>
-              <div className='form-group col-2'>
+            </div>
+            <div className='row'>
+              <div className='form-group col-3'>
                 <label>
                   <FormattedMessage id='manage-user.gender' />
                 </label>
                 <select
                   className='form-control'
+                  defaultValue={user.gender}
                   onChange={(e) => handleOnchangeInput(e, 'gender')}
                 >
                   {genderRedux &&
@@ -233,12 +241,13 @@ function UserRedux(props) {
                     ))}
                 </select>
               </div>
-              <div className='form-group col-2'>
+              <div className='form-group col-3'>
                 <label>
                   <FormattedMessage id='manage-user.position' />
                 </label>
                 <select
                   className='form-control'
+                  defaultValue={user.position}
                   onChange={(e) => handleOnchangeInput(e, 'position')}
                 >
                   {positionRedux &&
@@ -250,14 +259,13 @@ function UserRedux(props) {
                     ))}
                 </select>
               </div>
-            </div>
-            <div className='row'>
               <div className='form-group col-3'>
                 <label>
                   <FormattedMessage id='manage-user.role' />
                 </label>
                 <select
                   className='form-control'
+                  defaultValue={user.role}
                   onChange={(e) => handleOnchangeInput(e, 'role')}
                 >
                   {roleRedux &&
@@ -269,7 +277,7 @@ function UserRedux(props) {
                     ))}
                 </select>
               </div>
-              <div className='form-group col-6  '>
+              <div className='form-group col-3'>
                 <label>
                   <FormattedMessage id='manage-user.image' />
                 </label>
@@ -302,7 +310,7 @@ function UserRedux(props) {
             </div>
           </form>
           <div className='col-12 mb-5'>
-            <TableManageUser />
+            <TableManageUser handleEditUserRedux={handleEditUserRedux} />
           </div>
         </div>
       </div>

@@ -165,13 +165,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserManage);
-
-/** Lifecycle
- * When run the component
- * 1. Run constructor  => init state
- * 2 Did mount state
- * 3.Render component
- *
- *
- *
- */

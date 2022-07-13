@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import './TableManageUser.scss';
 import * as actions from '../../../store/actions';
 
-function TableManageUser({ fetchUserRedux, UserRedux, deleteUserRedux }) {
-  const [listUser, setListUser] = useState(UserRedux);
+function TableManageUser({
+  handleEditUserRedux,
+  fetchUserRedux,
+  UserRedux,
+  deleteUserRedux,
+}) {
+  const [listUser, setListUser] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -14,10 +19,13 @@ function TableManageUser({ fetchUserRedux, UserRedux, deleteUserRedux }) {
     fetchData();
   }, []);
 
-  const handleEditUser = (item) => {};
-
   const handleDeleteUser = (item) => {
     deleteUserRedux(item.id);
+  };
+
+  const handleEditUser = (UserRedux) => {
+    console.log('Check editUser', UserRedux);
+    // handleEditUserRedux();
   };
 
   return (

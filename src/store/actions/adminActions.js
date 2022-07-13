@@ -92,9 +92,8 @@ export const createNewUser = (newUserData) => {
   return async (dispatch, getState) => {
     try {
       let res = await createNewUserService(newUserData); //ref => userService.js
-      toast.success('Create new user successfully!!');
-      // console.log('Hoc Lap Trinh: ', res);
       if (res && res.errCode === 0) {
+        toast.success('Create new user successfully!!');
         dispatch(createUserSuccess());
         dispatch(fetchAllUserStart());
       } else {
@@ -119,7 +118,6 @@ export const fetchAllUserStart = () => {
   return async (dispatch, getState) => {
     try {
       let res = await getAllUser('ALL');
-      console.log('Check res from get all user:', res);
       if (res && res.errCode === 0) {
         dispatch(fetchAllUserSuccess(res.users.reverse()));
       } else {
