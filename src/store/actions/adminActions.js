@@ -5,6 +5,7 @@ import {
     getAllUser,
     deleteUserService,
     editUserService,
+    getTopDoctorHomeService
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 
@@ -120,6 +121,8 @@ export const fetchAllUserStart = () => {
     return async (dispatch, getState) => {
         try {
             let res = await getAllUser('ALL');
+            let res1 = await getTopDoctorHomeService(4);
+            console.log("🚀 ~ file: adminActions.js ~ line 125 ~ return ~ res1", res1)
             if (res && res.errCode === 0) {
                 dispatch(fetchAllUserSuccess(res.users.reverse()));
             } else {
@@ -195,3 +198,5 @@ export const editUserSuccess = () => ({
 export const editUserFailed = () => ({
     type: actionTypes.EDIT_USER_FAILED,
 });
+
+

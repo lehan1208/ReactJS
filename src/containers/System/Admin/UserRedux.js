@@ -42,19 +42,20 @@ function UserRedux(props) {
     });
 
     useEffect(() => {
-        setUser((prev) => ({ ...prev, gender: genderRedux[0]?.key }));
+        setUser((prev) => ({ ...prev, gender: genderRedux[0]?.keyMap }));
     }, [genderRedux]);
 
     useEffect(() => {
-        setUser((prev) => ({ ...prev, positionId: positionRedux[0]?.key }));
+        setUser((prev) => ({ ...prev, positionId: positionRedux[0]?.keyMap }));
     }, [positionRedux]);
 
     useEffect(() => {
-        setUser((prev) => ({ ...prev, roleId: roleRedux[0]?.key }));
+        setUser((prev) => ({ ...prev, roleId: roleRedux[0]?.keyMap }));
     }, [roleRedux]);
     useEffect(() => {
         setUser((prev) => ({ ...prev, image: avatar }));
     }, [avatar]);
+
 
     useEffect(() => {
         async function fetchData() {
@@ -150,9 +151,9 @@ function UserRedux(props) {
                 lastName: '',
                 phoneNumber: '',
                 address: '',
-                gender: genderRedux[0]?.key,
-                positionId: positionRedux[0]?.key,
-                roleId: roleRedux[0]?.key,
+                gender: genderRedux[0]?.keyMap,
+                positionId: positionRedux[0]?.keyMap,
+                roleId: roleRedux[0]?.keyMap,
                 image: '',
             });
             setAvatar('');
@@ -162,9 +163,10 @@ function UserRedux(props) {
     };
 
     const handleEditUserRedux = (item) => {
+        console.log('🚀 ~ file: UserRedux.js ~ line 166 ~ handleEditUserRedux ~ item', item);
         let imageBase64 = '';
         if (item.image) {
-            imageBase64 = new Buffer(item.image, "base64").toString('binary')
+            imageBase64 = new Buffer(item.image, 'base64').toString('binary');
         }
         setUser({
             email: item.email,
@@ -182,7 +184,6 @@ function UserRedux(props) {
         setAction(CRUD_ACTION.EDIT);
         setPreviewImage(imageBase64);
     };
-
     const language = props.language;
 
     return (
@@ -289,7 +290,7 @@ function UserRedux(props) {
                                     {genderRedux &&
                                         genderRedux.length > 0 &&
                                         genderRedux.map((g, index) => (
-                                            <option key={index} value={g.key}>
+                                            <option key={index} value={g.keyMap}>
                                                 {language === LANGUAGES.VI ? g.valueVi : g.valueEn}
                                             </option>
                                         ))}
@@ -307,7 +308,7 @@ function UserRedux(props) {
                                     {positionRedux &&
                                         positionRedux.length > 0 &&
                                         positionRedux.map((p, index) => (
-                                            <option key={index} value={p.key}>
+                                            <option key={index} value={p.keyMap}>
                                                 {language === LANGUAGES.VI ? p.valueVi : p.valueEn}
                                             </option>
                                         ))}
@@ -325,7 +326,7 @@ function UserRedux(props) {
                                     {roleRedux &&
                                         roleRedux.length > 0 &&
                                         roleRedux.map((r, index) => (
-                                            <option key={index} value={r.key}>
+                                            <option key={index} value={r.keyMap}>
                                                 {language === LANGUAGES.VI ? r.valueVi : r.valueEn}
                                             </option>
                                         ))}
