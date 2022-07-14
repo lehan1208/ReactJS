@@ -22,7 +22,7 @@ function UserRedux(props) {
         editUser,
     } = props;
 
-    const [previewImage, setPreviewImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [avatar, setAvatar] = useState('');
     const [action, setAction] = useState(CRUD_ACTION.CREATE);
@@ -62,7 +62,6 @@ function UserRedux(props) {
             getPositionStart();
             getRoleStart();
         }
-
         fetchData();
     }, []);
 
@@ -138,7 +137,7 @@ function UserRedux(props) {
                 gender: user.gender,
                 positionId: user.positionId,
                 roleId: user.roleId,
-                // image: avatar,
+                image: avatar,
             });
         }
         fetchUserRedux();
@@ -163,7 +162,10 @@ function UserRedux(props) {
     };
 
     const handleEditUserRedux = (item) => {
-    console.log("🚀 ~ file: UserRedux.js ~ line 166 ~ handleEditUserRedux ~ item", item)
+        let imageBase64 = '';
+        if (item.image) {
+            imageBase64 = new Buffer(item.image, "base64").toString('binary')
+        }
         setUser({
             email: item.email,
             password: '123456',
@@ -174,10 +176,11 @@ function UserRedux(props) {
             gender: item.gender,
             positionId: item.positionId,
             roleId: item.roleId,
-            // image: '',
+            image: '',
         });
         setUserEditId(item.id);
         setAction(CRUD_ACTION.EDIT);
+        setPreviewImage(imageBase64);
     };
 
     const language = props.language;
