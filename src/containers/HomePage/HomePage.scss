@@ -107,6 +107,10 @@
           }
         }
       }
+
+      .position.text-center {
+        height: 86px;
+    }
     }
   }
 
@@ -136,7 +140,7 @@
       }
 
       .bg-image {
-        background-image: url('../../assets/doctor/tran.jpg');
+        // background-image: url('../../assets/doctor/tran.jpg');
         display: flex;
         margin: 10px auto;
         width: 120px !important;
