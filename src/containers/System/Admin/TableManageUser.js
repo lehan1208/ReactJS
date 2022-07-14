@@ -6,15 +6,14 @@ import * as actions from '../../../store/actions';
 function TableManageUser({
   handleEditUserRedux,
   fetchUserRedux,
-  UserRedux,
+  userRedux,
   deleteUserRedux,
 }) {
   const [listUser, setListUser] = useState();
-
   useEffect(() => {
     async function fetchData() {
+      setListUser(userRedux);
       fetchUserRedux();
-      setListUser(UserRedux);
     }
     fetchData();
   }, []);
@@ -23,9 +22,8 @@ function TableManageUser({
     deleteUserRedux(item.id);
   };
 
-  const handleEditUser = (UserRedux) => {
-    console.log('Check editUser', UserRedux);
-    // handleEditUserRedux();
+  const handleEditUser = (user) => {
+    handleEditUserRedux(user);
   };
 
   return (
@@ -38,9 +36,9 @@ function TableManageUser({
           <th>Address</th>
           <th>Action</th>
         </tr>
-        {UserRedux &&
-          UserRedux.length > 0 &&
-          UserRedux.map((item, index) => (
+        {userRedux &&
+          userRedux.length > 0 &&
+          userRedux.map((item, index) => (
             <tr key={index}>
               <td>{item.email}</td>
               <td>{item.firstName}</td>
@@ -69,7 +67,8 @@ function TableManageUser({
 
 const mapStateToProps = (state) => {
   return {
-    UserRedux: state.admin.users, // ref => adminReducer.js (admin from rootReducer.js)
+    userRedux: state.admin.users, // ref => adminReducer.js (admin from rootReducer.js)
+    
   };
 };
 

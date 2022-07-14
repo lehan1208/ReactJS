@@ -15,8 +15,6 @@ const adminReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCH_GENDER_SUCCESS:
       state.genders = action.data;
-      console.log(state);
-
       return {
         ...state,
       };

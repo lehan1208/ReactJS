@@ -11,7 +11,6 @@ const getAllUser = (inputId) => {
 };
 
 const createNewUserService = (newUserData) => {
-  console.log('Check data from userService: ', newUserData);
   return axios.post('/api/create-new-user', newUserData);
 };
 

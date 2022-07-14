@@ -72,14 +72,14 @@ class App extends Component {
 
             <ToastContainer
               position='top-right'
-              autoClose={5000}
+              autoClose={2000}
               hideProgressBar={false}
               newestOnTop
               closeOnClick
               rtl={false}
               pauseOnFocusLoss
               draggable
-              pauseOnHover
+              pauseOnHover={false}
             />
           </div>
         </Router>
