@@ -47,8 +47,8 @@ function Doctor(props) {
                                         'binary'
                                     );
                                 }
-                                let nameVi = `{item.positionData.valueVi}, ${item.lastName} ${item.firstName}  `;
-                                let nameEn = `{item.positionData.valueEn}, ${item.firstName} ${item.lastName} `;
+                                let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}  `;
+                                let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName} `;
 
                                 return (
                                     <div className='section-customize' key={index}>
