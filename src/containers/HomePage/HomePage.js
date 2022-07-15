@@ -10,28 +10,28 @@ import About from './Section/About';
 import HomeFooter from './HomeFooter';
 
 function HomePage() {
-  return (
-    <div>
-      <HomeHeader />
-      <Specialty />
-      <MedicalFacility />
-      <Doctor />
-      <HandBook />
-      <About />
-      <HomeFooter />
-      {/* <div style={{ height: '300px' }}></div> */}
-    </div>
-  );
+    return (
+        <div>
+            <HomeHeader isShowBanner={true} />
+            <Specialty />
+            <MedicalFacility />
+            <Doctor />
+            <HandBook />
+            <About />
+            <HomeFooter />
+            {/* <div style={{ height: '300px' }}></div> */}
+        </div>
+    );
 }
 
 const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.user.isLoggedIn,
-  };
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+    return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

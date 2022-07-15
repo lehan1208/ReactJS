@@ -5,9 +5,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/';
+import { useHistory } from 'react-router-dom';
 
 function Doctor(props) {
-   
+    const history = useHistory();
+
     let settings = {
         dots: false,
         infinite: false,
@@ -27,6 +29,10 @@ function Doctor(props) {
         setArrDoctors(topDoctorsRedux);
     }, [topDoctorsRedux]);
 
+    const handleViewDetailDoctor = (doctor) => {
+        history.push(`/detail-doctor/${doctor.id}`);
+    };
+
     return (
         <div className='section-share section-doctor'>
             <div className='section-container'>
@@ -40,7 +46,6 @@ function Doctor(props) {
                         {arrDoctors &&
                             arrDoctors.length > 0 &&
                             arrDoctors.map((item, index) => {
-                                // console.log("🚀 ~ file: Doctor.js ~ line 44 ~ arrDoctors.map ~ item", item)
                                 let imageBase64 = '';
                                 if (item.image) {
                                     imageBase64 = new Buffer(item.image, 'base64').toString(
@@ -51,7 +56,11 @@ function Doctor(props) {
                                 let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName} `;
 
                                 return (
-                                    <div className='section-customize' key={index}>
+                                    <div
+                                        className='section-customize'
+                                        key={index}
+                                        onClick={() => handleViewDetailDoctor(item)}
+                                    >
                                         <div className='border-customize'>
                                             <div className='outer-bg'>
                                                 <div

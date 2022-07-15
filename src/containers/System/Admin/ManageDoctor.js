@@ -63,15 +63,13 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
             description: description,
             doctorId: selectedDoctor.value,
         });
+
+        // setDescription(description);
     };
 
     const handleChange = (selectedDoctor) => {
         setSelectedDoctor(selectedDoctor);
     };
-    console.log(
-        '🚀 ~ file: ManageDoctor.js ~ line 19 ~ ManageDoctor ~ selectedDoctor',
-        selectedDoctor
-    );
 
     return (
         <div className='manage-doctor-container'>
@@ -95,7 +93,7 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
                             onChange={(e) => setDescription(e.target.value)}
                             value={description}
                         >
-                            adasdas
+                            Hello
                         </textarea>
                     </div>
                 </div>

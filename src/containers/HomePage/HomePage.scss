@@ -19,7 +19,6 @@
     opacity: 0.75;
 }
 
-
 .slick-next {
     right: -20px !important;
     width: 44px !important;
@@ -39,7 +38,7 @@
 }
 
 .slick-disabled {
-  display: none !important;
+    display: none !important;
 }
 /*----------------*/
 .section-share {
@@ -92,6 +91,7 @@
             .section-customize {
                 width: 278px;
                 height: 156px;
+                cursor: pointer;
 
                 .bg-image {
                     width: 278px;
