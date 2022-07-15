@@ -66,9 +66,9 @@ function TableManageUser({ handleEditUserRedux, fetchUserRedux, userRedux, delet
                 style={{ height: '500px' }}
                 renderHTML={(text) => mdParser.render(text)}
                 onChange={handleEditorChange}
-            />
+            />  
         </>
-    );
+    );  
 }
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
