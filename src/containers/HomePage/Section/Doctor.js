@@ -7,9 +7,10 @@ import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/';
 
 function Doctor(props) {
+   
     let settings = {
         dots: false,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,

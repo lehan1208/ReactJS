@@ -56,7 +56,6 @@ function UserRedux(props) {
         setUser((prev) => ({ ...prev, image: avatar }));
     }, [avatar]);
 
-
     useEffect(() => {
         async function fetchData() {
             getGenderStart();
@@ -141,7 +140,6 @@ function UserRedux(props) {
                 image: avatar,
             });
         }
-        fetchUserRedux();
 
         if (UserRedux !== user) {
             setUser({

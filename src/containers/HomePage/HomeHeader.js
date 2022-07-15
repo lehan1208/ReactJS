@@ -100,6 +100,8 @@ function HomeHeader(props) {
           </div>
         </div>
       </div>
+
+      
       <div className='home-header-banner'>
         <div className='banner-up'>
           <div className='title1'>NỀN TẢNG Y TẾ</div>
