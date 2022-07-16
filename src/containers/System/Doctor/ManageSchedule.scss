@@ -1,0 +1,28 @@
+.manage-schedule-container {
+    .m-s-title {
+        text-transform: uppercase;
+        margin-top: 15px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .pick-hour-container {
+        padding-top: 20px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+
+        button {
+            padding: 5px 15px;
+            border: 1px solid #ccc;
+            line-height: inherit;
+        }
+    }
+    button.btn.btn-primary {
+        padding: 5px 15px;
+        line-height: inherit;
+        margin-top: 20px;
+    }
+}

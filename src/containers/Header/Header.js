@@ -29,7 +29,6 @@ function Header(props) {
             }
         }
         setMenuApp(menu);
-        console.log(userInfo);
     }, [userInfo]);
 
     return (
