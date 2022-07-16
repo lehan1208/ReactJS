@@ -6,13 +6,14 @@ import { LANGUAGES } from '../../../utils/';
 import * as actions from '../../../store/actions';
 import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
-import { range } from 'lodash';
+import { toast } from 'react-toastify';
+import _ from 'lodash';
 
 function ManageSchedule(props) {
     const { isLoggedIn, fetchAllDoctor, language, allDoctor, fetchAllScheduleTime, allScheduleTime } = props;
 
     const [listDoctor, setListDoctor] = useState([]);
-    const [selectedDoctor, setSelectedDoctor] = useState('test');
+    const [selectedDoctor, setSelectedDoctor] = useState('');
     const [currentDate, setCurrentDate] = useState(new Date());
     const [rangeTime, setRangeTime] = useState([]);
     useEffect(() => {
@@ -22,7 +23,6 @@ function ManageSchedule(props) {
 
     const handleChangeSelect = async (selectedDoctor) => {
         setSelectedDoctor(selectedDoctor);
-        console.log('🚀 ~ file: ManageSchedule.js ~ line 12 ~ ManageSchedule ~ allScheduleTime', allScheduleTime);
     };
 
     const buildDataInputSelect = (inputData) => {
@@ -43,13 +43,61 @@ function ManageSchedule(props) {
 
     useEffect(() => {
         let doctorSelectOption = buildDataInputSelect(allDoctor);
+        let data = allScheduleTime;
+        if (data && data.length > 0) {
+            data = data.map((item) => ({ ...item, isSelected: false }));
+        }
         setListDoctor(doctorSelectOption);
-        setRangeTime(allScheduleTime);
+        setRangeTime(data);
     }, [allDoctor, allScheduleTime]);
 
     const handleOnchangeDatePicker = (date) => {
         setCurrentDate(date[0]);
-        console.log('🚀 ~ file: ManageSchedule.js ~ line 51 ~ handleOnchangeDatePicker ~ date', rangeTime);
+    };
+
+    const handleClickBtnTime = (time) => {
+        console.log('🚀 ~ file: ManageSchedule.js ~ line 60 ~ handleClickBtnTime ~ item', time);
+        if (rangeTime && rangeTime.length > 0) {
+            let rangeTime2 = rangeTime.map((item) => {
+                if (item.id === time.id) item.isSelected = !item.isSelected;
+                return item;
+            });
+            setRangeTime(rangeTime2);
+        }
+    };
+
+    const handleSaveSchedule = () => {
+        console.log('Check selectedDoctor: ', selectedDoctor);
+        console.log('Check currentDate: ', moment(currentDate).format('DD/MM/YYYY'));
+        console.log('Check rangeTime: ', rangeTime);
+        let result = [];
+
+        if (!currentDate) {
+            toast.error('Invalid date!!');
+            return;
+        }
+        if (selectedDoctor && _.isEmpty(selectedDoctor)) {
+            toast.error('Invalid selected doctor!!');
+            return;
+        }
+        let formattedDate = moment(currentDate).format('DD/MM/YYYY');
+        if (rangeTime && rangeTime.length > 0) {
+            let selectedTime = rangeTime.filter((item) => item.isSelected === true);
+            console.log('🚀 ~ file: ManageSchedule.js ~ line 85 ~ handleSaveSchedule ~ selectedTime', selectedTime);
+            if (selectedTime && selectedTime.length > 0) {
+                selectedTime.map((time) => {
+                    let object = {};
+                    object.doctorId = selectedDoctor.value;
+                    object.date = formattedDate;
+                    object.time = time.keyMap;
+                    return result.push(object);
+                });
+            } else {
+                toast.error('Invalid selected time!!');
+                return;
+            }
+        }
+        console.log('🚀 ~ file: ManageSchedule.js ~ line 94 ~ handleSaveSchedule ~ result', result);
     };
 
     return (
@@ -75,13 +123,21 @@ function ManageSchedule(props) {
                         {rangeTime &&
                             rangeTime.length > 0 &&
                             rangeTime.map((item, index) => (
-                                <button key={index} className='btn btn-schedule'>
+                                <button
+                                    key={index}
+                                    className={
+                                        item.isSelected === true ? 'active btn btn-schedule' : ' btn btn-schedule'
+                                    }
+                                    onClick={() => handleClickBtnTime(item)}
+                                >
                                     {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                 </button>
                             ))}
                     </div>
                     <div className='col-12'>
-                        <button className='btn btn-primary '>Đặt hẹn</button>
+                        <button className='btn btn-primary' onClick={handleSaveSchedule}>
+                            Đặt hẹn
+                        </button>
                     </div>
                 </div>
             </div>

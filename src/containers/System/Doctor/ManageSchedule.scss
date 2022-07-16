@@ -15,9 +15,15 @@
         flex-wrap: wrap;
 
         button {
-            padding: 5px 15px;
-            border: 1px solid #ccc;
             line-height: inherit;
+            width: 140px;
+            color: #333;
+            background-color: #fff8ae;
+
+            &.active {
+                color: #333;
+                background-color: orange;
+            }
         }
     }
     button.btn.btn-primary {
