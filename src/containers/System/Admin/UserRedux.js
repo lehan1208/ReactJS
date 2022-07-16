@@ -17,7 +17,7 @@ function UserRedux(props) {
         getRoleStart,
         roleRedux,
         createNewUser,
-        fetchUserRedux,
+        // fetchUserRedux,
         UserRedux,
         editUser,
     } = props;

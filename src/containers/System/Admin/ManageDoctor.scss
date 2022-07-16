@@ -16,7 +16,23 @@
         outline: none;
         font-size: 16px;
         cursor: pointer;
-        background-color: #bbb;
+        background-color: rgb(226, 136, 34);
+        border-radius: 10px;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .create-content-doctor {
+        margin: 20px 20px 30px;
+        padding: 10px;
+        border: none;
+        color: #fff;
+        outline: none;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: rgb(30, 76, 226);
         border-radius: 10px;
 
         &:hover {

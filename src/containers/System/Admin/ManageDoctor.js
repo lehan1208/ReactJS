@@ -7,6 +7,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import { LANGUAGES } from '../../../utils/';
+import { getDetailInfoDoctor } from '../.../../../../services/userService';
 
 const options = [
     { value: 'doctor', label: 'Bác sĩ' },
@@ -48,8 +49,6 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
         setListDoctor(doctorSelectOption);
     }, [allDoctor, language]);
 
-    console.log('🚀 ~ file: ManageDoctor.js ~ line 52 ~ ManageDoctor ~ listDoctor', listDoctor);
-
     function handleEditorChange({ html, text }) {
         setContentHTML(html);
         setContentMarkdown(text);
@@ -67,8 +66,26 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
         // setDescription(description);
     };
 
-    const handleChange = (selectedDoctor) => {
+    const handleChangeSelect = async (selectedDoctor) => {
         setSelectedDoctor(selectedDoctor);
+        let res = await getDetailInfoDoctor(selectedDoctor.value);
+        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+            let markDown = res.data.Markdown;
+            setContentHTML(markDown.contentHTML);
+            setContentMarkdown(markDown.contentMarkdown);
+            setDescription(markDown.description);
+            // setHasOldData(true);
+        } else {
+            // Nếu không có Markdown
+            setContentHTML('');
+            setContentMarkdown('');
+            setDescription('');
+            // setHasOldData(false);
+        }
+        console.log(
+            '🚀 ~ file: ManageDoctor.js ~ line 79 ~ handleChangeSelect ~ res.data',
+            res.data
+        );
     };
 
     return (
@@ -80,7 +97,7 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
                         <label>Chọn bác sĩ</label>
                         <Select
                             value={selectedDoctor}
-                            onChange={handleChange}
+                            onChange={handleChangeSelect}
                             options={listDoctor}
                         />
                     </div>
@@ -91,7 +108,7 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
                             id='info'
                             rows='4'
                             onChange={(e) => setDescription(e.target.value)}
-                            value={description}
+                            value={description || ''}
                         >
                             Hello
                         </textarea>
@@ -104,6 +121,7 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
                     style={{ height: '500px' }}
                     renderHTML={(text) => mdParser.render(text)}
                     onChange={handleEditorChange}
+                    value={contentMarkdown || ''}
                 />
             </div>
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './HomeHeader.scss';
 import { LANGUAGES } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions';
+import { useHistory } from 'react-router-dom';
 
 const arrInfos = [
     { key: '/specialty', icon: 'fas fa-hospital-alt', title: 'Khám chuyên khoa' },
@@ -17,6 +18,7 @@ const arrInfos = [
 ];
 
 function HomeHeader(props) {
+    const history = useHistory();
     const { changeLanguageAppRedux, language, isShowBanner } = props;
 
     const changeLanguage = (language) => {
@@ -27,13 +29,17 @@ function HomeHeader(props) {
         // Handle follow key
     };
 
+    const returnHome = () => {
+        history.push('/home');
+    };
+
     return (
         <>
             <div className='home-header-container'>
                 <div className='home-header-content'>
                     <div className='left-content'>
                         <i className='fas fa-bars'></i>
-                        <div className='header-logo'></div>
+                        <div className='header-logo' onClick={() => returnHome()}></div>
                     </div>
                     <div className='center-content'>
                         <div className='child-content'>

@@ -2,7 +2,6 @@
     width: 1140px;
     margin: 0 auto;
     height: 500px;
-    border: 1px solid red;
 
     .intro-doctor {
         padding: 15px 0;
@@ -11,7 +10,7 @@
 
         .down {
             display: flex;
-            border: 1px solid #ccc;
+
             .left {
                 width: 160px;
                 height: 160px;
@@ -45,5 +44,24 @@
                 }
             }
         }
+    }
+
+    .detail-info-doctor {
+        padding-top: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: #f9f9f9;
+        border-top: 1px solid #ccc;
+
+        h3 {
+            font-size: 17px;
+        }
+        img {
+            width: 100%;
+        }
+    }
+
+    .comment-doctor {
+        height: 100px;
     }
 }
