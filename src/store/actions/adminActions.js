@@ -283,6 +283,7 @@ export const fetchAllScheduleTime = () => {
                     dataTime: res.data,
                 });
             } else {
+                toast.error('Create appointment failed!!');
                 dispatch({
                     type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED,
                 });

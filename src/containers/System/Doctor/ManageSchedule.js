@@ -8,6 +8,7 @@ import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
+import { saveBulkScheduleDoctor } from '../../../services/userService';
 
 function ManageSchedule(props) {
     const { isLoggedIn, fetchAllDoctor, language, allDoctor, fetchAllScheduleTime, allScheduleTime } = props;
@@ -56,22 +57,17 @@ function ManageSchedule(props) {
     };
 
     const handleClickBtnTime = (time) => {
-        console.log('🚀 ~ file: ManageSchedule.js ~ line 60 ~ handleClickBtnTime ~ item', time);
         if (rangeTime && rangeTime.length > 0) {
-            let rangeTime2 = rangeTime.map((item) => {
+            let rangeTimeSelected = rangeTime.map((item) => {
                 if (item.id === time.id) item.isSelected = !item.isSelected;
                 return item;
             });
-            setRangeTime(rangeTime2);
+            setRangeTime(rangeTimeSelected);
         }
     };
 
-    const handleSaveSchedule = () => {
-        console.log('Check selectedDoctor: ', selectedDoctor);
-        console.log('Check currentDate: ', moment(currentDate).format('DD/MM/YYYY'));
-        console.log('Check rangeTime: ', rangeTime);
+    const handleSaveSchedule = async () => {
         let result = [];
-
         if (!currentDate) {
             toast.error('Invalid date!!');
             return;
@@ -80,16 +76,18 @@ function ManageSchedule(props) {
             toast.error('Invalid selected doctor!!');
             return;
         }
-        let formattedDate = moment(currentDate).format('DD/MM/YYYY');
+
+        let formattedDate = new Date(currentDate).getTime();
+
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter((item) => item.isSelected === true);
             console.log('🚀 ~ file: ManageSchedule.js ~ line 85 ~ handleSaveSchedule ~ selectedTime', selectedTime);
             if (selectedTime && selectedTime.length > 0) {
-                selectedTime.map((time) => {
+                selectedTime.map((schedule) => {
                     let object = {};
                     object.doctorId = selectedDoctor.value;
                     object.date = formattedDate;
-                    object.time = time.keyMap;
+                    object.timeType = schedule.keyMap;
                     return result.push(object);
                 });
             } else {
@@ -97,7 +95,13 @@ function ManageSchedule(props) {
                 return;
             }
         }
-        console.log('🚀 ~ file: ManageSchedule.js ~ line 94 ~ handleSaveSchedule ~ result', result);
+        let res = await saveBulkScheduleDoctor({
+            arrSchedule: result,
+            doctorId: selectedDoctor.value,
+            formattedDate: formattedDate,
+        });
+        console.log('🚀 ~ file: ManageSchedule.js ~ line 97 ~ saveBulkScheduleDoctor', res);
+        // console.log('🚀 ~ file: ManageSchedule.js ~ line 94 ~ handleSaveSchedule ~ result', result);
     };
 
     return (
