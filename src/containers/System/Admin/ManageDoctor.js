@@ -6,8 +6,8 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
-import { LANGUAGES } from '../../../utils/';
-import { getDetailInfoDoctor } from '../.../../../../services/userService';
+import { LANGUAGES } from '../../../utils';
+import { getDetailInfoDoctor } from '../../../services/userService';
 
 const options = [
     { value: 'doctor', label: 'Bác sĩ' },
@@ -16,25 +16,44 @@ const options = [
 ];
 
 const mdParser = new MarkdownIt();
-function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor }) {
+function ManageDoctor({
+    fetchAllDoctor,
+    allDoctor,
+    language,
+    saveDetailDoctor,
+    getRequiredDoctorInfo,
+    allRequiredDoctorInfo,
+}) {
+    // Save to markdown table
     const [selectedDoctor, setSelectedDoctor] = useState('test');
     const [contentHTML, setContentHTML] = useState('');
     const [contentMarkdown, setContentMarkdown] = useState('');
     const [description, setDescription] = useState('');
     const [listDoctor, setListDoctor] = useState([]);
 
+    // Save to doctor_info table
+    const [listPrice, setListPrice] = useState([]);
+    const [listPayment, setListPayment] = useState([]);
+    const [listProvince, setListProvince] = useState([]);
+    const [selectedPrice, setSelectedPrice] = useState('');
+    const [selectedPayment, setSelectedPayment] = useState('');
+    const [selectedProvince, setSelectedProvince] = useState('');
+    const [nameClinic, setNameClinic] = useState('');
+    const [addressClinic, setAddressClinic] = useState('');
+    const [note, setNote] = useState('');
+
     useEffect(() => {
         fetchAllDoctor();
+        getRequiredDoctorInfo();
     }, []);
 
-    // Build data input từ listDoctor => options
-    const buildDataInputSelect = (inputData) => {
+    const buildDataInputSelect = (inputData, type) => {
         let result = [];
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {};
-                let labelEn = `${item.firstName} ${item.lastName}`;
-                let labelVi = `${item.lastName} ${item.firstName} `;
+                let labelEn = type === 'USER' ? `${item.firstName} ${item.lastName}` : item.valueEn;
+                let labelVi = type === 'USER' ? `${item.lastName} ${item.firstName}` : item.valueVi;
 
                 object.label = language === LANGUAGES.VI ? labelVi : labelEn;
                 object.value = item.id;
@@ -44,8 +63,10 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
         return result;
     };
 
+    // Build data input từ listDoctor => options
+
     useEffect(() => {
-        let doctorSelectOption = buildDataInputSelect(allDoctor);
+        let doctorSelectOption = buildDataInputSelect(allDoctor, 'USER');
         setListDoctor(doctorSelectOption);
     }, [allDoctor, language]);
 
@@ -82,15 +103,24 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
             setDescription('');
             // setHasOldData(false);
         }
-        console.log(
-            '🚀 ~ file: ManageDoctor.js ~ line 79 ~ handleChangeSelect ~ res.data',
-            res.data
-        );
+        console.log('🚀 ~ file: ManageDoctor.js ~ line 79 ~ handleChangeSelect ~ res.data', res.data);
     };
+    useEffect(() => {
+        let { resPrice, resPayment, resProvince } = allRequiredDoctorInfo;
+
+        let dataSelectPrice = buildDataInputSelect(resPrice);
+        let dataSelectPayment = buildDataInputSelect(resPayment);
+        let dataSelectProvince = buildDataInputSelect(resProvince);
+        console.log('🚀', dataSelectPrice, dataSelectPayment, dataSelectProvince);
+
+        setListPrice(dataSelectPrice);
+        setListPayment(dataSelectPayment);
+        setListProvince(dataSelectProvince);
+    }, [allRequiredDoctorInfo]);
 
     return (
         <div className='manage-doctor-container'>
-            <div className='manage-doctor-title'>HELLO FROM MANAGE DOCTOR </div>
+            <div className='manage-doctor-title'>TẠO THÊM THÔNG TIN BÁC SĨ</div>
             <div className='more-info'>
                 <div className='form-group row'>
                     <div className='content-left col-6'>
@@ -99,14 +129,14 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
                             value={selectedDoctor}
                             onChange={handleChangeSelect}
                             options={listDoctor}
+                            placeholder={'Chọn bác sĩ'}
                         />
                     </div>
                     <div className='content-right col-6'>
-                        <label htmlFor='info'> Thông tin giới thiệu</label>
+                        <label htmlFor='info'>Thông tin giới thiệu</label>
                         <textarea
                             className='form-control mb-2'
                             id='info'
-                            rows='4'
                             onChange={(e) => setDescription(e.target.value)}
                             value={description || ''}
                         >
@@ -116,6 +146,47 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
                 </div>
             </div>
 
+            <div className='more-info-extra row '>
+                <div className='col-4 form-group'>
+                    <label htmlFor=''>Chọn giá</label>
+                    <Select
+                        // value={selectedDoctor}
+                        // onChange={handleChangeSelect}
+                        options={listPrice}
+                        placeholder={'Chọn giá'}
+                    />
+                </div>
+                <div className='col-4 form-group'>
+                    <label htmlFor=''>Chọn phương thức thanh toán</label>
+                    <Select
+                        // value={selectedDoctor}
+                        // onChange={handleChangeSelect}
+                        options={listPayment}
+                        placeholder={'Chọn thanh toán'}
+                    />
+                </div>
+                <div className='col-4 form-group'>
+                    <label htmlFor=''>Chọn tỉnh thành</label>
+                    <Select
+                        // value={selectedDoctor}
+                        // onChange={handleChangeSelect}
+                        options={listProvince}
+                        placeholder={'Chọn tỉnh thành'}
+                    />
+                </div>
+                <div className='col-4 form-group'>
+                    <label htmlFor=''>Tên phòng khám</label>
+                    <input type='' className='form-control' />
+                </div>
+                <div className='col-4 form-group'>
+                    <label htmlFor=''>Địa chỉ phòng khám</label>
+                    <input type='' className='form-control' />
+                </div>
+                <div className='col-4 form-group'>
+                    <label htmlFor=''>Note</label>
+                    <input type='' className='form-control' />
+                </div>
+            </div>
             <div className='manage-doctor-editor'>
                 <MdEditor
                     style={{ height: '500px' }}
@@ -124,7 +195,6 @@ function ManageDoctor({ fetchAllDoctor, allDoctor, language, saveDetailDoctor })
                     value={contentMarkdown || ''}
                 />
             </div>
-
             <button className='save-content-doctor' onClick={() => handleSaveContentMarkDown()}>
                 Lưu thông tin
             </button>
@@ -137,15 +207,16 @@ const mapStateToProps = (state) => {
         // userRedux: state.admin.users, // ref => adminReducer.js (admin from rootReducer.js)
         allDoctor: state.admin.getAllDoctor,
         language: state.app.language,
+        allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllDoctor: () => dispatch(actions.fetchAllDoctor()),
+        getRequiredDoctorInfo: () => dispatch(actions.getRequiredDoctorInfo()),
+
         saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
-        // fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
-        // deleteUserRedux: (id) => dispatch(actions.deleteUser(id)),
     };
 };
 
