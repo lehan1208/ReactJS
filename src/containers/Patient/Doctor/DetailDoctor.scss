@@ -61,7 +61,7 @@
     }
     .schedule-doctor {
         display: flex;
-        height: 300px;
+        min-height: 200px;
         border: 1px solid red;
 
         .content-left {

@@ -40,25 +40,32 @@
             }
         }
         .time-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            .time-content {
+                display: flex;
+                grid-gap: 10px;
+                gap: 10px;
+                flex-wrap: wrap;
+                padding: 16px 0;
+                button {
+                    padding: 8px 16px;
+                    margin: 0 10px;
+                    border: none;
+                    outline: none;
+                    width: 160px;
+                    border-radius: 3px;
+                    background-color: #fff8ae;
+                    font-weight: 600;
+                    color: #333;
 
-            button {
-                padding: 8px 16px;
-                margin: 0 10px;
-                border: none;
-                outline: none;
-                width: 160px;
-                border-radius: 3px;
-                background-color: #fff8ae;
-                font-weight: 600;
-                color: #333;
-
-                &:hover {
-                    background-color: #45c3d2;
-                    color: #fff;
+                    &:hover {
+                        background-color: #45c3d2;
+                        color: #fff;
+                    }
                 }
+            }
+            .no-appointment {
+                font-style: italic;
+                margin-left: 10px;
             }
         }
     }

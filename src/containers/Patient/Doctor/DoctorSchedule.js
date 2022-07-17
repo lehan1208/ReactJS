@@ -18,29 +18,40 @@ function DoctorSchedule({ language }) {
     }
 
     useEffect(() => {
-        let arrDate = [];
+        let allDays = [];
         for (let i = 0; i < 7; i++) {
             let object = {};
             if (language === LANGUAGES.VI) {
-                let inHoa = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
-                object.label = capitalizeFirstLetter(inHoa);
+                if (i === 0) {
+                    let ddMM = moment(new Date()).format('DD/MM');
+                    let today = `Hôm nay - ${ddMM}`;
+                    object.label = today;
+                } else {
+                    let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                    object.label = capitalizeFirstLetter(labelVi);
+                }
             } else {
-                object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd- DD/MM');
+                if (i === 0) {
+                    let ddMM = moment(new Date()).format('DD/MM');
+                    let today = `Today - ${ddMM}`;
+                    object.label = today;
+                } else {
+                    let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                    object.label = capitalizeFirstLetter(labelVi);
+                }
             }
             object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf(); //unix time
 
-            arrDate.push(object);
+            allDays.push(object);
         }
-        setAllDays(arrDate);
-    }, [language]);
+        setAllDays(allDays);
+    }, [language, allDays]);
 
     const handleOnChangeSelect = (e) => {
         let doctorId = id;
         let date = e.target.value;
         async function fetchData() {
             let res = await getScheduleByDate(doctorId, date);
-            console.log('🚀 ~ file: DoctorSchedule.js ~ line 32 ~ fetchData ~ res', res);
-
             if (res && res.errCode === 0) {
                 setAvailableTime(res.data ? res.data : []);
             }
@@ -63,18 +74,32 @@ function DoctorSchedule({ language }) {
             </div>
             <div className='all-time-available'>
                 <div className='text-calendar'>
-                    <i class='fas fa-calendar-alt'></i>
+                    <i className='fas fa-calendar-alt'></i>
                     <span>Lịch khám</span>
                 </div>
                 <div className='time-container'>
                     {availableTime && availableTime.length > 0 ? (
-                        availableTime.map((item, index) => {
-                            let timeDisplay =
-                                language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
-                            return <button key={index}>{timeDisplay}</button>;
-                        })
+                        <>
+                            <div className='time-content'>
+                                {availableTime.map((item, index) => {
+                                    let timeDisplay =
+                                        language === LANGUAGES.VI
+                                            ? item.timeTypeData.valueVi
+                                            : item.timeTypeData.valueEn;
+                                    return <button key={index}>{timeDisplay}</button>;
+                                })}
+                            </div>
+
+                            <div className='book-free px-3 pb-3'>
+                                <span>Chọn</span>
+                                <i className='far fa-hand-pointer mx-2'></i>
+                                <span>và đặt (Phí đặt lịch 0đ)</span>
+                            </div>
+                        </>
                     ) : (
-                        <div>Không có lịch hẹn trong thời gian này. Vui lòng chọn thời gian khác</div>
+                        <div className='no-appointment'>
+                            Bác sĩ không có lịch hẹn trong thời gian này. Vui lòng chọn thời gian khác
+                        </div>
                     )}
                 </div>
             </div>

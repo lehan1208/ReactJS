@@ -12,6 +12,7 @@ import { saveBulkScheduleDoctor } from '../../../services/userService';
 
 function ManageSchedule(props) {
     const { isLoggedIn, fetchAllDoctor, language, allDoctor, fetchAllScheduleTime, allScheduleTime } = props;
+    let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
 
     const [listDoctor, setListDoctor] = useState([]);
     const [selectedDoctor, setSelectedDoctor] = useState('');
@@ -81,7 +82,6 @@ function ManageSchedule(props) {
 
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter((item) => item.isSelected === true);
-            console.log('🚀 ~ file: ManageSchedule.js ~ line 85 ~ handleSaveSchedule ~ selectedTime', selectedTime);
             if (selectedTime && selectedTime.length > 0) {
                 selectedTime.map((schedule) => {
                     let object = {};
@@ -100,8 +100,13 @@ function ManageSchedule(props) {
             doctorId: selectedDoctor.value,
             formattedDate: formattedDate,
         });
-        console.log('🚀 ~ file: ManageSchedule.js ~ line 97 ~ saveBulkScheduleDoctor', res);
-        // console.log('🚀 ~ file: ManageSchedule.js ~ line 94 ~ handleSaveSchedule ~ result', result);
+
+        if (res && res.errCode === 0) {
+            toast.success('Save Info Succeed !!');
+        } else {
+            toast.error('Error save bulk !!');
+            console.log("'Error save bulk !!", res);
+        }
     };
 
     return (
@@ -117,7 +122,7 @@ function ManageSchedule(props) {
                         <label htmlFor='date'>Ngày khám</label>
                         <DatePicker
                             value={currentDate}
-                            minDate={new Date()}
+                            minDate={yesterday}
                             className='form-control'
                             id='date'
                             onChange={handleOnchangeDatePicker}
