@@ -38,10 +38,18 @@ function ManageDoctor({
     const [selectedPrice, setSelectedPrice] = useState('');
     const [selectedPayment, setSelectedPayment] = useState('');
     const [selectedProvince, setSelectedProvince] = useState('');
-    const [nameClinic, setNameClinic] = useState('');
-    const [addressClinic, setAddressClinic] = useState('');
-    const [note, setNote] = useState('');
 
+    const [onChangeText, setOnChangeText] = useState({
+        nameClinic: '',
+        addressClinic: '',
+        note: '',
+    });
+
+    const handleOnchangeText = (e, id) => {
+        let onChangeTextCopy = { ...onChangeText };
+        onChangeTextCopy[id] = e.target.value;
+        setOnChangeText({ ...onChangeTextCopy });
+    };
     useEffect(() => {
         fetchAllDoctor();
         getRequiredDoctorInfo();
@@ -50,17 +58,41 @@ function ManageDoctor({
     const buildDataInputSelect = (inputData, type) => {
         let result = [];
         if (inputData && inputData.length > 0) {
-            inputData.map((item, index) => {
-                let object = {};
-                let labelEn = type === 'USER' ? `${item.firstName} ${item.lastName}` : item.valueEn;
-                let labelVi = type === 'USER' ? `${item.lastName} ${item.firstName}` : item.valueVi;
+            if (type === 'USER') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    let labelEn = `${item.firstName} ${item.lastName}`;
+                    let labelVi = `${item.lastName} ${item.firstName}`;
 
-                object.label = language === LANGUAGES.VI ? labelVi : labelEn;
-                object.value = item.id;
-                return result.push(object);
-            });
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                    object.value = item.id;
+                    return result.push(object);
+                });
+            }
+            if (type === 'PRICE') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    let labelVi = `${item.valueVi}`;
+                    let labelEn = `${item.valueEn}`;
+
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                    object.value = item.keyMap;
+                    return result.push(object);
+                });
+            }
+            if (type === 'PAYMENT' || type === 'PROVINCE') {
+                inputData.map((item, index) => {
+                    let object = {};
+                    let labelVi = `${item.valueVi}`;
+                    let labelEn = `${item.valueEn}`;
+
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                    object.value = item.keyMap;
+                    return result.push(object);
+                });
+            }
+            return result;
         }
-        return result;
     };
 
     // Build data input từ listDoctor => options
@@ -82,9 +114,14 @@ function ManageDoctor({
             contentMarkdown: contentMarkdown,
             description: description,
             doctorId: selectedDoctor.value,
-        });
 
-        // setDescription(description);
+            selectedPrice: selectedPrice,
+            selectedPayment: selectedPayment,
+            selectedProvince: selectedProvince,
+            nameClinic: onChangeText.nameClinic,
+            addressClinic: onChangeText.addressClinic,
+            note: onChangeText.note,
+        });
     };
 
     const handleChangeSelect = async (selectedDoctor) => {
@@ -95,7 +132,6 @@ function ManageDoctor({
             setContentHTML(markDown.contentHTML);
             setContentMarkdown(markDown.contentMarkdown);
             setDescription(markDown.description);
-            // setHasOldData(true);
         } else {
             // Nếu không có Markdown
             setContentHTML('');
@@ -103,15 +139,33 @@ function ManageDoctor({
             setDescription('');
             // setHasOldData(false);
         }
-        console.log('🚀 ~ file: ManageDoctor.js ~ line 79 ~ handleChangeSelect ~ res.data', res.data);
     };
+
+    const handleChangeSelectDoctorInfo = async (selectOption, name) => {
+        let stateName = name.name;
+        switch (stateName) {
+            case 'selectedPrice':
+                setSelectedPrice(selectOption);
+                break;
+            case 'selectedPayment':
+                setSelectedPayment(selectOption);
+                break;
+            case 'selectedProvince':
+                setSelectedProvince(selectOption);
+
+                break;
+            default:
+                break;
+        }
+        console.log('check selectedPayment', selectedPayment);
+    };
+
     useEffect(() => {
         let { resPrice, resPayment, resProvince } = allRequiredDoctorInfo;
 
-        let dataSelectPrice = buildDataInputSelect(resPrice);
-        let dataSelectPayment = buildDataInputSelect(resPayment);
-        let dataSelectProvince = buildDataInputSelect(resProvince);
-        console.log('🚀', dataSelectPrice, dataSelectPayment, dataSelectProvince);
+        let dataSelectPrice = buildDataInputSelect(resPrice, 'PRICE');
+        let dataSelectPayment = buildDataInputSelect(resPayment, 'PAYMENT');
+        let dataSelectProvince = buildDataInputSelect(resProvince, 'PROVINCE');
 
         setListPrice(dataSelectPrice);
         setListPayment(dataSelectPayment);
@@ -150,41 +204,56 @@ function ManageDoctor({
                 <div className='col-4 form-group'>
                     <label htmlFor=''>Chọn giá</label>
                     <Select
-                        // value={selectedDoctor}
-                        // onChange={handleChangeSelect}
-                        options={listPrice}
                         placeholder={'Chọn giá'}
+                        onChange={handleChangeSelectDoctorInfo}
+                        options={listPrice}
+                        value={selectedPrice}
+                        name='selectedPrice'
                     />
                 </div>
                 <div className='col-4 form-group'>
                     <label htmlFor=''>Chọn phương thức thanh toán</label>
                     <Select
-                        // value={selectedDoctor}
-                        // onChange={handleChangeSelect}
-                        options={listPayment}
                         placeholder={'Chọn thanh toán'}
+                        onChange={handleChangeSelectDoctorInfo}
+                        options={listPayment}
+                        value={selectedPayment}
+                        name='selectedPayment'
                     />
                 </div>
                 <div className='col-4 form-group'>
                     <label htmlFor=''>Chọn tỉnh thành</label>
                     <Select
-                        // value={selectedDoctor}
-                        // onChange={handleChangeSelect}
+                        onChange={handleChangeSelectDoctorInfo}
                         options={listProvince}
+                        value={selectedProvince}
+                        name='selectedProvince'
                         placeholder={'Chọn tỉnh thành'}
                     />
                 </div>
                 <div className='col-4 form-group'>
                     <label htmlFor=''>Tên phòng khám</label>
-                    <input type='' className='form-control' />
+                    <input
+                        type=''
+                        className='form-control'
+                        onChange={(e) => handleOnchangeText(e, 'nameClinic')}
+                    />
                 </div>
                 <div className='col-4 form-group'>
                     <label htmlFor=''>Địa chỉ phòng khám</label>
-                    <input type='' className='form-control' />
+                    <input
+                        type=''
+                        className='form-control'
+                        onChange={(e) => handleOnchangeText(e, 'addressClinic')}
+                    />
                 </div>
                 <div className='col-4 form-group'>
                     <label htmlFor=''>Note</label>
-                    <input type='' className='form-control' />
+                    <input
+                        type=''
+                        className='form-control'
+                        onChange={(e) => handleOnchangeText(e, 'note')}
+                    />
                 </div>
             </div>
             <div className='manage-doctor-editor'>
