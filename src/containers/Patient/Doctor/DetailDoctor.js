@@ -6,6 +6,7 @@ import './DetailDoctor.scss';
 import { LANGUAGES } from '../../../utils/';
 import { getDetailInfoDoctor } from '../../../services/userService';
 import DoctorSchedule from './DoctorSchedule';
+import DoctorExtraInfo from './DoctorExtraInfo';
 
 function DetailDoctor({ language }) {
     let { id } = useParams();
@@ -34,13 +35,20 @@ function DetailDoctor({ language }) {
             <div className='doctor-detail-container'>
                 <div className='intro-doctor'>
                     <div className='down '>
-                        <div className='left' style={{ backgroundImage: `url(${detailDoctor.image})` }}></div>
+                        <div
+                            className='left'
+                            style={{ backgroundImage: `url(${detailDoctor.image})` }}
+                        ></div>
                         <div className='right d-flex flex-column '>
-                            <div className='doctor-name '>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
+                            <div className='doctor-name '>
+                                {language === LANGUAGES.VI ? nameVi : nameEn}
+                            </div>
                             <div className='doctor-info'>
-                                {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.description && (
-                                    <span>{detailDoctor.Markdown.description}</span>
-                                )}
+                                {detailDoctor &&
+                                    detailDoctor.Markdown &&
+                                    detailDoctor.Markdown.description && (
+                                        <span>{detailDoctor.Markdown.description}</span>
+                                    )}
                             </div>
                             <button className=' share-btn btn btn-primary'>Chia sẻ</button>
                         </div>
@@ -50,11 +58,15 @@ function DetailDoctor({ language }) {
                     <div className='content-left'>
                         <DoctorSchedule />
                     </div>
-                    <div className='content-right'></div>
+                    <div className='content-right'>
+                        <DoctorExtraInfo />
+                    </div>
                 </div>
                 <div className='detail-info-doctor'>
                     {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.contentHTML && (
-                        <div dangerouslySetInnerHTML={{ __html: detailDoctor.Markdown.contentHTML }}></div>
+                        <div
+                            dangerouslySetInnerHTML={{ __html: detailDoctor.Markdown.contentHTML }}
+                        ></div>
                     )}
                 </div>
                 <div className='comment-doctor'></div>

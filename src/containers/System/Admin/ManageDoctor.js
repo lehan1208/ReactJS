@@ -129,17 +129,52 @@ function ManageDoctor({
         let res = await getDetailInfoDoctor(selectedDoctor.value);
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markDown = res.data.Markdown;
-            setContentHTML(markDown.contentHTML);
-            setContentMarkdown(markDown.contentMarkdown);
-            setDescription(markDown.description);
+
+            if (res.data.Doctor_Info) {
+                let addressClinic = res.data.Doctor_Info.addressClinic;
+                let note = res.data.Doctor_Info.note;
+                let nameClinic = res.data.Doctor_Info.nameClinic;
+
+                let priceId = res.data.Doctor_Info.priceId;
+                let paymentId = res.data.Doctor_Info.paymentId;
+                let provinceId = res.data.Doctor_Info.provinceId;
+
+                let selectedPrice = listPrice.find((item) => {
+                    return item && item.value === priceId;
+                });
+                let selectedPayment = listPayment.find((item) => {
+                    return item && item.value === paymentId;
+                });
+                let selectedProvince = listProvince.find((item) => {
+                    return item && item.value === provinceId;
+                });
+                // console.log('CHECK findItem: ', findItem, 'CHECK listPayment: ', listPayment);
+
+                setContentHTML(markDown.contentHTML);
+                setContentMarkdown(markDown.contentMarkdown);
+                setDescription(markDown.description);
+                setOnChangeText({
+                    nameClinic: nameClinic,
+                    addressClinic: addressClinic,
+                    note: note,
+                });
+                setSelectedPrice(selectedPrice);
+                setSelectedPayment(selectedPayment);
+                setSelectedProvince(selectedProvince);
+            }
         } else {
             // Nếu không có Markdown
             setContentHTML('');
             setContentMarkdown('');
             setDescription('');
-            // setHasOldData(false);
+            setOnChangeText({
+                nameClinic: '',
+                addressClinic: '',
+                note: '',
+            });
         }
     };
+    console.log('selectedPrice: ', selectedPrice, 'selectedProvince: ', selectedProvince);
 
     const handleChangeSelectDoctorInfo = async (selectOption, name) => {
         let stateName = name.name;
