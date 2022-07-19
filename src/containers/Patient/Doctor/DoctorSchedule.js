@@ -7,6 +7,7 @@ import { getScheduleByDate } from '../../../services/userService';
 import moment from 'moment';
 // eslint-disable-next-line no-unused-vars
 import localization from 'moment/locale/vi';
+import { FormattedMessage } from 'react-intl';
 
 function DoctorSchedule({ language }) {
     const { id } = useParams();
@@ -75,7 +76,9 @@ function DoctorSchedule({ language }) {
             <div className='all-time-available'>
                 <div className='text-calendar'>
                     <i className='fas fa-calendar-alt'></i>
-                    <span>Lịch khám</span>
+                    <span>
+                        <FormattedMessage id='patient.detail-doctor.schedule' />
+                    </span>
                 </div>
                 <div className='time-container'>
                     {availableTime && availableTime.length > 0 ? (
@@ -91,14 +94,18 @@ function DoctorSchedule({ language }) {
                             </div>
 
                             <div className='book-free px-3 pb-3'>
-                                <span>Chọn</span>
+                                <span>
+                                    <FormattedMessage id='patient.detail-doctor.choose' />
+                                </span>
                                 <i className='far fa-hand-pointer mx-2'></i>
-                                <span>và đặt (Phí đặt lịch 0đ)</span>
+                                <span>
+                                    <FormattedMessage id='patient.detail-doctor.book-free' />
+                                </span>
                             </div>
                         </>
                     ) : (
                         <div className='no-appointment'>
-                            Bác sĩ không có lịch hẹn trong thời gian này. Vui lòng chọn thời gian khác
+                            <FormattedMessage id='patient.detail-doctor.no-schedule' />
                         </div>
                     )}
                 </div>

@@ -5,6 +5,7 @@ import './DoctorExtraInfo.scss';
 import { getExtraInfoDoctorById } from '../../../services/userService';
 import NumberFormat from 'react-number-format';
 import { LANGUAGES } from '../../../utils';
+import { FormattedMessage } from 'react-intl';
 
 function DoctorExtraInfo({ language }) {
     const { id } = useParams();
@@ -26,7 +27,9 @@ function DoctorExtraInfo({ language }) {
     return (
         <div className='doctor-extra-info-container'>
             <div className='content-top'>
-                <div className='text-address'>ĐỊA CHỈ KHÁM</div>
+                <div className='text-address'>
+                    <FormattedMessage id='patient.extra-info-doctor.text-address' />
+                </div>
                 <div className='text-clinic'>
                     {extraInfo && extraInfo.nameClinic ? extraInfo.nameClinic : ''}
                 </div>
@@ -37,7 +40,9 @@ function DoctorExtraInfo({ language }) {
             <div className='content-bottom'>
                 {isShowPrice === false ? (
                     <div>
-                        <span className='gia-kham-bottom'>GIÁ KHÁM: </span>
+                        <span className='gia-kham-bottom'>
+                            <FormattedMessage id='patient.extra-info-doctor.price' />:
+                        </span>
                         {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.VI && (
                             <NumberFormat
                                 value={
@@ -63,19 +68,23 @@ function DoctorExtraInfo({ language }) {
                             />
                         )}
                         <span className='show-price' onClick={togglePrice}>
-                            Xem chi tiết
+                            <FormattedMessage id='patient.extra-info-doctor.more-detail' />:
                         </span>
                     </div>
                 ) : (
                     <>
-                        <h3>GIÁ KHÁM: .</h3>
+                        <h3>
+                            <FormattedMessage id='patient.extra-info-doctor.price' />:
+                        </h3>
                         <div className='detail d-flex justify-content-between'>
                             <span>
-                                <span className='gia-kham'> Giá khám</span>
+                                <span className='gia-kham'>
+                                    <FormattedMessage id='patient.extra-info-doctor.price' />:
+                                </span>
                                 <br />
-                                Giá tư vấn 15 phút: 250.000vnđ
-                                <br />
-                                Giá tư vấn 30 phút: 500.000vnđ
+                                <spanc className='note'>
+                                    {extraInfo && extraInfo.note ? extraInfo.note : ''}
+                                </spanc>
                             </span>
                             <span>
                                 {extraInfo &&
@@ -83,8 +92,8 @@ function DoctorExtraInfo({ language }) {
                                     language === LANGUAGES.VI && (
                                         <NumberFormat
                                             value={
-                                                extraInfo && extraInfo.priceTypeData.valueVi
-                                                    ? extraInfo.priceTypeData.valueVi
+                                                extraInfo && extraInfo.priceTypeData?.valueVi
+                                                    ? extraInfo.priceTypeData?.valueVi
                                                     : ''
                                             }
                                             displayType={'text'}
@@ -97,8 +106,8 @@ function DoctorExtraInfo({ language }) {
                                     language === LANGUAGES.EN && (
                                         <NumberFormat
                                             value={
-                                                extraInfo && extraInfo.priceTypeData.valueEn
-                                                    ? extraInfo.priceTypeData.valueEn
+                                                extraInfo && extraInfo.priceTypeData?.valueEn
+                                                    ? extraInfo.priceTypeData?.valueEn
                                                     : ''
                                             }
                                             displayType={'text'}
@@ -109,11 +118,21 @@ function DoctorExtraInfo({ language }) {
                             </span>
                         </div>
                         <div className='payment'>
-                            Phòng khám có thanh toán bằng hình thức tiền mặt và quẹt thẻ
+                            <FormattedMessage id='patient.extra-info-doctor.payment' />: &nbsp;
+                            {extraInfo &&
+                            extraInfo.paymentTypeData?.valueVi &&
+                            language === LANGUAGES.VI
+                                ? extraInfo.paymentTypeData?.valueVi
+                                : ''}
+                            {extraInfo &&
+                            extraInfo.paymentTypeData?.valueEn &&
+                            language === LANGUAGES.EN
+                                ? extraInfo.paymentTypeData?.valueEn
+                                : ''}
                         </div>
                         <div className='py-2'>
                             <span className='hide-price ' onClick={togglePrice}>
-                                Ẩn bảng giá
+                                <FormattedMessage id='patient.extra-info-doctor.hide-price' />:
                             </span>
                         </div>
                     </>

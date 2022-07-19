@@ -48,5 +48,23 @@
     "image": "Ảnh đại diện",
     "save": "Lưu người dùng",
     "edit": "Lưu thay đổi"
+  },
+  "patient": {
+    "detail-doctor":{
+      "schedule": "Lịch khám",
+      "no-schedule": "Bác sĩ không có lịch hẹn trong thời gian này. Vui lòng chọn thời gian khác",
+      "choose": "Chọn",
+      "book-free": "và đặt lịch khám (miễn phí)"
+    },
+    "extra-info-doctor": {
+      "text-address": "Địa chỉ khám",
+      "price": "Giá khám",
+      "more-detail": "Xem chi tiết",
+      "payment": "Bệnh viện có thanh toán bằng hình thức ",
+      "hide-price": "Ẩn chi tiết"
+
+    }
   }
+
+
 }

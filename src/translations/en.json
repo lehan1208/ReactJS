@@ -47,5 +47,23 @@
     "image": "Avatar",
     "save": "Save user ",
     "edit": "Save changes"
+  },
+
+
+  "patient": {
+    "detail-doctor":{
+      "schedule": "Schedule",
+      "no-schedule": "The doctor does not have an appointment during this time. Please choose another time",
+      "choose": "Choose ",
+      "book-free": "and book an appointment (free)"
+    },
+    "extra-info-doctor": {
+      "text-address": "Address of examination",
+      "price": "Examination price",
+      "more-detail": "More detail",
+      "payment": "The patient can pay the fee in the form of",
+      "hide-price": "Hide price list"
+
+    }
   }
 }
