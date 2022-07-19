@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailDoctor.scss';
 import { LANGUAGES } from '../../../utils/';
@@ -20,7 +20,7 @@ function DetailDoctor({ language }) {
             }
         }
         fetchData();
-    }, []);
+    }, [id]);
 
     let nameVi = '',
         nameEn = '';
