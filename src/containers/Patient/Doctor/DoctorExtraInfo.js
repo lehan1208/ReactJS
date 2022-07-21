@@ -82,9 +82,9 @@ function DoctorExtraInfo({ language }) {
                                     <FormattedMessage id='patient.extra-info-doctor.price' />:
                                 </span>
                                 <br />
-                                <spanc className='note'>
+                                <span className='note'>
                                     {extraInfo && extraInfo.note ? extraInfo.note : ''}
-                                </spanc>
+                                </span>
                             </span>
                             <span>
                                 {extraInfo &&

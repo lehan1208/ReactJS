@@ -5,13 +5,12 @@ import Select from 'react-select';
 import { LANGUAGES } from '../../../utils/';
 import * as actions from '../../../store/actions';
 import DatePicker from '../../../components/Input/DatePicker';
-import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
 import { saveBulkScheduleDoctor } from '../../../services/userService';
 
 function ManageSchedule(props) {
-    const { isLoggedIn, fetchAllDoctor, language, allDoctor, fetchAllScheduleTime, allScheduleTime } = props;
+    const { fetchAllDoctor, language, allDoctor, fetchAllScheduleTime, allScheduleTime } = props;
     let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
 
     const [listDoctor, setListDoctor] = useState([]);
@@ -21,6 +20,7 @@ function ManageSchedule(props) {
     useEffect(() => {
         fetchAllDoctor();
         fetchAllScheduleTime();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChangeSelect = async (selectedDoctor) => {
@@ -51,6 +51,7 @@ function ManageSchedule(props) {
         }
         setListDoctor(doctorSelectOption);
         setRangeTime(data);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allDoctor, allScheduleTime]);
 
     const handleOnchangeDatePicker = (date) => {
@@ -116,7 +117,11 @@ function ManageSchedule(props) {
                 <div className='row'>
                     <div className='col-6 form-group'>
                         <label htmlFor='doctor'>Chọn bác sĩ</label>
-                        <Select value={selectedDoctor} onChange={handleChangeSelect} options={listDoctor} />
+                        <Select
+                            value={selectedDoctor}
+                            onChange={handleChangeSelect}
+                            options={listDoctor}
+                        />
                     </div>
                     <div className='col-6 form-group'>
                         <label htmlFor='date'>Ngày khám</label>
@@ -135,7 +140,9 @@ function ManageSchedule(props) {
                                 <button
                                     key={index}
                                     className={
-                                        item.isSelected === true ? 'active btn btn-schedule' : ' btn btn-schedule'
+                                        item.isSelected === true
+                                            ? 'active btn btn-schedule'
+                                            : ' btn btn-schedule'
                                     }
                                     onClick={() => handleClickBtnTime(item)}
                                 >

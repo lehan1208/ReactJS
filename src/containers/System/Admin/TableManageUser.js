@@ -7,14 +7,18 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
 function TableManageUser({ handleEditUserRedux, fetchUserRedux, userRedux, deleteUserRedux }) {
-    const [listUser, setListUser] = useState();
+    const [listUser, setListUser] = useState(null);
+
+    useEffect(() => {
+        fetchUserRedux();
+    }, [fetchUserRedux]);
+
     useEffect(() => {
         async function fetchData() {
             setListUser(userRedux);
-            fetchUserRedux();
         }
         fetchData();
-    }, []);
+    }, [userRedux]);
 
     const handleDeleteUser = (item) => {
         deleteUserRedux(item.id);
@@ -35,9 +39,9 @@ function TableManageUser({ handleEditUserRedux, fetchUserRedux, userRedux, delet
                         <th>Address</th>
                         <th>Action</th>
                     </tr>
-                    {userRedux &&
-                        userRedux.length > 0 &&
-                        userRedux.map((item, index) => (
+                    {listUser &&
+                        listUser.length > 0 &&
+                        listUser.map((item, index) => (
                             <tr key={index}>
                                 <td>{item.email}</td>
                                 <td>{item.firstName}</td>
@@ -66,9 +70,9 @@ function TableManageUser({ handleEditUserRedux, fetchUserRedux, userRedux, delet
                 style={{ height: '500px' }}
                 renderHTML={(text) => mdParser.render(text)}
                 onChange={handleEditorChange}
-            />  
+            />
         </>
-    );  
+    );
 }
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
