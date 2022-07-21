@@ -9,12 +9,6 @@ import Select from 'react-select';
 import { LANGUAGES } from '../../../utils';
 import { getDetailInfoDoctor } from '../../../services/userService';
 
-const options = [
-    { value: 'doctor', label: 'Bác sĩ' },
-    { value: 'master', label: 'Thạc sĩ' },
-    { value: 'Professor', label: 'Tiến sĩ' },
-];
-
 const mdParser = new MarkdownIt();
 function ManageDoctor({
     fetchAllDoctor,
@@ -53,6 +47,7 @@ function ManageDoctor({
     useEffect(() => {
         fetchAllDoctor();
         getRequiredDoctorInfo();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const buildDataInputSelect = (inputData, type) => {
@@ -100,6 +95,7 @@ function ManageDoctor({
     useEffect(() => {
         let doctorSelectOption = buildDataInputSelect(allDoctor, 'USER');
         setListDoctor(doctorSelectOption);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allDoctor, language]);
 
     function handleEditorChange({ html, text }) {
@@ -148,7 +144,6 @@ function ManageDoctor({
                 let selectedProvince = listProvince.find((item) => {
                     return item && item.value === provinceId;
                 });
-                // console.log('CHECK findItem: ', findItem, 'CHECK listPayment: ', listPayment);
 
                 setContentHTML(markDown.contentHTML);
                 setContentMarkdown(markDown.contentMarkdown);
@@ -192,7 +187,6 @@ function ManageDoctor({
             default:
                 break;
         }
-        console.log('check selectedPayment', selectedPayment);
     };
 
     useEffect(() => {
@@ -205,6 +199,7 @@ function ManageDoctor({
         setListPrice(dataSelectPrice);
         setListPayment(dataSelectPayment);
         setListProvince(dataSelectProvince);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allRequiredDoctorInfo]);
 
     return (

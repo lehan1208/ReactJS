@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import './ProfileDoctor.scss';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import NumberFormat from 'react-number-format';
 import { getProfileDoctorById } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils/';
+import _ from 'lodash';
+import moment from 'moment';
+// eslint-disable-next-line no-unused-vars
+import localization from 'moment/locale/vi';
 
-function ProfileDoctor({ language, doctorId }) {
+function ProfileDoctor({ language, doctorId, isShowDescription, dataTime }) {
     const [dataProfile, setDataProfile] = useState({});
 
     useEffect(() => {
@@ -26,7 +30,35 @@ function ProfileDoctor({ language, doctorId }) {
         nameVi = `${dataProfile.positionData.valueVi}, ${dataProfile.lastName} ${dataProfile.firstName}  `;
         nameEn = `${dataProfile.positionData.valueEn}, ${dataProfile.firstName} ${dataProfile.lastName} `;
     }
-    console.log('🚀 ~ file: ProfileDoctor.js ~ line 10 ~ ProfileDoctor ~ dataProfile', dataProfile);
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    const renderTimeBooking = (dataTime) => {
+        let date =
+            language === LANGUAGES.VI
+                ? moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+                : moment
+                      .unix(+dataTime.date / 1000)
+                      .locale('en')
+                      .format('ddd - MM/DD/YYYY');
+        let timeType =
+            language === LANGUAGES.VI
+                ? dataTime.timeTypeData.valueVi
+                : dataTime.timeTypeData.valueEn;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            return (
+                <>
+                    <div>
+                        {timeType} - {capitalizeFirstLetter(date)}
+                    </div>
+                    <div>Miễn phí đặt lịch</div>
+                </>
+            );
+        }
+        return <></>;
+    };
 
     return (
         <div className='profile-doctor-container'>
@@ -45,11 +77,17 @@ function ProfileDoctor({ language, doctorId }) {
                             {language === LANGUAGES.VI ? nameVi : nameEn}
                         </div>
                         <div className='doctor-info'>
-                            {dataProfile &&
-                                dataProfile.Markdown &&
-                                dataProfile.Markdown.description && (
-                                    <span>{dataProfile.Markdown.description}</span>
-                                )}
+                            {isShowDescription === true ? (
+                                <>
+                                    {dataProfile &&
+                                        dataProfile.Markdown &&
+                                        dataProfile.Markdown.description && (
+                                            <span>{dataProfile.Markdown.description}</span>
+                                        )}
+                                </>
+                            ) : (
+                                renderTimeBooking(dataTime)
+                            )}
                         </div>
                         <div className='price'>
                             Giá khám:&nbsp;

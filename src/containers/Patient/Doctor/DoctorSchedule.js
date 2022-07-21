@@ -40,7 +40,10 @@ function DoctorSchedule({ language }) {
                     let today = `Today - ${ddMM}`;
                     object.label = today;
                 } else {
-                    let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                    let labelVi = moment(new Date())
+                        .add(i, 'days')
+                        .locale('en')
+                        .format('dddd - DD/MM');
                     object.label = capitalizeFirstLetter(labelVi);
                 }
             }

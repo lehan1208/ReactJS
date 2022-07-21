@@ -19,7 +19,6 @@ function DoctorExtraInfo({ language }) {
         }
         fetchData();
     }, [id]);
-    console.log('🚀 ~ file: DoctorExtraInfo.js ~ line 15 ~ fetchData ~ data', extraInfo);
 
     const togglePrice = () => {
         setIsShowPrice(!isShowPrice);

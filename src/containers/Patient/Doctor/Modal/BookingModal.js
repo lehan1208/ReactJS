@@ -27,7 +27,11 @@ function BookingModal({ language, isShowBookingModal, closeBookingModal, dataTim
                         {/* JSON.stringify => convert object => string */}
                         {/* {JSON.stringify(dataScheduleTimeModal)} */}
                         <div className='doctor-info'>
-                            <ProfileDoctor doctorId={doctorId} />
+                            <ProfileDoctor
+                                doctorId={doctorId}
+                                isShowDescription={false}
+                                dataTime={dataTime}
+                            />
                         </div>
                         <div className='row form-group body-input'>
                             <div className='col-12'>
