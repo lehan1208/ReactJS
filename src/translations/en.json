@@ -72,7 +72,7 @@
       "DOB": "Date of Birth",
       "phoneNumber":"Phone Number",
       "address":"Address",
-      "issue":"Issue",
+      "issue":"Health Issue",
       "confirm": "Confirm",
       "free-booking": "Book an appointment for free",
       "price": "Price: "

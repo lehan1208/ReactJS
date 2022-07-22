@@ -10,6 +10,7 @@ import * as actions from '../../../../store/actions';
 import { LANGUAGES } from '../../../../utils';
 import Select from 'react-select';
 import { postPatientBookingAppointment } from '../../../../services/userService';
+import moment from 'moment';
 import { toast } from 'react-toastify';
 
 function BookingModal({
@@ -76,6 +77,40 @@ function BookingModal({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataTime]);
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    const buildTimeBooking = (dataTime) => {
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let date =
+                language === LANGUAGES.VI
+                    ? moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+                    : moment
+                          .unix(+dataTime.date / 1000)
+                          .locale('en')
+                          .format('ddd - MM/DD/YYYY');
+            let timeType =
+                language === LANGUAGES.VI
+                    ? dataTime.timeTypeData.valueVi
+                    : dataTime.timeTypeData.valueEn;
+
+            return `  ${timeType} - ${capitalizeFirstLetter(date)}`;
+        }
+        return '';
+    };
+    const buildNameDoctor = (dataTime) => {
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let name =
+                language === LANGUAGES.VI
+                    ? `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+                    : `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`;
+
+            return name;
+        }
+        return '';
+    };
+
     const handleConfirmBooking = async () => {
         // setPatientInfo({
         //     fullName: '',
@@ -88,6 +123,8 @@ function BookingModal({
         //     genders: '',
         // });
         let birthday = new Date(patientInfo.birthday).getTime(); // => convert sang chuỗi timeStamp unix
+        let timeString = buildTimeBooking(dataTime);
+        let doctorName = buildNameDoctor(dataTime);
         let res = await postPatientBookingAppointment({
             fullName: patientInfo.fullName,
             phoneNumber: patientInfo.phoneNumber,
@@ -98,6 +135,9 @@ function BookingModal({
             selectedGender: patientInfo.selectedGender.value,
             doctorId: patientInfo.doctorId,
             timeType: patientInfo.timeType,
+            language: language,
+            timeString: timeString,
+            doctorName: doctorName,
         });
 
         if (res && res.errCode === 0) {
