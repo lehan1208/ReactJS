@@ -52,7 +52,7 @@ function DoctorSchedule({ language }) {
             allDays.push(object);
         }
         setAllDays(allDays);
-    }, [language, allDays]);
+    }, [language]);
 
     const handleOnChangeSelect = (e) => {
         let doctorId = id;

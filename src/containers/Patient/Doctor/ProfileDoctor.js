@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import './ProfileDoctor.scss';
-// import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import NumberFormat from 'react-number-format';
 import { getProfileDoctorById } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils/';
@@ -53,7 +53,9 @@ function ProfileDoctor({ language, doctorId, isShowDescription, dataTime }) {
                     <div>
                         {timeType} - {capitalizeFirstLetter(date)}
                     </div>
-                    <div>Miễn phí đặt lịch</div>
+                    <div>
+                        <FormattedMessage id='patient.booking-modal.free-booking' />
+                    </div>
                 </>
             );
         }
@@ -90,7 +92,8 @@ function ProfileDoctor({ language, doctorId, isShowDescription, dataTime }) {
                             )}
                         </div>
                         <div className='price'>
-                            Giá khám:&nbsp;
+                            <FormattedMessage id='patient.booking-modal.price' />
+
                             {dataProfile && dataProfile.Doctor_Info && language === LANGUAGES.VI ? (
                                 <NumberFormat
                                     value={dataProfile.Doctor_Info.priceTypeData.valueVi}

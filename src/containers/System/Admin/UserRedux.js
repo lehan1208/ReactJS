@@ -63,6 +63,7 @@ function UserRedux(props) {
             getRoleStart();
         }
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleOnchangeImage = async (e) => {

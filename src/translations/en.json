@@ -63,7 +63,19 @@
       "more-detail": "More detail",
       "payment": "The patient can pay the fee in the form of",
       "hide-price": "Hide price list"
-
+    },
+    "booking-modal":{
+      "title": "Make an appointment",
+      "fullName": "Full Name",
+      "email": "Email",
+      "gender": "Gender",
+      "DOB": "Date of Birth",
+      "phoneNumber":"Phone Number",
+      "address":"Address",
+      "issue":"Issue",
+      "confirm": "Confirm",
+      "free-booking": "Book an appointment for free",
+      "price": "Price: "
     }
   }
 }

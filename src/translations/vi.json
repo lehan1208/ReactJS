@@ -63,6 +63,19 @@
       "payment": "Bệnh viện có thanh toán bằng hình thức ",
       "hide-price": "Ẩn chi tiết"
 
+    },
+    "booking-modal":{
+      "title": "Đặt lịch khám",
+      "fullName": "Họ và tên",
+      "email": "Email",
+      "DOB": "Ngày tháng năm sinh",
+      "gender": "Giới tính",
+      "phoneNumber":"Số điện thoại",
+      "address":"Địa chỉ liên lạc",
+      "issue":"Lý do khám",
+      "confirm":"Xác nhận đặt hẹn",
+      "free-booking": "Đặt lịch khám miễn phí",
+      "price":"Giá khám: "
     }
   }
 
