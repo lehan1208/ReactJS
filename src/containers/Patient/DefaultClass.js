@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import './DefaultClass.scss';
+// import './DefaultClass.scss';
 import { FormattedMessage } from 'react-intl';
 
 function DefaultClass({ language }) {
