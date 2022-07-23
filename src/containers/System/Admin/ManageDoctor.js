@@ -8,6 +8,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import { LANGUAGES } from '../../../utils';
 import { getDetailInfoDoctor } from '../../../services/userService';
+import { FormattedMessage } from 'react-intl';
 
 const mdParser = new MarkdownIt();
 function ManageDoctor({
@@ -29,14 +30,21 @@ function ManageDoctor({
     const [listPrice, setListPrice] = useState([]);
     const [listPayment, setListPayment] = useState([]);
     const [listProvince, setListProvince] = useState([]);
+    const [listClinic, setListClinic] = useState([]);
+    const [listSpecialty, setListSpecialty] = useState([]);
+
     const [selectedPrice, setSelectedPrice] = useState('');
     const [selectedPayment, setSelectedPayment] = useState('');
     const [selectedProvince, setSelectedProvince] = useState('');
+    const [selectedSpecialty, setSelectedSpecialty] = useState('');
+    const [selectedClinic, setSelectedClinic] = useState('');
 
     const [onChangeText, setOnChangeText] = useState({
         nameClinic: '',
         addressClinic: '',
         note: '',
+        clinicId: '',
+        specialtyId: '',
     });
 
     const handleOnchangeText = (e, id) => {
@@ -86,6 +94,15 @@ function ManageDoctor({
                     return result.push(object);
                 });
             }
+            if (type === 'SPECIALTY') {
+                inputData.map((item, index) => {
+                    let object = {};
+
+                    object.label = item.name;
+                    object.value = item.id;
+                    return result.push(object);
+                });
+            }
             return result;
         }
     };
@@ -117,9 +134,11 @@ function ManageDoctor({
             nameClinic: onChangeText.nameClinic,
             addressClinic: onChangeText.addressClinic,
             note: onChangeText.note,
+            specialtyId:
+                selectedSpecialty && selectedSpecialty.value ? selectedSpecialty.value : '',
+            clinicId: selectedClinic && selectedClinic.value ? selectedClinic.value : '',
         });
     };
-
     const handleChangeSelect = async (selectedDoctor) => {
         setSelectedDoctor(selectedDoctor);
         let res = await getDetailInfoDoctor(selectedDoctor.value);
@@ -169,7 +188,6 @@ function ManageDoctor({
             });
         }
     };
-    console.log('selectedPrice: ', selectedPrice, 'selectedProvince: ', selectedProvince);
 
     const handleChangeSelectDoctorInfo = async (selectOption, name) => {
         let stateName = name.name;
@@ -182,7 +200,12 @@ function ManageDoctor({
                 break;
             case 'selectedProvince':
                 setSelectedProvince(selectOption);
-
+                break;
+            case 'selectedSpecialty':
+                setSelectedSpecialty(selectOption);
+                break;
+            case 'selectedClinic':
+                setSelectedClinic(selectOption);
                 break;
             default:
                 break;
@@ -190,34 +213,47 @@ function ManageDoctor({
     };
 
     useEffect(() => {
-        let { resPrice, resPayment, resProvince } = allRequiredDoctorInfo;
+        let { resPrice, resPayment, resProvince, resSpecialty, resClinic } = allRequiredDoctorInfo;
 
         let dataSelectPrice = buildDataInputSelect(resPrice, 'PRICE');
         let dataSelectPayment = buildDataInputSelect(resPayment, 'PAYMENT');
         let dataSelectProvince = buildDataInputSelect(resProvince, 'PROVINCE');
+        let dataSpecialty = buildDataInputSelect(resSpecialty, 'SPECIALTY');
+        // let dataClinic = buildDataInputSelect(resClinic, 'CLINIC');
 
         setListPrice(dataSelectPrice);
         setListPayment(dataSelectPayment);
         setListProvince(dataSelectProvince);
+        setListSpecialty(dataSpecialty);
+        // setListClinic(dataClinic)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allRequiredDoctorInfo]);
 
     return (
         <div className='manage-doctor-container'>
-            <div className='manage-doctor-title'>TẠO THÊM THÔNG TIN BÁC SĨ</div>
+            <div className='manage-doctor-title'>
+                <FormattedMessage id='admin.manage-doctor.title' />
+            </div>
             <div className='more-info'>
                 <div className='form-group row'>
-                    <div className='content-left col-6'>
-                        <label>Chọn bác sĩ</label>
+                    <div className='content-left col-4'>
+                        <label>
+                            <FormattedMessage id='admin.manage-doctor.select-doctor' />
+                        </label>
                         <Select
                             value={selectedDoctor}
                             onChange={handleChangeSelect}
                             options={listDoctor}
-                            placeholder={'Chọn bác sĩ'}
+                            placeholder={
+                                <FormattedMessage id='admin.manage-doctor.select-doctor' />
+                            }
                         />
                     </div>
-                    <div className='content-right col-6'>
-                        <label htmlFor='info'>Thông tin giới thiệu</label>
+                    <div className='content-right col-8'>
+                        <label htmlFor='info'>
+                            <FormattedMessage id='admin.manage-doctor.intro' />
+                        </label>
                         <textarea
                             className='form-control mb-2'
                             id='info'
@@ -232,9 +268,11 @@ function ManageDoctor({
 
             <div className='more-info-extra row '>
                 <div className='col-4 form-group'>
-                    <label htmlFor=''>Chọn giá</label>
+                    <label htmlFor=''>
+                        <FormattedMessage id='admin.manage-doctor.price' />
+                    </label>
                     <Select
-                        placeholder={'Chọn giá'}
+                        // placeholder={'Chọn giá'}
                         onChange={handleChangeSelectDoctorInfo}
                         options={listPrice}
                         value={selectedPrice}
@@ -242,9 +280,11 @@ function ManageDoctor({
                     />
                 </div>
                 <div className='col-4 form-group'>
-                    <label htmlFor=''>Chọn phương thức thanh toán</label>
+                    <label htmlFor=''>
+                        <FormattedMessage id='admin.manage-doctor.payment' />
+                    </label>
                     <Select
-                        placeholder={'Chọn thanh toán'}
+                        // placeholder={'Chọn thanh toán'}
                         onChange={handleChangeSelectDoctorInfo}
                         options={listPayment}
                         value={selectedPayment}
@@ -252,17 +292,21 @@ function ManageDoctor({
                     />
                 </div>
                 <div className='col-4 form-group'>
-                    <label htmlFor=''>Chọn tỉnh thành</label>
+                    <label htmlFor=''>
+                        <FormattedMessage id='admin.manage-doctor.province' />
+                    </label>
                     <Select
                         onChange={handleChangeSelectDoctorInfo}
                         options={listProvince}
                         value={selectedProvince}
                         name='selectedProvince'
-                        placeholder={'Chọn tỉnh thành'}
+                        placeholder={<FormattedMessage id='admin.manage-doctor.province' />}
                     />
                 </div>
                 <div className='col-4 form-group'>
-                    <label htmlFor=''>Tên phòng khám</label>
+                    <label htmlFor=''>
+                        <FormattedMessage id='admin.manage-doctor.nameClinic' />
+                    </label>
                     <input
                         type=''
                         className='form-control'
@@ -270,7 +314,9 @@ function ManageDoctor({
                     />
                 </div>
                 <div className='col-4 form-group'>
-                    <label htmlFor=''>Địa chỉ phòng khám</label>
+                    <label htmlFor=''>
+                        <FormattedMessage id='admin.manage-doctor.addressClinic' />
+                    </label>
                     <input
                         type=''
                         className='form-control'
@@ -278,7 +324,9 @@ function ManageDoctor({
                     />
                 </div>
                 <div className='col-4 form-group'>
-                    <label htmlFor=''>Note</label>
+                    <label htmlFor=''>
+                        <FormattedMessage id='admin.manage-doctor.note' />
+                    </label>
                     <input
                         type=''
                         className='form-control'
@@ -286,16 +334,43 @@ function ManageDoctor({
                     />
                 </div>
             </div>
+            <div className='row'>
+                <div className='col-4 form-group'>
+                    <label>
+                        <FormattedMessage id='admin.manage-doctor.specialty' />
+                    </label>
+                    <Select
+                        placeholder={<FormattedMessage id='admin.manage-doctor.specialty' />}
+                        onChange={handleChangeSelectDoctorInfo}
+                        options={listSpecialty}
+                        value={selectedSpecialty}
+                        name='selectedSpecialty'
+                    />
+                </div>
+                <div className='col-4 form-group'>
+                    <label>
+                        <FormattedMessage id='admin.manage-doctor.select-clinic' />
+                    </label>
+                    <Select
+                        onChange={handleChangeSelectDoctorInfo}
+                        options={listClinic}
+                        value={selectedClinic}
+                        name='selectedClinic'
+                        placeholder={<FormattedMessage id='admin.manage-doctor.select-clinic' />}
+                    />
+                </div>
+            </div>
             <div className='manage-doctor-editor'>
                 <MdEditor
-                    style={{ height: '500px' }}
+                    style={{ height: '300px' }}
                     renderHTML={(text) => mdParser.render(text)}
                     onChange={handleEditorChange}
                     value={contentMarkdown || ''}
                 />
             </div>
+
             <button className='save-content-doctor' onClick={() => handleSaveContentMarkDown()}>
-                Lưu thông tin
+                <FormattedMessage id='admin.manage-doctor.save' />
             </button>
         </div>
     );

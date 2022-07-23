@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -7,6 +9,8 @@ import { getAllSpecialty } from '../../../services/userService';
 import { FormattedMessage } from 'react-intl';
 
 function Specialty(props) {
+    const history = useHistory(); // useNavigate instead of useHistory in V6
+
     let settings = {
         dots: false,
         infinite: false,
@@ -26,7 +30,10 @@ function Specialty(props) {
         }
         fetchData();
     }, []);
-    console.log('🚀 ~ file: Specialty.js ~ line 18 ~ Specialty ~ dataSpecialty', dataSpecialty);
+
+    const handleViewDetailDoctor = (item) => {
+        history.push(`/detail-specialty/${item.id}`);
+    };
 
     return (
         <div className='section-share section-specialty'>
@@ -45,7 +52,11 @@ function Specialty(props) {
                         {dataSpecialty &&
                             dataSpecialty.length > 0 &&
                             dataSpecialty.map((item, index) => (
-                                <div className='section-customize' key={index}>
+                                <div
+                                    className='section-customize'
+                                    key={index}
+                                    onClick={() => handleViewDetailDoctor(item)}
+                                >
                                     <div
                                         className='bg-image'
                                         style={{ backgroundImage: `url(${item.image})` }}

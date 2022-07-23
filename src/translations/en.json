@@ -87,5 +87,22 @@
             "free-booking": "Book an appointment for free",
             "price": "Price: "
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Create more information doctors",
+            "select-doctor": "Select Doctor",
+            "intro": "Introduction",
+            "add": "Create",
+            "save": "Save",
+            "price": "Price",
+            "payment": "Payment",
+            "province": "Province",
+            "nameClinic": "Clinic's name",
+            "addressClinic": "Clinic's address",
+            "note": "Note",
+            "specialty": "Specialty",
+            "select-clinic": "Select Clinic"
+        }
     }
 }

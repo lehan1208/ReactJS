@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 function DefaultClass({ language }) {
     useEffect(() => {}, []);
 
-    return <div>Hello From Detail Class</div>;
+    return <div>Hello From DetailClass</div>;
 }
 
 const mapStateToProps = (state) => {
