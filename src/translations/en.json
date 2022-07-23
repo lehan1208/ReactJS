@@ -1,81 +1,91 @@
 {
-  "home-header": {
-    "specialty": "Sepcialty",
-    "search-doctor": "Find a doctor by specialty",
-    "clinics": "Clinics",
-    "select-clinic": "Choose clinic",
-    "doctor": "Doctor",
-    "select-doctor": "Choose Doctor",
-    "health-package": "Health package",
-    "health-check": "Health Check",
-    "support": "Support",
-    "welcome": "Welcome"
-  },
-  "banner": {},
-  "menu": {
-    "admin": {
-      "manage-user": "User",
-      "manage-doctor": "Manage Doctor",
-      "manage-admin": "Manage Admin",
-      "crud": "CRUD user",
-      "crud-redux": "CRUD Redux",
-      "clinic": "Clinics",
-      "manage-clinic": "Manage Clinics",
-      "specialty": "Specialties",
-      "manage-specialty": "Manage Specialty",
-      "handbook": "Handbook",
-      "manage-handbook": "Manage Handbook"
+    "home-header": {
+        "specialty": "Sepcialty",
+        "search-doctor": "Find a doctor by specialty",
+        "clinics": "Clinics",
+        "select-clinic": "Choose clinic",
+        "doctor": "Doctor",
+        "select-doctor": "Choose Doctor",
+        "health-package": "Health package",
+        "health-check": "Health Check",
+        "support": "Support",
+        "welcome": "Welcome"
     },
-    "doctor": {
-      "manage-schedule": "Manage doctor's schedule"
+    "banner": {},
+    "menu": {
+        "admin": {
+            "manage-user": "User",
+            "manage-doctor": "Manage Doctor",
+            "manage-admin": "Manage Admin",
+            "crud": "CRUD user",
+            "crud-redux": "CRUD Redux",
+            "clinic": "Clinics",
+            "manage-clinic": "Manage Clinics",
+            "specialty": "Specialties",
+            "manage-specialty": "Manage Specialty",
+            "handbook": "Handbook",
+            "manage-handbook": "Manage Handbook"
+        },
+        "doctor": {
+            "manage-schedule": "Manage doctor's schedule"
+        }
+    },
+
+    "homepage": {
+        "specialty": "Specialty",
+        "facility": "Facility",
+        "outstanding-doctor": "Outstanding Doctor",
+        "handbook": "Handbook",
+        "about-bookingCare": "Media talk about Bookingcare",
+        "search": "Search",
+        "more-info": "More Info",
+        "all-post": "All Posts"
+    },
+
+    "manage-user": {
+        "add": "Add New User",
+        "email": "Email",
+        "password": "Password",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "phone-number": "Phone Number",
+        "address": "Address",
+        "gender": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "position": "Position",
+        "role": "Role",
+        "image": "Avatar",
+        "save": "Save user ",
+        "edit": "Save changes"
+    },
+
+    "patient": {
+        "detail-doctor": {
+            "schedule": "Schedule",
+            "no-schedule": "The doctor does not have an appointment during this time. Please choose another time",
+            "choose": "Choose ",
+            "book-free": "and book an appointment (free)"
+        },
+        "extra-info-doctor": {
+            "text-address": "Address of examination",
+            "price": "Examination price",
+            "more-detail": "More detail",
+            "payment": "The patient can pay the fee in the form of",
+            "hide-price": "Hide price list"
+        },
+        "booking-modal": {
+            "title": "Make an appointment",
+            "fullName": "Full Name",
+            "email": "Email",
+            "gender": "Gender",
+            "DOB": "Date of Birth",
+            "phoneNumber": "Phone Number",
+            "address": "Address",
+            "issue": "Health Issue",
+            "confirm": "Confirm",
+            "free-booking": "Book an appointment for free",
+            "price": "Price: "
+        }
     }
-  },
-
-  "manage-user": {
-    "add": "Add New User",
-    "email": "Email",
-    "password": "Password",
-    "first-name": "First Name",
-    "last-name": "Last Name",
-    "phone-number": "Phone Number",
-    "address": "Address",
-    "gender": "Gender",
-    "male": "Male",
-    "female": "Female",
-    "position": "Position",
-    "role": "Role",
-    "image": "Avatar",
-    "save": "Save user ",
-    "edit": "Save changes"
-  },
-
-
-  "patient": {
-    "detail-doctor":{
-      "schedule": "Schedule",
-      "no-schedule": "The doctor does not have an appointment during this time. Please choose another time",
-      "choose": "Choose ",
-      "book-free": "and book an appointment (free)"
-    },
-    "extra-info-doctor": {
-      "text-address": "Address of examination",
-      "price": "Examination price",
-      "more-detail": "More detail",
-      "payment": "The patient can pay the fee in the form of",
-      "hide-price": "Hide price list"
-    },
-    "booking-modal":{
-      "title": "Make an appointment",
-      "fullName": "Full Name",
-      "email": "Email",
-      "gender": "Gender",
-      "DOB": "Date of Birth",
-      "phoneNumber":"Phone Number",
-      "address":"Address",
-      "issue":"Health Issue",
-      "confirm": "Confirm",
-      "free-booking": "Book an appointment for free",
-      "price": "Price: "
-    }
-  }
 }

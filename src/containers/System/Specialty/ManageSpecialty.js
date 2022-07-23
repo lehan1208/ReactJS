@@ -43,7 +43,7 @@ function ManageSpecialty({ language }) {
         }
     };
 
-    const handleSaveSpecialty = async () => {
+    const handleCreateSpecialty = async () => {
         let data = {
             ...description,
             ...specialtyInfo,
@@ -51,6 +51,15 @@ function ManageSpecialty({ language }) {
         const res = await createSpecialty(data);
         if (res && res.errCode === 0) {
             toast.success('Create specialty success!');
+            setDescription({
+                descriptionHTML: '',
+                descriptionMarkdown: '',
+            });
+            setSpecialtyInfo({
+                name: '',
+                imageBase64: null,
+            });
+            document.getElementById('uploadSpecialtyImage').value = '';
         } else {
             toast.error('Create specialty fail!');
             console.log('🚀 ~ file: ManageSpecialty.js ~ line 53 ~ handleSaveSpecialty ~ res', res);
@@ -75,6 +84,7 @@ function ManageSpecialty({ language }) {
                     <input
                         className='form-control-file'
                         type='file'
+                        id='uploadSpecialtyImage'
                         onChange={(e) => handleOnchangeImage(e)}
                     />
                 </div>
@@ -87,7 +97,7 @@ function ManageSpecialty({ language }) {
                     />
                 </div>
                 <div className='col-12 mt-3'>
-                    <button className='btn-save-specialty' onClick={() => handleSaveSpecialty()}>
+                    <button className='btn-save-specialty' onClick={() => handleCreateSpecialty()}>
                         Create
                     </button>
                 </div>

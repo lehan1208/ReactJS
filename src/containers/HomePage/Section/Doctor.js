@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils/';
 import { useHistory } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 function Doctor(props) {
     const history = useHistory();
@@ -38,8 +39,12 @@ function Doctor(props) {
         <div className='section-share section-doctor'>
             <div className='section-container'>
                 <div className='section-header'>
-                    <span className='section-title'>Bác sĩ nổi bật tuần qua</span>
-                    <button className='section-search-btn'>Tìm kiếm</button>
+                    <span className='section-title'>
+                        <FormattedMessage id='homepage.outstanding-doctor' />
+                    </span>
+                    <button className='section-search-btn'>
+                        <FormattedMessage id='homepage.search' />
+                    </button>
                     <div></div>
                 </div>
                 <div className='section-body'>

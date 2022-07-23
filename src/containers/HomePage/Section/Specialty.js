@@ -1,67 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { getAllSpecialty } from '../../../services/userService';
+import { FormattedMessage } from 'react-intl';
 
 function Specialty(props) {
-  let settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-  };
+    let settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+    };
 
-  return (
-    <div className='section-share section-specialty'>
-      <div className='section-container'>
-        <div className='section-header'>
-          <span className='section-title'>Chuyên khoa phổ biến</span>
-          <button className='section-search-btn'>Xem thêm</button>
-          <div></div>
+    const [dataSpecialty, setDataSpecialty] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const res = await getAllSpecialty();
+            if (res && res.errCode === 0) {
+                setDataSpecialty(res.data ? res.data : []);
+            }
+        }
+        fetchData();
+    }, []);
+    console.log('🚀 ~ file: Specialty.js ~ line 18 ~ Specialty ~ dataSpecialty', dataSpecialty);
+
+    return (
+        <div className='section-share section-specialty'>
+            <div className='section-container'>
+                <div className='section-header'>
+                    <span className='section-title'>
+                        <FormattedMessage id='homepage.specialty' />
+                    </span>
+                    <button className='section-search-btn'>
+                        <FormattedMessage id='homepage.more-info' />
+                    </button>
+                    <div></div>
+                </div>
+                <div className='section-body'>
+                    <Slider {...settings}>
+                        {dataSpecialty &&
+                            dataSpecialty.length > 0 &&
+                            dataSpecialty.map((item, index) => (
+                                <div className='section-customize' key={index}>
+                                    <div
+                                        className='bg-image'
+                                        style={{ backgroundImage: `url(${item.image})` }}
+                                    ></div>
+                                    <div className='img-des'>{item.name}</div>
+                                </div>
+                            ))}
+                    </Slider>
+                    <p></p>
+                </div>
+            </div>
         </div>
-        <div className='section-body'>
-          <Slider {...settings}>
-            <div className='section-customize'>
-              <div className='bg-image'></div>
-              <div className='img-des'>Cơ xương khớp 1</div>
-            </div>
-            <div className='section-customize'>
-              <div className='bg-image'></div>
-
-              <div className='img-des'>Cơ xương khớp 2</div>
-            </div>
-            <div className='section-customize'>
-              <div className='bg-image'></div>
-
-              <div className='img-des'>Cơ xương khớp 3</div>
-            </div>
-            <div className='section-customize'>
-              <div className='bg-image'></div>
-              <div className='img-des'>Cơ xương khớp 4</div>
-            </div>
-            <div className='section-customize'>
-              <div className='bg-image'></div>
-              <div className='img-des'>Cơ xương khớp 5</div>
-            </div>
-            <div className='section-customize'>
-              <div className='bg-image'></div>
-              <div className='img-des'>Cơ xương khớp 6</div>
-            </div>
-          </Slider>
-          <p></p>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.user.isLoggedIn,
-    language: state.app.language,
-  };
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+        language: state.app.language,
+    };
 };
 
 export default connect(mapStateToProps)(Specialty);

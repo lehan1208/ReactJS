@@ -104,7 +104,7 @@
 
                 .img-des {
                     padding: 5px 0;
-                    font-size: 14px;
+                    font-size: 13px;
                     color: #111;
 
                     &:hover {
@@ -123,9 +123,9 @@
     // Specialty
     &.section-specialty {
         background-color: #fff;
-        .bg-image {
-            background-image: url('../../assets/specialty/co-xuong-khop.jpg');
-        }
+        // .bg-image {
+        //     background-image: url('../../assets/specialty/co-xuong-khop.jpg');
+        // }
     }
     // Facalitity
     &.section-facility {

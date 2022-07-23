@@ -205,7 +205,6 @@ export const fetchTopDoctor = () => {
     return async (dispatch, getState) => {
         try {
             let res = await getTopDoctorHomeService('');
-            console.log('🚀 ~ file: adminActions.js ~ line 206 ~ return ~ res', res);
             if (res && res.errCode === 0) {
                 dispatch({
                     type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
@@ -314,7 +313,11 @@ export const getRequiredDoctorInfo = () => {
                 resProvince &&
                 resProvince.errCode === 0
             ) {
-                let data = { resPrice: resPrice.data, resPayment: resPayment.data, resProvince: resProvince.data };
+                let data = {
+                    resPrice: resPrice.data,
+                    resPayment: resPayment.data,
+                    resProvince: resProvince.data,
+                };
                 dispatch(fetchRequiredDoctorInfoSuccess(data));
             } else {
                 dispatch(fetchRequiredDoctorInfoFailed());
