@@ -1,5 +1,4 @@
 .doctor-schedule-container {
-    // border-right: 1px solid orange;
     position: relative;
     height: 100%;
 
@@ -47,11 +46,11 @@
                 flex-wrap: wrap;
                 padding: 16px 0;
                 button {
-                    padding: 8px 16px;
+                    padding: 8px;
                     margin: 0 10px;
                     border: none;
                     outline: none;
-                    width: 160px;
+                    width: 150px;
                     border-radius: 3px;
                     background-color: #fff8ae;
                     font-weight: 600;

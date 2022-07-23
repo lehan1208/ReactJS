@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import './DoctorSchedule.scss';
 import { LANGUAGES } from '../../../utils/';
 import { getScheduleByDate } from '../../../services/userService';
@@ -10,8 +9,7 @@ import localization from 'moment/locale/vi';
 import { FormattedMessage } from 'react-intl';
 import BookingModal from './Modal/BookingModal';
 
-function DoctorSchedule({ language }) {
-    const { id } = useParams();
+function DoctorSchedule({ language, idFromParent }) {
     const [allDays, setAllDays] = useState([]);
     const [availableTime, setAvailableTime] = useState([]);
     const [isShowBookingModal, setIsShowBookingModal] = useState(false);
@@ -55,7 +53,7 @@ function DoctorSchedule({ language }) {
     }, [language]);
 
     const handleOnChangeSelect = (e) => {
-        let doctorId = id;
+        let doctorId = idFromParent;
         let date = e.target.value;
         async function fetchData() {
             let res = await getScheduleByDate(doctorId, date);

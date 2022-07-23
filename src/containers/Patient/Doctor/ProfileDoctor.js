@@ -38,15 +38,15 @@ function ProfileDoctor({ language, doctorId, isShowDescription, dataTime }) {
     const renderTimeBooking = (dataTime) => {
         let date =
             language === LANGUAGES.VI
-                ? moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+                ? moment.unix(+dataTime?.date / 1000).format('dddd - DD/MM/YYYY')
                 : moment
-                      .unix(+dataTime.date / 1000)
+                      .unix(+dataTime?.date / 1000)
                       .locale('en')
                       .format('ddd - MM/DD/YYYY');
         let timeType =
             language === LANGUAGES.VI
-                ? dataTime.timeTypeData.valueVi
-                : dataTime.timeTypeData.valueEn;
+                ? dataTime?.timeTypeData?.valueVi
+                : dataTime?.timeTypeData?.valueEn;
         if (dataTime && !_.isEmpty(dataTime)) {
             return (
                 <>

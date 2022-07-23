@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import './DoctorExtraInfo.scss';
 import { getExtraInfoDoctorById } from '../../../services/userService';
 import NumberFormat from 'react-number-format';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
 
-function DoctorExtraInfo({ language }) {
-    const { id } = useParams();
+function DoctorExtraInfo({ language, idFromParent }) {
     const [isShowPrice, setIsShowPrice] = useState(true);
     const [extraInfo, setExtraInfo] = useState({});
 
     useEffect(() => {
         async function fetchData() {
-            const res = await getExtraInfoDoctorById(id);
+            const res = await getExtraInfoDoctorById(idFromParent);
             if (res && res.errCode === 0) setExtraInfo(res.data);
         }
         fetchData();
-    }, [id]);
+    }, [idFromParent]);
 
     const togglePrice = () => {
         setIsShowPrice(!isShowPrice);
@@ -40,7 +38,7 @@ function DoctorExtraInfo({ language }) {
                 {isShowPrice === false ? (
                     <div>
                         <span className='gia-kham-bottom'>
-                            <FormattedMessage id='patient.extra-info-doctor.price' />:
+                            <FormattedMessage id='patient.extra-info-doctor.price' />
                         </span>
                         {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.VI && (
                             <NumberFormat
