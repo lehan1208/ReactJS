@@ -7,6 +7,7 @@ import { LANGUAGES } from '../../../utils/';
 import { getDetailInfoDoctor } from '../../../services/userService';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfo from './DoctorExtraInfo';
+import HomeFooter from '../../HomePage/HomeFooter';
 
 function DetailDoctor({ language }) {
     let { id } = useParams();
@@ -30,7 +31,7 @@ function DetailDoctor({ language }) {
     }
 
     return (
-        <>
+        <div className='doctor-detail-wrapper'>
             <HomeHeader isShowBanner={false} />
             <div className='doctor-detail-container'>
                 <div className='intro-doctor'>
@@ -65,13 +66,15 @@ function DetailDoctor({ language }) {
                 <div className='detail-info-doctor'>
                     {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.contentHTML && (
                         <div
-                            dangerouslySetInnerHTML={{ __html: detailDoctor.Markdown.contentHTML }}
+                            dangerouslySetInnerHTML={{
+                                __html: detailDoctor.Markdown.contentHTML,
+                            }}
                         ></div>
                     )}
                 </div>
-                <div className='comment-doctor'></div>
             </div>
-        </>
+            <HomeFooter />
+        </div>
     );
 }
 

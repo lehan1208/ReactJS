@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';

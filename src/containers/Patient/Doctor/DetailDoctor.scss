@@ -1,7 +1,6 @@
 .doctor-detail-container {
     width: 1140px;
     margin: 0 auto;
-    height: 500px;
 
     .intro-doctor {
         padding: 15px 0;
@@ -51,6 +50,7 @@
         padding-left: 10px;
         padding-right: 10px;
         background: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
         h3 {
             font-size: 17px;
@@ -70,8 +70,5 @@
         .content-right {
             width: 50%;
         }
-    }
-    .comment-doctor {
-        height: 100px;
     }
 }

@@ -103,6 +103,15 @@ function ManageDoctor({
                     return result.push(object);
                 });
             }
+            if (type === 'CLINIC') {
+                inputData.map((item, index) => {
+                    let object = {};
+
+                    object.label = item.name;
+                    object.value = item.id;
+                    return result.push(object);
+                });
+            }
             return result;
         }
     };
@@ -169,14 +178,14 @@ function ManageDoctor({
         let dataSelectPrice = buildDataInputSelect(resPrice, 'PRICE');
         let dataSelectPayment = buildDataInputSelect(resPayment, 'PAYMENT');
         let dataSelectProvince = buildDataInputSelect(resProvince, 'PROVINCE');
-        let dataSpecialty = buildDataInputSelect(resSpecialty, 'SPECIALTY');
-        // let dataClinic = buildDataInputSelect(resClinic, 'CLINIC');
+        let dataSelectSpecialty = buildDataInputSelect(resSpecialty, 'SPECIALTY');
+        let dataSelectClinic = buildDataInputSelect(resClinic, 'CLINIC');
 
         setListPrice(dataSelectPrice);
         setListPayment(dataSelectPayment);
         setListProvince(dataSelectProvince);
-        setListSpecialty(dataSpecialty);
-        // setListClinic(dataClinic)
+        setListSpecialty(dataSelectSpecialty);
+        setListClinic(dataSelectClinic);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allRequiredDoctorInfo]);
@@ -197,6 +206,7 @@ function ManageDoctor({
                 let provinceId = res.data.Doctor_Info.provinceId;
 
                 let specialtyId = res.data.Doctor_Info.specialtyId;
+                let clinicId = res.data.Doctor_Info.clinicId;
 
                 let selectedPrice = listPrice.find((item) => {
                     return item && item.value === priceId;
@@ -211,6 +221,9 @@ function ManageDoctor({
                 let selectedSpecialty = listSpecialty.find((item) => {
                     return item && item.value === specialtyId;
                 });
+                let selectedClinic = listClinic.find((item) => {
+                    return item && item.value === clinicId;
+                });
 
                 setContentHTML(markDown.contentHTML);
                 setContentMarkdown(markDown.contentMarkdown);
@@ -224,6 +237,7 @@ function ManageDoctor({
                 setSelectedPayment(selectedPayment);
                 setSelectedProvince(selectedProvince);
                 setSelectedSpecialty(selectedSpecialty);
+                setSelectedClinic(selectedClinic);
             }
         } else {
             // Nếu không có Markdown
@@ -239,6 +253,7 @@ function ManageDoctor({
             setSelectedPayment('');
             setSelectedProvince('');
             setSelectedSpecialty('');
+            setSelectedClinic('');
         }
     };
 

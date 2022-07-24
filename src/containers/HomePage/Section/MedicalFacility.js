@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FormattedMessage } from 'react-intl';
+import { getAllClinic } from '../../../services/userService';
 
 function MedicalFacility(props) {
     let settings = {
@@ -12,6 +15,24 @@ function MedicalFacility(props) {
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,
+    };
+
+    const history = useHistory();
+    const [dataClinic, setDataClinic] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            let res = await getAllClinic();
+            if (res && res.errCode === 0) {
+                setDataClinic(res.data ? res.data : []);
+            }
+            console.log('🚀 ~ file: MedicalFacility.js ~ line 22 ~ fetchData ~ res', res);
+        }
+        fetchData();
+    }, []);
+
+    const handleViewDetailClinic = (item) => {
+        history.push(`/detail-clinic/${item.id}`);
     };
 
     return (
@@ -28,30 +49,21 @@ function MedicalFacility(props) {
                 </div>
                 <div className='section-body'>
                     <Slider {...settings}>
-                        <div className='section-customize'>
-                            <div className='bg-image'></div>
-                            <div className='img-des'>Bệnh viện Hữu nghị Việt Đức</div>
-                        </div>
-                        <div className='section-customize'>
-                            <div className='bg-image'></div>
-                            <div className='img-des'>Bệnh viện Chợ Rẫy</div>
-                        </div>
-                        <div className='section-customize'>
-                            <div className='bg-image'></div>
-                            <div className='img-des'>Bệnh viện An Việt</div>
-                        </div>
-                        <div className='section-customize'>
-                            <div className='bg-image'></div>
-                            <div className='img-des'>Bệnh viện Thu Cúc</div>
-                        </div>
-                        <div className='section-customize'>
-                            <div className='bg-image'></div>
-                            <div className='img-des'>Bệnh viện Vietlife</div>
-                        </div>
-                        <div className='section-customize'>
-                            <div className='bg-image'></div>
-                            <div className='img-des'>Bệnh viện Vinmec</div>
-                        </div>
+                        {dataClinic &&
+                            dataClinic.length > 0 &&
+                            dataClinic.map((item, index) => (
+                                <div
+                                    className='section-customize'
+                                    key={index}
+                                    onClick={() => handleViewDetailClinic(item)}
+                                >
+                                    <div
+                                        className='bg-image'
+                                        style={{ backgroundImage: `url(${item.image})` }}
+                                    ></div>
+                                    <div className='img-des'>{item.name}</div>
+                                </div>
+                            ))}
                     </Slider>
                     <p></p>
                 </div>

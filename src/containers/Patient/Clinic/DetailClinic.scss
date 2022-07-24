@@ -1,15 +1,37 @@
-.detail-specialty-container {
+.detail-clinic-container {
     background-color: #eee;
 
-    .description-specialty-container {
-        background-color: #fff;
-        padding: 10px 0;
-        .description-specialty {
+    .description-clinic-container {
+        width: 1140px;
+        margin: 10px auto 0;
+        box-shadow: 0 1px 6px #20212447;
+        border-radius: 8px;
+
+        .description-clinic {
             width: 1140px;
             margin: 0 auto;
             font-size: 14px;
             padding: 8px;
+            background-color: #fff;
             color: #333;
+            padding: 15px 20px;
+            border-radius: 8px;
+
+            .clinic-name {
+                i {
+                    color: aqua;
+                    font-size: 16px;
+                }
+                span {
+                    color: #333;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+            }
+
+            h3 {
+                font-size: 16px;
+            }
         }
     }
     .search-sp-doctor {
@@ -24,7 +46,7 @@
         }
     }
 
-    .detail-specialty-body {
+    .detail-clinic-body {
         width: 1140px;
         margin: 0 auto;
 
