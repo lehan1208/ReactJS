@@ -1,13 +1,27 @@
 .detail-specialty-container {
     background-color: #eee;
+
+    .description-specialty-container {
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0.9),
+            rgba(255, 255, 255, 1)
+        );
+        padding: 10px 0;
+        .description-specialty {
+            width: 1140px;
+            margin: 0 auto;
+        }
+    }
+    .search-sp-doctor {
+        width: 1140px;
+        margin: 0 auto;
+    }
+
     .detail-specialty-body {
         width: 1140px;
         margin: 0 auto;
 
-        .description-specialty {
-            height: 200px;
-            border: 1px solid red;
-        }
         .each-doctor {
             display: flex;
             width: 100%;

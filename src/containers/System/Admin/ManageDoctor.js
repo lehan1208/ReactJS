@@ -139,55 +139,6 @@ function ManageDoctor({
             clinicId: selectedClinic && selectedClinic.value ? selectedClinic.value : '',
         });
     };
-    const handleChangeSelect = async (selectedDoctor) => {
-        setSelectedDoctor(selectedDoctor);
-        let res = await getDetailInfoDoctor(selectedDoctor.value);
-        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
-            let markDown = res.data.Markdown;
-
-            if (res.data.Doctor_Info) {
-                let addressClinic = res.data.Doctor_Info.addressClinic;
-                let note = res.data.Doctor_Info.note;
-                let nameClinic = res.data.Doctor_Info.nameClinic;
-
-                let priceId = res.data.Doctor_Info.priceId;
-                let paymentId = res.data.Doctor_Info.paymentId;
-                let provinceId = res.data.Doctor_Info.provinceId;
-
-                let selectedPrice = listPrice.find((item) => {
-                    return item && item.value === priceId;
-                });
-                let selectedPayment = listPayment.find((item) => {
-                    return item && item.value === paymentId;
-                });
-                let selectedProvince = listProvince.find((item) => {
-                    return item && item.value === provinceId;
-                });
-
-                setContentHTML(markDown.contentHTML);
-                setContentMarkdown(markDown.contentMarkdown);
-                setDescription(markDown.description);
-                setOnChangeText({
-                    nameClinic: nameClinic,
-                    addressClinic: addressClinic,
-                    note: note,
-                });
-                setSelectedPrice(selectedPrice);
-                setSelectedPayment(selectedPayment);
-                setSelectedProvince(selectedProvince);
-            }
-        } else {
-            // Nếu không có Markdown
-            setContentHTML('');
-            setContentMarkdown('');
-            setDescription('');
-            setOnChangeText({
-                nameClinic: '',
-                addressClinic: '',
-                note: '',
-            });
-        }
-    };
 
     const handleChangeSelectDoctorInfo = async (selectOption, name) => {
         let stateName = name.name;
@@ -229,6 +180,67 @@ function ManageDoctor({
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allRequiredDoctorInfo]);
+
+    const handleChangeSelect = async (selectedDoctor) => {
+        setSelectedDoctor(selectedDoctor);
+        let res = await getDetailInfoDoctor(selectedDoctor.value);
+        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+            let markDown = res.data.Markdown;
+
+            if (res.data.Doctor_Info) {
+                let addressClinic = res.data.Doctor_Info.addressClinic;
+                let note = res.data.Doctor_Info.note;
+                let nameClinic = res.data.Doctor_Info.nameClinic;
+
+                let priceId = res.data.Doctor_Info.priceId;
+                let paymentId = res.data.Doctor_Info.paymentId;
+                let provinceId = res.data.Doctor_Info.provinceId;
+
+                let specialtyId = res.data.Doctor_Info.specialtyId;
+
+                let selectedPrice = listPrice.find((item) => {
+                    return item && item.value === priceId;
+                });
+                let selectedPayment = listPayment.find((item) => {
+                    return item && item.value === paymentId;
+                });
+                let selectedProvince = listProvince.find((item) => {
+                    return item && item.value === provinceId;
+                });
+
+                let selectedSpecialty = listSpecialty.find((item) => {
+                    return item && item.value === specialtyId;
+                });
+
+                setContentHTML(markDown.contentHTML);
+                setContentMarkdown(markDown.contentMarkdown);
+                setDescription(markDown.description);
+                setOnChangeText({
+                    nameClinic: nameClinic,
+                    addressClinic: addressClinic,
+                    note: note,
+                });
+                setSelectedPrice(selectedPrice);
+                setSelectedPayment(selectedPayment);
+                setSelectedProvince(selectedProvince);
+                setSelectedSpecialty(selectedSpecialty);
+            }
+        } else {
+            // Nếu không có Markdown
+            setContentHTML('');
+            setContentMarkdown('');
+            setDescription('');
+            setOnChangeText({
+                nameClinic: '',
+                addressClinic: '',
+                note: '',
+            });
+            setSelectedPrice('');
+            setSelectedPayment('');
+            setSelectedProvince('');
+            setSelectedSpecialty('');
+        }
+    };
 
     return (
         <div className='manage-doctor-container'>
@@ -308,6 +320,7 @@ function ManageDoctor({
                         <FormattedMessage id='admin.manage-doctor.nameClinic' />
                     </label>
                     <input
+                        value={onChangeText.nameClinic}
                         type=''
                         className='form-control'
                         onChange={(e) => handleOnchangeText(e, 'nameClinic')}
@@ -318,6 +331,7 @@ function ManageDoctor({
                         <FormattedMessage id='admin.manage-doctor.addressClinic' />
                     </label>
                     <input
+                        value={onChangeText.addressClinic}
                         type=''
                         className='form-control'
                         onChange={(e) => handleOnchangeText(e, 'addressClinic')}
@@ -328,6 +342,7 @@ function ManageDoctor({
                         <FormattedMessage id='admin.manage-doctor.note' />
                     </label>
                     <input
+                        value={onChangeText.note}
                         type=''
                         className='form-control'
                         onChange={(e) => handleOnchangeText(e, 'note')}

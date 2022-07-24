@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useParams } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import './DetailSpecialty.scss';
 // import { FormattedMessage } from 'react-intl';
@@ -6,15 +6,74 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
+import { getDetailSpecialtyById, getAllCodeService } from '../../../services/userService';
+import { useParams } from 'react-router-dom';
+import _ from 'lodash';
+import { LANGUAGES } from '../../../utils';
 
-function DefaultSpecialty({ language }) {
-    const [arrDoctorId, setArrDoctorId] = useState([268, 269, 270]);
+function DetailSpecialty({ language }) {
+    const { id } = useParams();
+    const [arrDoctorId, setArrDoctorId] = useState([]);
+    const [dataDetailSpecialty, setDataDetailSpecialty] = useState({});
+    const [listProvince, setListProvince] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const res = await getDetailSpecialtyById({
+                id: id,
+                location: 'ALL',
+            });
+            let resProvince = await getAllCodeService('PROVINCE');
+
+            // console.log('🚀 ~ file: DetailSpecialty.js ~ line 22 ~ fetchData ~ res', res);
+
+            if (res && res.errCode === 0 && resProvince && resProvince.errCode === 0) {
+                let arr = res.doctorSpecialty;
+                let arrDoctorId = [];
+                if (arr && arr.length > 0) {
+                    arr.map((item) => arrDoctorId.push(item.doctorId));
+                }
+                setDataDetailSpecialty(res);
+                setArrDoctorId(arrDoctorId);
+                setListProvince(resProvince.data);
+            }
+        }
+        fetchData();
+    }, [id]);
+
+    const handleOnchangeSelect = (event) => {
+        console.log(
+            '🚀 ~ file: DetailSpecialty.js ~ line 48 ~ handleOnchangeSelect ~ event',
+            event.target.value,
+        );
+    };
 
     return (
         <div className='detail-specialty-container'>
             <HomeHeader />
+            <div className='description-specialty-container'>
+                <div className='description-specialty'>
+                    {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) && (
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: dataDetailSpecialty.data?.descriptionHTML,
+                            }}
+                        ></div>
+                    )}
+                </div>
+            </div>
+            <div className='search-sp-doctor'>
+                <select onChange={(event) => handleOnchangeSelect(event)}>
+                    {listProvince &&
+                        listProvince.length > 0 &&
+                        listProvince.map((item, index) => (
+                            <option key={index} value={item.keyMap}>
+                                {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                            </option>
+                        ))}
+                </select>
+            </div>
             <div className='detail-specialty-body'>
-                <div className='description-specialty'></div>
                 {arrDoctorId &&
                     arrDoctorId.length > 0 &&
                     arrDoctorId.map((item, index) => (
@@ -53,4 +112,4 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultSpecialty);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailSpecialty);
