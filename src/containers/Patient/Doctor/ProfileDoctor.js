@@ -9,8 +9,16 @@ import _ from 'lodash';
 import moment from 'moment';
 // eslint-disable-next-line no-unused-vars
 import localization from 'moment/locale/vi';
+import { Link } from 'react-router-dom';
 
-function ProfileDoctor({ language, doctorId, isShowDescription, dataTime }) {
+function ProfileDoctor({
+    language,
+    doctorId,
+    isShowDescription,
+    dataTime,
+    isShowLinkDetail,
+    isShowPrice,
+}) {
     const [dataProfile, setDataProfile] = useState({});
 
     useEffect(() => {
@@ -91,30 +99,41 @@ function ProfileDoctor({ language, doctorId, isShowDescription, dataTime }) {
                                 renderTimeBooking(dataTime)
                             )}
                         </div>
-                        <div className='price'>
-                            <FormattedMessage id='patient.booking-modal.price' />
+                        {isShowLinkDetail === true && (
+                            <div className='view-detail-doctor'>
+                                <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
+                            </div>
+                        )}
+                        {isShowPrice === true && (
+                            <div className='price'>
+                                <FormattedMessage id='patient.booking-modal.price' />
 
-                            {dataProfile && dataProfile.Doctor_Info && language === LANGUAGES.VI ? (
-                                <NumberFormat
-                                    value={dataProfile.Doctor_Info.priceTypeData.valueVi}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    suffix={'đ'}
-                                />
-                            ) : (
-                                ''
-                            )}
-                            {dataProfile && dataProfile.Doctor_Info && language === LANGUAGES.EN ? (
-                                <NumberFormat
-                                    value={dataProfile.Doctor_Info.priceTypeData.valueEn}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    suffix={'$'}
-                                />
-                            ) : (
-                                ''
-                            )}
-                        </div>
+                                {dataProfile &&
+                                dataProfile.Doctor_Info &&
+                                language === LANGUAGES.VI ? (
+                                    <NumberFormat
+                                        value={dataProfile.Doctor_Info.priceTypeData.valueVi}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        suffix={'đ'}
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                                {dataProfile &&
+                                dataProfile.Doctor_Info &&
+                                language === LANGUAGES.EN ? (
+                                    <NumberFormat
+                                        value={dataProfile.Doctor_Info.priceTypeData.valueEn}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        suffix={'$'}
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
