@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import './DetailClinic.scss';
-// import { FormattedMessage } from 'react-intl';
 import HomeHeader from '../../HomePage/HomeHeader';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
-import { getDetailClinicById, getAllCodeService } from '../../../services/userService';
+import { getDetailClinicById } from '../../../services/userService';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash';
-import { LANGUAGES } from '../../../utils';
 import HomeFooter from '../../HomePage/HomeFooter';
 
 function DetailClinic({ language }) {
@@ -20,9 +18,6 @@ function DetailClinic({ language }) {
     useEffect(() => {
         async function fetchData() {
             const res = await getDetailClinicById({ id: id });
-
-            console.log('🚀 ~ file: DetailClinic.js ~ line 22 ~ fetchData ~ res', res);
-
             if (res && res.errCode === 0) {
                 let arr = res.doctorClinic;
                 let arrDoctorId = [];
@@ -36,27 +31,6 @@ function DetailClinic({ language }) {
         }
         fetchData();
     }, [id]);
-
-    // const handleOnchangeSelect = async (event) => {
-    //     // console.log('🚀 ~ file: DetailClinic.js ~ line 16 ~ DetailClinic ~ id', id);
-    //     let location = event.target.value;
-    //     const res = await getDetailClinicById(id);
-    //     if (res && res.errCode === 0) {
-    //         let arr = res.doctorSpecialty;
-    //         let arrDoctorId = [];
-    //         if (arr && arr.length > 0) {
-    //             arr.map((item) => arrDoctorId.push(item.doctorId));
-    //         }
-
-    //         setDataDetailClinic(res);
-    //         setArrDoctorId(arrDoctorId);
-    //     }
-
-    //     console.log(
-    //         '🚀 ~ file: DetailClinic.js ~ line 48 ~ handleOnchangeSelect ~ event',
-    //         event.target.value,
-    //     );
-    // };
 
     return (
         <>
