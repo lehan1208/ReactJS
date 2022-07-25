@@ -125,13 +125,15 @@ function BookingModal({
         let birthday = new Date(patientInfo.birthday).getTime(); // => convert sang chuỗi timeStamp unix
         let timeString = buildTimeBooking(dataTime);
         let doctorName = buildNameDoctor(dataTime);
+
         let res = await postPatientBookingAppointment({
             fullName: patientInfo.fullName,
             phoneNumber: patientInfo.phoneNumber,
             email: patientInfo.email,
             address: patientInfo.address,
             reason: patientInfo.reason,
-            date: birthday,
+            date: dataTime.date,
+            birthday: birthday,
             selectedGender: patientInfo.selectedGender.value,
             doctorId: patientInfo.doctorId,
             timeType: patientInfo.timeType,

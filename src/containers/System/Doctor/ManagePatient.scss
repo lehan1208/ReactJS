@@ -10,5 +10,20 @@
 
     .manage-patient-body {
         // margin: 15px auto;
+
+        button {
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+            color: #fff;
+        }
+        .mp-btn-confirm {
+            margin-right: 10px;
+            background-color: #00a8ff;
+        }
+        .mp-btn-remedy {
+            background-color: #32be5c;
+        }
     }
 }
