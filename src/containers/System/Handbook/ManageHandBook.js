@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import './ManageClinic.scss';
+import './ManageHandBook.scss';
 // import { FormattedMessage } from 'react-intl';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
@@ -11,10 +11,9 @@ import { toast } from 'react-toastify';
 
 const mdParser = new MarkdownIt();
 
-function ManageClinic({ language }) {
-    const [clinicInfo, setClinicInfo] = useState({
+function ManageHandBook({ language }) {
+    const [handbookInfo, setHandbookInfo] = useState({
         name: '',
-        address: '',
         imageBase64: '',
     });
     const [description, setDescription] = useState({
@@ -23,9 +22,9 @@ function ManageClinic({ language }) {
     });
 
     const handleChangeInput = (e, key) => {
-        let newInfo = { ...clinicInfo };
+        let newInfo = { ...handbookInfo };
         newInfo[key] = e.target.value;
-        setClinicInfo(newInfo);
+        setHandbookInfo(newInfo);
     };
 
     const handleEditorChange = ({ html, text }) => {
@@ -40,14 +39,14 @@ function ManageClinic({ language }) {
         let file = data[0];
         if (file) {
             let base64 = await CommonUtils.getBase64(file);
-            setClinicInfo({ ...clinicInfo, imageBase64: base64 });
+            setHandbookInfo({ ...handbookInfo, imageBase64: base64 });
         }
     };
 
     const handleCreateClinic = async () => {
         let data = {
             ...description,
-            ...clinicInfo,
+            ...handbookInfo,
         };
         const res = await createClinic(data);
         if (res && res.errCode === 0) {
@@ -56,33 +55,32 @@ function ManageClinic({ language }) {
                 descriptionHTML: '',
                 descriptionMarkdown: '',
             });
-            setClinicInfo({
+            setHandbookInfo({
                 name: '',
-                address: '',
                 imageBase64: null,
             });
             document.getElementById('uploadSpecialtyImage').value = '';
         } else {
             toast.error('Create specialty fail!');
-            console.log('🚀 ~ file: ManageClinic.js ~ line 53 ~ handleSaveSpecialty ~ res', res);
+            console.log('🚀 ~ file: ManageHandBook.js ~ line 53 ~ handleSaveSpecialty ~ res', res);
         }
     };
 
     return (
-        <div className='manage-clinic-container'>
-            <div className='manage-clinic-title'> Quản lý phòng khám</div>
-            <div className='add-new-clinic row'>
+        <div className='manage-handbook-container'>
+            <div className='manage-handbook-title'> Quản lý cẩm nang</div>
+            <div className='add-new-handbook row'>
                 <div className='col-6 form-group'>
-                    <label>Tên phòng khám</label>
+                    <label>Tiêu đề</label>
                     <input
                         className='form-control'
                         type='text'
-                        value={clinicInfo.name}
+                        value={handbookInfo.name}
                         onChange={(e) => handleChangeInput(e, 'name')}
                     />
                 </div>
                 <div className='col-6 form-group'>
-                    <label>Ảnh phòng khám</label>
+                    <label>Ảnh cẩm nang</label>
                     <input
                         className='form-control-file'
                         type='file'
@@ -90,15 +88,7 @@ function ManageClinic({ language }) {
                         onChange={(e) => handleOnchangeImage(e)}
                     />
                 </div>
-                <div className='col-12 form-group'>
-                    <label>Địa chỉ phòng khám</label>
-                    <input
-                        className='form-control'
-                        type='text'
-                        value={clinicInfo.address}
-                        onChange={(e) => handleChangeInput(e, 'address')}
-                    />
-                </div>
+
                 <div className='col-12'>
                     <MdEditor
                         style={{ height: '300px' }}
@@ -108,7 +98,7 @@ function ManageClinic({ language }) {
                     />
                 </div>
                 <div className='col-12 mt-3'>
-                    <button className='btn-save-clinic' onClick={() => handleCreateClinic()}>
+                    <button className='btn-save-handbook' onClick={() => handleCreateClinic()}>
                         Create
                     </button>
                 </div>
@@ -127,4 +117,4 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageClinic);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageHandBook);

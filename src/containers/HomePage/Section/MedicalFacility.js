@@ -26,7 +26,6 @@ function MedicalFacility(props) {
             if (res && res.errCode === 0) {
                 setDataClinic(res.data ? res.data : []);
             }
-            console.log('🚀 ~ file: MedicalFacility.js ~ line 22 ~ fetchData ~ res', res);
         }
         fetchData();
     }, []);

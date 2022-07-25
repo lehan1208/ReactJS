@@ -1,9 +1,12 @@
 .detail-specialty-container {
     background-color: #eee;
-
     .description-specialty-container {
         background-color: #fff;
         padding: 10px 0;
+        width: 1140px;
+        margin: 10px auto 0;
+        border-radius: 8px;
+        box-shadow: 0 1px 6px #20212447;
         .description-specialty {
             width: 1140px;
             margin: 0 auto;
@@ -21,6 +24,7 @@
             padding: 4px 8px;
             border: 1px solid #ccc;
             border-radius: 3px;
+            outline: none;
         }
     }
 

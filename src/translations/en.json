@@ -1,5 +1,7 @@
 {
     "home-header": {
+        "title1": "MEDICAL BACKGROUND",
+        "title2": "COMPREHENSIVE HEALTH CARE",
         "specialty": "Sepcialty",
         "search-doctor": "Find a doctor by specialty",
         "clinics": "Clinics",
@@ -9,7 +11,15 @@
         "health-package": "Health package",
         "health-check": "Health Check",
         "support": "Support",
-        "welcome": "Welcome"
+        "welcome": "Welcome",
+        "specialty-exam": "Specialized examination",
+        "remote-exam": "Remote examination",
+        "general-exam": "General examination",
+        "medical-test": "Medical Test",
+        "mental-health": "Mental health",
+        "dental-exam": "Dental Test",
+        "surgery": "Surgery Pack",
+        "medical-products": "Medical Products"
     },
     "banner": {},
     "menu": {

@@ -7,14 +7,34 @@ import { changeLanguageApp } from '../../store/actions';
 import { useHistory } from 'react-router-dom';
 
 const arrInfos = [
-    { key: '/specialty', icon: 'fas fa-hospital-alt', title: 'Khám chuyên khoa' },
-    { key: '2', icon: 'fas fa-mobile-alt', title: 'Khám từ xa' },
-    { key: '3', icon: 'fas fa-procedures', title: 'Khám tổng quát' },
-    { key: '4', icon: 'fas fa-vials', title: 'Xét nghiệm y học' },
-    { key: '5', icon: 'fas fa-heart', title: 'Sức khỏe tinh thần' },
-    { key: '6', icon: 'fas fa-briefcase-medical', title: 'Khám nha khoa' },
-    { key: '7', icon: 'fas fa-syringe', title: 'Gói phẫu thuật' },
-    { key: '8', icon: 'fas fa-ambulance', title: 'Sản phẩm y tế' },
+    {
+        key: '/specialty',
+        icon: 'fas fa-hospital-alt',
+        title: <FormattedMessage id='home-header.specialty-exam' />,
+    },
+    {
+        key: '2',
+        icon: 'fas fa-mobile-alt',
+        title: <FormattedMessage id='home-header.remote-exam' />,
+    },
+    {
+        key: '3',
+        icon: 'fas fa-procedures',
+        title: <FormattedMessage id='home-header.general-exam' />,
+    },
+    { key: '4', icon: 'fas fa-vials', title: <FormattedMessage id='home-header.general-exam' /> },
+    { key: '5', icon: 'fas fa-heart', title: <FormattedMessage id='home-header.mental-health' /> },
+    {
+        key: '6',
+        icon: 'fas fa-briefcase-medical',
+        title: <FormattedMessage id='home-header.dental-exam' />,
+    },
+    { key: '7', icon: 'fas fa-syringe', title: <FormattedMessage id='home-header.surgery' /> },
+    {
+        key: '8',
+        icon: 'fas fa-ambulance',
+        title: <FormattedMessage id='home-header.medical-products' />,
+    },
 ];
 
 function HomeHeader(props) {
@@ -87,7 +107,9 @@ function HomeHeader(props) {
                     <div className='right-content'>
                         <div className='support'>
                             <i className='fas fa-question-circle'></i>
-                            <span>Hỗ trợ</span>
+                            <span>
+                                <FormattedMessage id='home-header.support' />
+                            </span>
                         </div>
                         <div
                             className={
@@ -109,8 +131,12 @@ function HomeHeader(props) {
             {isShowBanner === true && (
                 <div className='home-header-banner'>
                     <div className='banner-up'>
-                        <div className='title1'>NỀN TẢNG Y TẾ</div>
-                        <div className='title2'>CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
+                        <div className='title1'>
+                            <FormattedMessage id='home-header.title1' />
+                        </div>
+                        <div className='title2'>
+                            <FormattedMessage id='home-header.title2' />
+                        </div>
                         <div className='search'>
                             <i className='fas fa-search'></i>
                             <input type='text' placeholder='Tìm phòng khám' />

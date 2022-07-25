@@ -1,5 +1,7 @@
 {
     "home-header": {
+        "title1": "NỀN TẢNG Y TẾ",
+        "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
         "specialty": "Chuyên khoa",
         "search-doctor": "Tìm bác sĩ theo chuyên khoa",
         "clinics": "Cơ sở y tế",
@@ -9,7 +11,16 @@
         "health-package": "Gói khám",
         "health-check": "Khám sức khỏe tổng quát",
         "support": "Hỗ trợ",
-        "welcome": "Xin chào"
+        "welcome": "Xin chào",
+
+        "specialty-exam": "Khám chuyên khoa",
+        "remote-exam": "Khám từ xa",
+        "general-exam": "Khám tổng quát",
+        "medical-test": "Xét nghiệm y học",
+        "mental-health": "Sức khỏe tinh thần",
+        "dental-exam": "Khám nha khoa",
+        "surgery": "Gói phẫu thuật",
+        "medical-products": "Sản phẩm y tế"
     },
     "banner": {},
 

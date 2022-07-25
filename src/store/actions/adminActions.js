@@ -125,7 +125,6 @@ export const fetchAllUserStart = () => {
     return async (dispatch, getState) => {
         try {
             let res = await getAllUser('ALL');
-            console.log('🚀 ~ file: adminActions.js ~ line 124 ~ return ~ res', res);
 
             if (res && res.errCode === 0) {
                 dispatch(fetchAllUserSuccess(res.users.reverse()));
