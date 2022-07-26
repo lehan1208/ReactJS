@@ -51,7 +51,7 @@ function ManageClinic({ language }) {
         };
         const res = await createClinic(data);
         if (res && res.errCode === 0) {
-            toast.success('Create specialty success!');
+            toast.success('Create Clinic success!');
             setDescription({
                 descriptionHTML: '',
                 descriptionMarkdown: '',
@@ -63,7 +63,7 @@ function ManageClinic({ language }) {
             });
             document.getElementById('uploadSpecialtyImage').value = '';
         } else {
-            toast.error('Create specialty fail!');
+            toast.error('Create Clinic fail!');
             console.log('🚀 ~ file: ManageClinic.js ~ line 53 ~ handleSaveSpecialty ~ res', res);
         }
     };

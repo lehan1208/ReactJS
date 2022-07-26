@@ -26,8 +26,6 @@ function DetailSpecialty({ language }) {
             });
             let resProvince = await getAllCodeService('PROVINCE');
 
-            // console.log('🚀 ~ file: DetailSpecialty.js ~ line 22 ~ fetchData ~ res', res);
-
             if (res && res.errCode === 0 && resProvince && resProvince.errCode === 0) {
                 let arr = res.doctorSpecialty;
                 let arrDoctorId = [];
@@ -54,7 +52,6 @@ function DetailSpecialty({ language }) {
     }, [id]);
 
     const handleOnchangeSelect = async (event) => {
-        // console.log('🚀 ~ file: DetailSpecialty.js ~ line 16 ~ DetailSpecialty ~ id', id);
         let location = event.target.value;
         const res = await getDetailSpecialtyById({
             id: id,
@@ -70,11 +67,6 @@ function DetailSpecialty({ language }) {
             setDataDetailSpecialty(res);
             setArrDoctorId(arrDoctorId);
         }
-
-        console.log(
-            '🚀 ~ file: DetailSpecialty.js ~ line 48 ~ handleOnchangeSelect ~ event',
-            event.target.value,
-        );
     };
 
     return (

@@ -101,11 +101,20 @@
                     background-size: cover;
                     background-color: #eee;
                 }
-
-                .img-des {
+                .img-des.handbook {
                     padding: 5px 0;
                     font-size: 16px;
                     font-weight: bold;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: #45c3d2;
+                    }
+                }
+
+                .img-des {
+                    padding: 5px 0;
+                    font-size: 14px;
 
                     &:hover {
                         cursor: pointer;

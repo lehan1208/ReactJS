@@ -53,7 +53,7 @@ function HandBook(props) {
                                     className='bg-image'
                                     style={{ backgroundImage: `url(${h.image})` }}
                                 ></div>
-                                <div className='img-des ml-3'>{h.title}</div>
+                                <div className='img-des handbook ml-3'>{h.title}</div>
                             </div>
                         ))}
                     </Slider>

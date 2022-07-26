@@ -164,7 +164,7 @@ function UserRedux(props) {
     const handleEditUserRedux = (item) => {
         let imageBase64 = '';
         if (item.image) {
-            imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
+            imageBase64 = new Buffer(item.image, 'base64').toString('binary');
         }
         setUser({
             email: item.email,
