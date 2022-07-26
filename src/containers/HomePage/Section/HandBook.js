@@ -4,7 +4,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FormattedMessage } from 'react-intl';
-import img from '../../../assets/handbook/1.jpg';
 
 const arrInfos = [
     {
